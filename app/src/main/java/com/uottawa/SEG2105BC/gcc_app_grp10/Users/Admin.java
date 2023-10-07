@@ -15,9 +15,11 @@ public class Admin implements User{
 
     }
 
+    @Override
     public boolean isPasswordCorrect(String passwordAttempt) {
         return password.equals(passwordAttempt);
     }
+    @Override
     public boolean changePassword(String passwordAttempt, String newPassword){
         if (isPasswordCorrect(passwordAttempt)){password=newPassword;return true;}
         else{return false;}
