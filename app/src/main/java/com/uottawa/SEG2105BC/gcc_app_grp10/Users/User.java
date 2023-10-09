@@ -11,11 +11,12 @@ public abstract class User {
     private final String ROLE;
     private Drawable profilePic;
 
-    protected User(String role, String username, String password, String email){
+    protected User(String role, String username, String password, String email, String bio){
         this.ROLE=role;
         this.username=username;
         this.password=password;
         this.email=email;
+        this.bio=bio;
     }
 
     public boolean isPasswordCorrect(String passwordAttempt) {

@@ -13,14 +13,16 @@ public class UserFactory {
      * @param username
      * @param password
      * @param email
+     * @param bio
      * @return
      */
-    public static User makeUser(String role, String username, String password, String email){
+
+    public User makeUser(String role, String username, String password, String email, String bio){
         switch (role){
             case "club":
-                return new Club(username, password, email);
+                return new Club(username, password, email, bio);
             case "participant":
-                return new Participant(username, password, email);
+                return new Participant(username, password, email, bio);
             default:
                 throw new InvalidParameterException();
         }

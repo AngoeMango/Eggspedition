@@ -14,8 +14,8 @@ public class Club extends User{
      */
     private HashMap<String,Participant> members;
 
-    public Club(String username, String password, String email){
-        super(ROLE, username, password, email);
+    public Club(String username, String password, String email, String bio){
+        super(ROLE, username, password, email, bio);
     }
     public void addMember(Participant member){
         members.put(member.getUsername(),member);
