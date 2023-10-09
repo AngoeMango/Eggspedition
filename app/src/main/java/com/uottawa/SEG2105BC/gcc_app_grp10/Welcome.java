@@ -2,7 +2,9 @@ package com.uottawa.SEG2105BC.gcc_app_grp10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class Welcome extends AppCompatActivity {
 
@@ -10,5 +12,22 @@ public class Welcome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        // Get information from registration page
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+        String role = intent.getStringExtra("role");
+
+        // Select the text views on the screen
+        TextView welcomeMessageTextView = findViewById(R.id.welcomeTextView);
+        TextView welcomeRoleTextView = findViewById(R.id.welcomeRoleTextView);
+
+        // Set the welcome messages with the username and role
+        if (username != null) {
+            welcomeMessageTextView.setText("Welcome " + username + "!");
+        }
+        if (role != "unknown") {
+            welcomeRoleTextView.setText("You are logged in as " + role + ".");
+        }
     }
 }

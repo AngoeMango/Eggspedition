@@ -115,6 +115,16 @@ public class Registration extends AppCompatActivity {
 
                             //switches window to welcome window
                             Intent intent = new Intent(getApplicationContext(), Welcome.class);
+                            // Adds information to the intent for the welcome page to access
+                            intent.putExtra("username", username.getText().toString());
+                            if (roleParticipant.isChecked()) {
+                                intent.putExtra("role", roleParticipant.getText().toString());
+                            } else if (roleClub.isChecked()) {
+                                intent.putExtra("role", roleClub.getText().toString());
+                            }
+                            else {
+                                intent.putExtra("role", "unknown");
+                            }
                             startActivity (intent);
                         } else {
                             // If sign in fails, display a message to the user.
