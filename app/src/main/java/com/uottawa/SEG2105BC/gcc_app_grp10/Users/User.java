@@ -22,7 +22,7 @@ public abstract class User {
         return password.equals(passwordAttempt);
     }
 
-    public boolean changePassword(String passwordAttempt, String newPassword){
+    public boolean setPassword(String passwordAttempt, String newPassword){
         if (isPasswordCorrect(passwordAttempt)){password=newPassword;return true;}
         else{return false;}
     }
