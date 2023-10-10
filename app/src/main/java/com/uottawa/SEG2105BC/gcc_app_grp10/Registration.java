@@ -51,6 +51,10 @@ public class Registration extends AppCompatActivity {
             Toast.makeText(Registration.this, "You need a username!", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (firstName.getText().length() == 0){
+            Toast.makeText(Registration.this, "You need a first name!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         //if the email is empty, or if it doesn't match standard email rules (RFC 5322)
         if (!email.getText().toString().matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
             Toast.makeText(Registration.this, "Invalid email address!", Toast.LENGTH_SHORT).show();
