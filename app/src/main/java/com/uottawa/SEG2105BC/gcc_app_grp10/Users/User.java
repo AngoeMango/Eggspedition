@@ -1,7 +1,5 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
-import android.graphics.drawable.Drawable;
-
 public abstract class User {
 
     private String username;

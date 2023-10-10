@@ -1,7 +1,5 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
-import android.graphics.drawable.Drawable;
-import android.icu.text.MessagePattern;
 import java.util.ArrayList;
 
 
