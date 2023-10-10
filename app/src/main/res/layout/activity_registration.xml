@@ -54,6 +54,27 @@
                 android:layout_height="24dp" />
 
             <EditText
+                android:id="@+id/firstNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/firstName_hint"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/firstNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/firstName_label" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <EditText
                 android:id="@+id/emailEditText"
                 android:layout_width="300dp"
                 android:layout_height="48dp"
@@ -145,7 +166,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="36dp" />
+                android:layout_height="12dp" />
 
             <Button
                 android:id="@+id/registerButton"

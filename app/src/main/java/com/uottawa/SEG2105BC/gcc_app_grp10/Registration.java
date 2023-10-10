@@ -27,6 +27,7 @@ public class Registration extends AppCompatActivity {
     EditText email;
     EditText bio;
     EditText password;
+    EditText firstName;
     RadioButton roleParticipant;
     RadioButton roleClub;
 
@@ -39,6 +40,7 @@ public class Registration extends AppCompatActivity {
         email = findViewById(R.id.emailEditText);
         bio = findViewById(R.id.bioEditText);
         password = findViewById(R.id.passwordEditText);
+        firstName = findViewById(R.id.firstNameEditText);
         roleParticipant = findViewById(R.id.roleParticipant);
         roleClub = findViewById(R.id.roleClub);
     }
@@ -49,8 +51,8 @@ public class Registration extends AppCompatActivity {
             Toast.makeText(Registration.this, "You need a username!", Toast.LENGTH_SHORT).show();
             return;
         }
-        //if the email is empty, or if it doesn't match standard email rules, that's bad
-        if (email.getText().toString().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
+        //if the email is empty, or if it doesn't match standard email rules (RFC 5322)
+        if (!email.getText().toString().matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
             Toast.makeText(Registration.this, "Invalid email address!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -80,19 +82,20 @@ public class Registration extends AppCompatActivity {
                     username.getText().toString().trim(),
                     password.getText().toString().trim(),
                     email.getText().toString().trim(),
-                    bio.getText().toString().trim());
+                    bio.getText().toString().trim(),
+                    firstName.getText().toString().trim());
         } else if (roleClub.isChecked()) {
             path = path + "club/";
             user = uF.makeUser("club",
                     username.getText().toString().trim(),
                     password.getText().toString().trim(),
                     email.getText().toString().trim(),
-                    bio.getText().toString().trim());
+                    bio.getText().toString().trim(),
+                    firstName.getText().toString().trim());
         } else {
             Toast.makeText(Registration.this, "Invalid Role!", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
         /*
         * this is the thing that makes the user account in the Authentication thing in firebase
@@ -117,7 +120,7 @@ public class Registration extends AppCompatActivity {
                             //switches window to welcome window
                             Intent intent = new Intent(getApplicationContext(), Welcome.class);
                             // Adds information to the intent for the welcome page to access
-                            intent.putExtra("username", username.getText().toString());
+                            intent.putExtra("firstName", firstName.getText().toString());
                             if (roleParticipant.isChecked()) {
                                 intent.putExtra("role", roleParticipant.getText().toString());
                             } else if (roleClub.isChecked()) {

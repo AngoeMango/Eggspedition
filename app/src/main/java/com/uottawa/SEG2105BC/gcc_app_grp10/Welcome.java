@@ -15,7 +15,7 @@ public class Welcome extends AppCompatActivity {
 
         // Get information from registration page
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        String firstName = intent.getStringExtra("firstName");
         String role = intent.getStringExtra("role");
 
         // Select the text views on the screen
@@ -23,8 +23,8 @@ public class Welcome extends AppCompatActivity {
         TextView welcomeRoleTextView = findViewById(R.id.welcomeRoleTextView);
 
         // Set the welcome messages with the username and role
-        if (username != null) {
-            welcomeMessageTextView.setText("Welcome " + username + "!");
+        if (firstName != null) {
+            welcomeMessageTextView.setText("Welcome " + firstName + "!");
         }
         if (role != "unknown") {
             welcomeRoleTextView.setText("You are logged in as " + role + ".");

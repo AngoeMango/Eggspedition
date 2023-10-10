@@ -101,12 +101,12 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
                                         // Retrieve data from the DataSnapshot
-                                        String username = dataSnapshot.child("username").getValue(String.class);
+                                        String firstName = dataSnapshot.child("firstName").getValue(String.class);
 
                                         //switches window to welcome window
                                         Intent intent = new Intent(getApplicationContext(), Welcome.class);
                                         // Adds information to the intent for the welcome page to access
-                                        intent.putExtra("username", username);
+                                        intent.putExtra("firstName", firstName);
                                         if (roleParticipant.isChecked()) {
                                             intent.putExtra("role", roleParticipant.getText().toString());
                                         } else if (roleClub.isChecked()) {

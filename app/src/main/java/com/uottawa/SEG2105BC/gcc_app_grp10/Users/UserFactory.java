@@ -17,12 +17,12 @@ public class UserFactory {
      * @return
      */
 
-    public User makeUser(String role, String username, String password, String email, String bio) {
+    public User makeUser(String role, String username, String password, String email, String bio, String firstName) {
         switch (role){
             case "club":
-                return new Club(username, password, email, bio);
+                return new Club(username, password, email, bio, firstName);
             case "participant":
-                return new Participant(username, password, email, bio);
+                return new Participant(username, password, email, bio, firstName);
             default:
                 throw new InvalidParameterException();
         }

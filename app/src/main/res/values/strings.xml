@@ -8,6 +8,8 @@
     <string name="email_label">Email</string>
     <string name="bio_hint">Please enter your bio</string>
     <string name="bio_label">Bio</string>
+    <string name="firstName_hint">Please enter your first Name</string>
+    <string name="firstName_label">First Name</string>
     <string name="password_hint">Please enter your password</string>
     <string name="password_label">Password</string>
     <string name="register_button">Register</string>

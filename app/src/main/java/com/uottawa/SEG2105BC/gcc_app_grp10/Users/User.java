@@ -8,14 +8,16 @@ public abstract class User {
     private String password;
     private String bio;
     private String email;
+    private String firstName;
     private final Role ROLE;
 
-    protected User(Role role, String username, String password, String email, String bio){
+    protected User(Role role, String username, String password, String email, String bio, String firstName){
         this.ROLE=role;
         this.username=username;
         this.password=password;
         this.email=email;
         this.bio=bio;
+        this.firstName = firstName;
     }
 
     public boolean isPasswordCorrect(String passwordAttempt) {
@@ -52,6 +54,14 @@ public abstract class User {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getFirstName(){
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
 

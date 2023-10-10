@@ -4,8 +4,8 @@ import android.graphics.drawable.Drawable;
 
 public class Participant extends User{
 
-    public Participant(String username, String password, String email, String bio){
-        super(Role.PARTICIPANT, username, password, email, bio);
+    public Participant(String username, String password, String email, String bio, String firstName){
+        super(Role.PARTICIPANT, username, password, email, bio, firstName);
     }
 
 

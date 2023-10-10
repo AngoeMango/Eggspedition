@@ -12,20 +12,8 @@ public class Club extends User{
      */
     private ArrayList<Participant> members;
 
-    public Club(String username, String password, String email, String bio){
-        super(Role.CLUB, username, password, email, bio);
-    }
-
-    public void addMember(Participant member){
-        members.put(member.getUsername(),member);
-    }
-
-    /**
-     * this method is going to need some protection
-     * probably the addmember method above it too
-     */
-    public void removeMember(Participant member){
-        members.remove(member.getUsername());
+    public Club(String username, String password, String email, String bio, String firstName){
+        super(Role.CLUB, username, password, email, bio, firstName);
     }
 
 
