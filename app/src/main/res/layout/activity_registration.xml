@@ -17,20 +17,20 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="24dp" />
 
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/participant_reg"
+                android:text="@string/reg_title"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="24dp" />
 
             <EditText
                 android:id="@+id/nameEditText"
@@ -51,7 +51,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="24dp" />
 
             <EditText
                 android:id="@+id/emailEditText"
@@ -72,7 +72,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="24dp" />
 
             <EditText
                 android:id="@+id/bioEditText"
@@ -93,7 +93,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="24dp" />
 
             <EditText
                 android:id="@+id/passwordEditText"
@@ -114,7 +114,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="36dp" />
 
             <TextView
                 android:id="@+id/roleTextView"
@@ -145,7 +145,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="36dp" />
 
             <Button
                 android:id="@+id/registerButton"

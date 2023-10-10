@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -90,18 +91,17 @@ public class Registration extends AppCompatActivity {
         } else {throw new InvalidParameterException("Invalid role!");}
 
 
-        String finalPath = path;//they got mad at me if i didn't make a "final" version of this variable
-
         /*
         * this is the thing that makes the user account in the Authentication thing in firebase
         * it's pretty nuts and i don't totally get how it works
         */
+        String finalPath = path;
+
         fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.println(Log.INFO, "INFO", "DOES IT GO IN HERE CHECKPOINT");
                             FirebaseUser fUser = fAuth.getCurrentUser();//current user
                             String IDstring = fUser.getUid();//current user id
 
@@ -109,8 +109,6 @@ public class Registration extends AppCompatActivity {
                             DatabaseReference ref = fDB.getReference(finalPath + IDstring);
                             ref.setValue(user);//this saves all the info really easy-like
 
-                            //this is just so we know it all worked
-                            Log.d("INFO", "createUserWithEmail:success");
                             Toast.makeText(Registration.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
 
                             //switches window to welcome window
@@ -128,10 +126,8 @@ public class Registration extends AppCompatActivity {
                             startActivity (intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("ERROR", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(Registration.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(android.R.id.content), "" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
-                        Log.d("INFO", "THIS IF AFTER THE IF CHECKPOINT");
                     }
                 });
 

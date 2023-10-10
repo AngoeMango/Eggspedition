@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GCC_APP_GRP10</string>
-    <string name="participant_reg">Registration</string>
+    <string name="reg_title">Registration</string>
+    <string name="login_title">Login</string>
     <string name="name_hint">Please enter your username</string>
     <string name="name_label">Username</string>
     <string name="email_hint">Please enter your email</string>
@@ -10,6 +11,8 @@
     <string name="password_hint">Please enter your password</string>
     <string name="password_label">Password</string>
     <string name="register_button">Register</string>
+    <string name="login_button">Login</string>
+    <string name="reg_prompt">No Account? Register below:</string>
     <string name="role_label">Choose your role</string>
     <string name="role_participant">Participant</string>
     <string name="role_club">Club</string>
