@@ -5,10 +5,8 @@ import android.provider.ContactsContract;
 
 public class Admin extends User{
 
-    static final String ROLE="Admin";
-
     public Admin(String username, String password, String email){
-        super(ROLE, username, password, email, null);
+        super(Role.ADMIN, username, password, email, null);
     }
 
  }

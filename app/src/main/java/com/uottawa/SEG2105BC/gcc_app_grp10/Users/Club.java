@@ -7,16 +7,15 @@ import java.util.HashMap;
 
 
 public class Club extends User{
-    static final String ROLE="Club";
-
     /**
      * hashmap mutable so we can add more as needed, and easy to search for a particular one
      */
     private HashMap<String,Participant> members;
 
     public Club(String username, String password, String email, String bio){
-        super(ROLE, username, password, email, bio);
+        super(Role.CLUB, username, password, email, bio);
     }
+
     public void addMember(Participant member){
         members.put(member.getUsername(),member);
     }

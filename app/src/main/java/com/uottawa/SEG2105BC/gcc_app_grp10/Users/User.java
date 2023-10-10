@@ -8,10 +8,9 @@ public abstract class User {
     private String password;
     private String bio;
     private String email;
-    private final String ROLE;
-    private Drawable profilePic;
+    private final Role ROLE;
 
-    protected User(String role, String username, String password, String email, String bio){
+    protected User(Role role, String username, String password, String email, String bio){
         this.ROLE=role;
         this.username=username;
         this.password=password;
@@ -56,25 +55,8 @@ public abstract class User {
     }
 
 
-    public String getRole(){
+    public Role getRole(){
         return ROLE;
     }
-
-    /**
-     not completely sure what type this should return, using drawable as a placeholder
-     */
-
-    public Drawable getProfilePic(){
-        return profilePic;
-    }
-
-    public void setProfilePic(Drawable profilePic) {
-        this.profilePic = profilePic;
-    }
-
-
-
-
-
 
 }
