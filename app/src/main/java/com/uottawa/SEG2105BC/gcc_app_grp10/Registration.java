@@ -50,13 +50,19 @@ public class Registration extends AppCompatActivity {
     public void OnRegisterButton(View view) {
         //if username is left empty, that's a nono
         if (username.getText().length() == 0){
-            throw new InvalidParameterException("Invalid username!");
+            Toast.makeText(Registration.this, "Invalid username!", Toast.LENGTH_SHORT).show();
+            return;
         }
         //if the email is empty, or if it doesn't have an @ or a . in it, that's a nono
         if (email.getText().toString().trim().length() == 0
                 || email.getText().toString().trim().indexOf('@') == -1
                 || email.getText().toString().trim().indexOf(".") == -1){
-            throw new InvalidParameterException("Invalid email address!");
+            Toast.makeText(Registration.this, "Invalid email address!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (password.getText().toString().length() < 6){
+            Toast.makeText(Registration.this, "Password must be at least 6 characters long!", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         /*
@@ -88,7 +94,10 @@ public class Registration extends AppCompatActivity {
                     password.getText().toString().trim(),
                     email.getText().toString().trim(),
                     bio.getText().toString().trim());
-        } else {throw new InvalidParameterException("Invalid role!");}
+        } else {
+            Toast.makeText(Registration.this, "Invalid Role!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 
         /*
