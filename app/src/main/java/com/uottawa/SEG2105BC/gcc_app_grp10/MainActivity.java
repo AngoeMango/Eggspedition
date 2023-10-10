@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText password;
     RadioButton roleParticipant;
     RadioButton roleClub;
+    RadioButton roleAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordEditText);
         roleParticipant = findViewById(R.id.roleParticipant);
         roleClub = findViewById(R.id.roleClub);
+        roleAdmin = findViewById(R.id.roleAdmin);
     }
 
     public void toRegisterPageButton(View view){
@@ -68,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
             path = path + "participant/";
         } else if (roleClub.isChecked()) {
             path = path + "club/";
-        } else {throw new InvalidParameterException("Invalid role!");}
+        } else if (roleAdmin.isChecked()) {
+            path = path + "admin/";
+        }
+        else {throw new InvalidParameterException("Invalid role!");}
 
         /*
          * this is the thing that makes the user account in the Authentication thing in firebase
@@ -106,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
                                             intent.putExtra("role", roleParticipant.getText().toString());
                                         } else if (roleClub.isChecked()) {
                                             intent.putExtra("role", roleClub.getText().toString());
+                                        } else if (roleAdmin.isChecked()) {
+                                            intent.putExtra("role", roleAdmin.getText().toString());
                                         }
                                         else {
                                             intent.putExtra("role", "unknown");
