@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -22,8 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.UserFactory;
-
-import java.security.InvalidParameterException;
 
 public class Registration extends AppCompatActivity {
     FirebaseAuth fAuth;
@@ -56,7 +52,7 @@ public class Registration extends AppCompatActivity {
         //if the email is empty, or if it doesn't have an @ or a . in it, that's a nono
         if (email.getText().toString().trim().length() == 0
                 || email.getText().toString().trim().indexOf('@') == -1
-                || email.getText().toString().trim().indexOf(".") == -1){
+                || !email.getText().toString().trim().contains(".")){
             Toast.makeText(Registration.this, "Invalid email address!", Toast.LENGTH_SHORT).show();
             return;
         }
