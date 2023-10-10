@@ -46,13 +46,11 @@ public class Registration extends AppCompatActivity {
     public void OnRegisterButton(View view) {
         //if username is left empty, that's a nono
         if (username.getText().length() == 0){
-            Toast.makeText(Registration.this, "Invalid username!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Registration.this, "You need a username!", Toast.LENGTH_SHORT).show();
             return;
         }
-        //if the email is empty, or if it doesn't have an @ or a . in it, that's a nono
-        if (email.getText().toString().trim().length() == 0
-                || email.getText().toString().trim().indexOf('@') == -1
-                || !email.getText().toString().trim().contains(".")){
+        //if the email is empty, or if it doesn't match standard email rules, that's bad
+        if (email.getText().toString().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
             Toast.makeText(Registration.this, "Invalid email address!", Toast.LENGTH_SHORT).show();
             return;
         }
