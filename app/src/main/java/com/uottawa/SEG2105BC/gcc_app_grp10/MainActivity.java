@@ -21,7 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.UserFactory;
 import static java.util.Objects.requireNonNull;
 
 import java.security.InvalidParameterException;
