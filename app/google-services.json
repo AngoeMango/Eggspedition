@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "458539233234",
+    "project_id": "seg2105bc-gcc-app-grp10",
+    "storage_bucket": "seg2105bc-gcc-app-grp10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458539233234:android:48cf054eaf126807e4220b",
+        "android_client_info": {
+          "package_name": "com.uottawa.SEG2105BC.gcc_app_grp10"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyKbL74-OTOQDOlHJ3yeSjijl2UTDRq6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
