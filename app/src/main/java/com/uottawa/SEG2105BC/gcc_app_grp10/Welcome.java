@@ -26,7 +26,8 @@ public class Welcome extends AppCompatActivity {
         if (firstName != null) {
             welcomeMessageTextView.setText("Welcome " + firstName + "!");
         }
-        if (role != "unknown") {
+
+        if (role != null && !role.equals("unknown")) {
             welcomeRoleTextView.setText("You are logged in as " + role + ".");
         }
     }
