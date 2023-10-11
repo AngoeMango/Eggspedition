@@ -105,7 +105,7 @@ public class Registration extends AppCompatActivity {
                     bio.getText().toString().trim(),
                     firstName.getText().toString().trim());
         } else {
-            Toast.makeText(Registration.this, "Invalid Role!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Registration.this, "Select a Role!", Toast.LENGTH_SHORT).show();
             return;
         }
 

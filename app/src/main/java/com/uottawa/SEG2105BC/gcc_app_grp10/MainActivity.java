@@ -55,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnLoginButton(View view) {
 
+        if (email.getText().length() == 0){
+            Toast.makeText(MainActivity.this, "Enter an email!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (password.getText().length() == 0){
+            Toast.makeText(MainActivity.this, "Enter a password!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         /*
          * database stuff
          */
@@ -70,7 +79,10 @@ public class MainActivity extends AppCompatActivity {
         } else if (roleAdmin.isChecked()) {
             path = path + "admin/";
         }
-        else {throw new InvalidParameterException("Invalid role!");}
+        else {
+            Toast.makeText(MainActivity.this, "Select a Role!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         /*
          * this is the thing that makes the user account in the Authentication thing in firebase
