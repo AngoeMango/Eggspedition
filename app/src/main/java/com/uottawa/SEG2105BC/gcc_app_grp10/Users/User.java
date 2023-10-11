@@ -62,7 +62,6 @@ public abstract class User {
         this.firstName = firstName;
     }
 
-
     public Role getRole(){
         return ROLE;
     }
