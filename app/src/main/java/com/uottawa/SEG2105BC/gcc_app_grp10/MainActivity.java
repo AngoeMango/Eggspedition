@@ -22,9 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.UserFactory;
+import static java.util.Objects.requireNonNull;
 
 import java.security.InvalidParameterException;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
          */
         fAuth = FirebaseAuth.getInstance();
         FirebaseDatabase fDB = FirebaseDatabase.getInstance();
-
-        UserFactory uF = new UserFactory();//makes new user
 
         String path = "users/";//path in database where to save user info
 
@@ -126,13 +124,13 @@ public class MainActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    Snackbar.make(findViewById(android.R.id.content), "" + Objects.requireNonNull(task.getException()).getMessage(), Snackbar.LENGTH_LONG).show();
+                                    Snackbar.make(findViewById(android.R.id.content), "" + requireNonNull(task.getException()).getMessage(), Snackbar.LENGTH_LONG).show();
                                 }
                             });
 
                         } else {
                             // If sign in fails, display a message to the user
-                            Snackbar.make(findViewById(android.R.id.content), "" + Objects.requireNonNull(task.getException()).getMessage(), Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(findViewById(android.R.id.content), "" + requireNonNull(task.getException()).getMessage(), Snackbar.LENGTH_LONG).show();
                         }
                     }
                 });
