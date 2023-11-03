@@ -1,6 +1,5 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,19 +9,17 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.UserFactory;
 
 public class Registration extends AppCompatActivity {
-    FirebaseAuth fAuth;
+
     EditText username ;
     EditText email;
     EditText bio;
@@ -30,6 +27,7 @@ public class Registration extends AppCompatActivity {
     EditText firstName;
     RadioButton roleParticipant;
     RadioButton roleClub;
+    AuthenticationHandler authenticationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,76 +41,103 @@ public class Registration extends AppCompatActivity {
         firstName = findViewById(R.id.firstNameEditText);
         roleParticipant = findViewById(R.id.roleParticipant);
         roleClub = findViewById(R.id.roleClub);
+        authenticationHandler=new AuthenticationHandler();
     }
 
     public void OnRegisterButton(View view) {
+        if(!validateInputs()){return;}
+        UserFactory uF = new UserFactory();//makes new user
+        User user;//to hold new users
+        String role=selectRole();
+
+        user = uF.makeUser(role, username.getText().toString().trim(), password.getText().toString().trim(), email.getText().toString().trim(), bio.getText().toString().trim(), firstName.getText().toString().trim());
+        //makes the user with the info to be saved a little later
+        authenticationHandler.signUp(this, user, email.getText().toString().trim(), password.getText().toString().trim(), this, this);
+    }
+
+    /**
+     * called by the AuthenticationHandler once the new user is registered, note the database creates teh new user first
+     * but there isn't a way to catch errors from it yet
+     * @param user the user that was just registered
+     */
+    public void onRegistrationComplete(User user){
+        Toast.makeText(Registration.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+
+        //switches window to welcome window
+        Intent intent = new Intent(getApplicationContext(), Welcome.class);
+        // Adds information to the intent for the welcome page to access
+        intent.putExtra("firstName", firstName.getText().toString());
+        intent.putExtra("role", user.getRole().toString());
+
+        startActivity (intent);
+    }
+
+    /**
+     * called by the AuthenticationHandler if the authentication fails
+     */
+    public void onRegistrationAuthenticationFailure(){
+        Snackbar.make(findViewById(android.R.id.content), "registration failed" , Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * called by the DatabaseHandler if the creation fails
+     */
+    public void onDatabaseFailure(){
+        Snackbar.make(findViewById(android.R.id.content), "registration failed" , Toast.LENGTH_LONG).show();
+    }
+
+    private boolean validateInputs(){
         //if username is left empty, that's a nono
-        if (username.getText().length() == 0){
+        if (username.getText().length() == 0) {
             Toast.makeText(Registration.this, "You need a username!", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
-        if (firstName.getText().length() == 0){
+        if (firstName.getText().length() == 0) {
             Toast.makeText(Registration.this, "You need a first name!", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
-        if (email.getText().length() == 0){
+        if (email.getText().length() == 0) {
             Toast.makeText(Registration.this, "You need an email!", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
         //if the first name is empty, or if it doesn't match standard email rules (RFC 5322)
         if (!firstName.getText().toString().matches(".*\\p{L}.*")) {
             Toast.makeText(Registration.this, "You need a valid first name with letters!", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
         if (!email.getText().toString().matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
             Toast.makeText(Registration.this, "Invalid email address!", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
-        if (password.getText().toString().length() < 6){
+        if (password.getText().toString().length() < 6) {
             Toast.makeText(Registration.this, "Password must be at least 6 characters long!", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
-
-        /*
-        * database stuff
-        */
-        fAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase fDB = FirebaseDatabase.getInstance();
-
-        UserFactory uF = new UserFactory();//makes new user
-        User user;//to hold new users
-        String path = "users/";//path in database where to save user info
-
-        /*
-        * checks the radio buttons to choose the role
-        * then it alters path accordingly
-        * and makes the user with the info to be saved a little later
-        */
-        if (roleParticipant.isChecked()){
-            path = path + "participant/";
-            user = uF.makeUser("participant",
-                    username.getText().toString().trim(),
-                    password.getText().toString().trim(),
-                    email.getText().toString().trim(),
-                    bio.getText().toString().trim(),
-                    firstName.getText().toString().trim());
-        } else if (roleClub.isChecked()) {
-            path = path + "club/";
-            user = uF.makeUser("club",
-                    username.getText().toString().trim(),
-                    password.getText().toString().trim(),
-                    email.getText().toString().trim(),
-                    bio.getText().toString().trim(),
-                    firstName.getText().toString().trim());
-        } else {
+        if(!roleParticipant.isChecked()&&!roleClub.isChecked()){
             Toast.makeText(Registration.this, "Select a Role!", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
+
+        return true;
+    }
+
+    private String selectRole(){
+        if (roleParticipant.isChecked()) {
+            return "participant";
+        } else if (roleClub.isChecked()) {
+            return "club";
+        }
+        return null;
+    }
+
+
+
 
         /*
         * this is the thing that makes the user account in the Authentication thing in firebase
         * it's pretty nuts and i don't totally get how it works
         */
+        /*
         String finalPath = path;
 
         fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
@@ -148,8 +173,8 @@ public class Registration extends AppCompatActivity {
                         }
                     }
                 });
+                */
 
 
-    }
 
 }

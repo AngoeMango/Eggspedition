@@ -1,6 +1,5 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,21 +8,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.ValueEventListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.android.material.snackbar.Snackbar;
-import static java.util.Objects.requireNonNull;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
-import java.security.InvalidParameterException;
+import static java.util.Objects.requireNonNull;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
@@ -32,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     RadioButton roleParticipant;
     RadioButton roleClub;
     RadioButton roleAdmin;
+    AuthenticationHandler authenticationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,109 +38,81 @@ public class MainActivity extends AppCompatActivity {
         roleParticipant = findViewById(R.id.roleParticipant);
         roleClub = findViewById(R.id.roleClub);
         roleAdmin = findViewById(R.id.roleAdmin);
+        authenticationHandler=new AuthenticationHandler();
     }
 
     public void toRegisterPageButton(View view){
         //when go to register gets pressed, bring you to register page
         Intent intent = new Intent(getApplicationContext(), Registration.class);
         startActivity (intent);
+    }
 
+    public void OnLoginButton(View view) {
+        System.out.println("button");
+        if(!validateInputs()){return;}
+        String role=checkRole();
+        //attempts to sign in to the users account
+        authenticationHandler.signIn(this,email.getText().toString().trim(),password.getText().toString().trim(),role,this,this);
+    }
+
+    /**
+     * Called by the DatabaseHandler once the users data has been loaded
+     * @param user the user data that was retrieved
+     */
+    public void onUserDataRetrieved(User user){
+        //notifies the user that the loading was successful
+        Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), Welcome.class);
+        // Adds information to the intent for the welcome page to access
+        intent.putExtra("firstName", user.getFirstName());
+        intent.putExtra("role", user.getRole().toString());
+
+        System.out.println("going to next activity");
+        startActivity (intent);
+    }
+
+    /**
+     * called by the AuthenticationHandler if the authentication fails
+     */
+    public void onLoginAuthorisationFailure(){
+        Snackbar.make(findViewById(android.R.id.content), "No user exists with given role!", Snackbar.LENGTH_LONG).show();
+    }
+
+    /**
+     * called by the DatabaseHandler is the retrieval fails
+     */
+    public void onDatabaseFailure(){
+        Snackbar.make(findViewById(android.R.id.content), "No user exists with given role!", Snackbar.LENGTH_LONG).show();
     }
 
 
-    public void OnLoginButton(View view) {
-
-        if (email.getText().length() == 0){
-            Toast.makeText(MainActivity.this, "Enter an email!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (password.getText().length() == 0){
-            Toast.makeText(MainActivity.this, "Enter a password!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        /*
-         * database stuff
-         */
-        fAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase fDB = FirebaseDatabase.getInstance();
-
-        String path = "users/";//path in database where to save user info
-
+    private String checkRole(){
         if (roleParticipant.isChecked()){
-            path = path + "participant/";
+            return "participant";
         } else if (roleClub.isChecked()) {
-            path = path + "club/";
+            return "club";
         } else if (roleAdmin.isChecked()) {
-            path = path + "admin/";
+            return "admin";
         }
         else {
             Toast.makeText(MainActivity.this, "Select a Role!", Toast.LENGTH_SHORT).show();
-            return;
+            return null;
         }
+    }
 
-        /*
-         * this is the thing that makes the user account in the Authentication thing in firebase
-         * it's pretty nuts and i don't totally get how it works
-         */
-        String finalPath = path;
-
-        fAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser fUser = fAuth.getCurrentUser(); // Get the current user
-                            String IDstring = fUser.getUid(); // Get the current user's ID
-
-                            // Reference to the user's data in Firebase Realtime Database
-                            DatabaseReference userRef = fDB.getReference(finalPath + IDstring);
-
-                            // Attach a listener for a single read
-                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.exists()) {
-
-                                        Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-
-                                        // Retrieve data from the DataSnapshot
-                                        String firstName = dataSnapshot.child("firstName").getValue(String.class);
-
-                                        //switches window to welcome window
-                                        Intent intent = new Intent(getApplicationContext(), Welcome.class);
-                                        // Adds information to the intent for the welcome page to access
-                                        intent.putExtra("firstName", firstName);
-                                        if (roleParticipant.isChecked()) {
-                                            intent.putExtra("role", roleParticipant.getText().toString());
-                                        } else if (roleClub.isChecked()) {
-                                            intent.putExtra("role", roleClub.getText().toString());
-                                        } else if (roleAdmin.isChecked()) {
-                                            intent.putExtra("role", roleAdmin.getText().toString());
-                                        }
-                                        else {
-                                            intent.putExtra("role", "unknown");
-                                        }
-                                        startActivity (intent);
-                                    }
-                                    else {
-                                        Snackbar.make(findViewById(android.R.id.content), "No user exists with given role!", Snackbar.LENGTH_LONG).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    Snackbar.make(findViewById(android.R.id.content), "" + requireNonNull(task.getException()).getMessage(), Snackbar.LENGTH_LONG).show();
-                                }
-                            });
-
-                        } else {
-                            // If sign in fails, display a message to the user
-                            Snackbar.make(findViewById(android.R.id.content), "" + requireNonNull(task.getException()).getMessage(), Snackbar.LENGTH_LONG).show();
-                        }
-                    }
-                });
-
+    private boolean validateInputs(){
+        if (email.getText().length() == 0){
+            Toast.makeText(MainActivity.this, "Enter an email!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (password.getText().length() == 0){
+            Toast.makeText(MainActivity.this, "Enter a password!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!roleParticipant.isChecked()&&!roleClub.isChecked()&&!roleAdmin.isChecked()) {
+            Toast.makeText(MainActivity.this, "Select a role!", Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 
 }

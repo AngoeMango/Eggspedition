@@ -1,5 +1,7 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.security.InvalidParameterException;
 
 public class UserFactory {
@@ -18,6 +20,23 @@ public class UserFactory {
      */
 
     public User makeUser(String role, String username, String password, String email, String bio, String firstName) {
+        switch (role){
+            case "club":
+                return new Club(username, password, email, bio, firstName);
+            case "participant":
+                return new Participant(username, password, email, bio, firstName);
+            default:
+                throw new InvalidParameterException();
+        }
+    }
+
+    public User makeUser(DataSnapshot dataSnapshot, String role) {
+        String username=dataSnapshot.child("username").getValue(String.class);
+        String password=dataSnapshot.child("password").getValue(String.class);
+        String email=dataSnapshot.child("email").getValue(String.class);
+        String bio=dataSnapshot.child("bio").getValue(String.class);
+        String firstName=dataSnapshot.child("firstName").getValue(String.class);
+        System.out.println("no error so far");
         switch (role){
             case "club":
                 return new Club(username, password, email, bio, firstName);
