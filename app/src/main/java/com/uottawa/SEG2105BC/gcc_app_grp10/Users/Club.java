@@ -12,7 +12,7 @@ public class Club extends User{
 //    private ArrayList<Participant> members;
 
     public Club(String username, String password, String email, String bio, String firstName){
-        super(Role.CLUB, username, password, email, bio, firstName);
+        super(Role.club, username, password, email, bio, firstName);
     }
 
     /**
