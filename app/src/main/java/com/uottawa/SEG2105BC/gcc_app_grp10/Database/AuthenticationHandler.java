@@ -10,10 +10,12 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 public class AuthenticationHandler {
     private FirebaseAuth mAuth;
+    DatabaseHandler databaseHandler;
 
     public AuthenticationHandler() {
-        // Initialize Firebase Auth
+        // Initialize Firebase Auth and DatabaseHandler
         mAuth = FirebaseAuth.getInstance();
+        databaseHandler=new DatabaseHandler();
     }
 
     /**
@@ -29,18 +31,15 @@ public class AuthenticationHandler {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {
-                        System.out.println("Authentication succesful");
                         FirebaseUser fUser = mAuth.getCurrentUser();
                         onSignUpAuthorised(fUser, user);
                         main.onRegistrationComplete(user);
                     } else {
                         main.onRegistrationAuthenticationFailure();
-                        System.out.println("Authentication failed");
                     }
                 });
     }
     private void onSignUpAuthorised(FirebaseUser fUser, User user){
-        DatabaseHandler databaseHandler=new DatabaseHandler();
         databaseHandler.addNewUserData(fUser.getUid(),user.getRole().toString(),user);
     }
 
@@ -57,24 +56,18 @@ public class AuthenticationHandler {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {
-                        System.out.println("authorisation succesful");
                         FirebaseUser fUser = mAuth.getCurrentUser();
                         onSignInAuthorised(main, fUser, role);
-                        // You can do something with the user object if needed
                     } else {
                         main.onLoginAuthorisationFailure();
-                        System.out.println("uh oh, authorisation failed");
                     }
                 });
     }
 
     private void onSignInAuthorised(MainActivity main,FirebaseUser fUser, String role){
-        DatabaseHandler databaseHandler=new DatabaseHandler();
         //loads the users data from the database into a user instance
         databaseHandler.loadUserData(main,fUser.getUid(), role);
     }
-
-
 
 
     // Method to sign out

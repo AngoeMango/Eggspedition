@@ -10,8 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uottawa.SEG2105BC.gcc_app_grp10.MainActivity;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.UserFactory;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.*;
 
 
 public class DatabaseHandler {
@@ -22,17 +21,23 @@ public class DatabaseHandler {
         ref = FirebaseDatabase.getInstance().getReference();
     }
     // Method to write data to the database
-    public void writeData(String role, String userId, String data) {
-        ref.child("users").child(role).child(userId).setValue(data);
+    public void writeData(String userId, String role, String data) {
+        ref.child("users/"+role+"/"+userId).setValue(data);
     }
     public void addNewUserData(String userId, String role, User user){
         ref.child("users/"+role+"/"+userId).setValue(user);
     }
 
-    // Method to read data from the database
-    private DatabaseReference readData(String userId, String role) {
-        return ref.child("users/"+role+"/"+userId);
+    //method for updating data in the database
+    public void updateData(String userId, String role, String newData) {
+        ref.child("users/"+role+"/"+userId).setValue(newData);
     }
+
+    //method for deleting data from the database, just takes the admin to make sure no other user can use it
+    public void deleteUserData(Admin admin, String userId, String role) {
+        ref.child("users/"+role+"/"+userId).removeValue();
+    }
+
 
     /**
      * Loads the data of an existing user, and passes it back to the main thread via the onUserDataRetrieved() method
@@ -44,7 +49,7 @@ public class DatabaseHandler {
     public void loadUserData(MainActivity main, String userId, String role){
         System.out.println("trying to read");
         //sends a request ot the server for data
-        DatabaseReference userRef=readData(userId, role);
+        DatabaseReference userRef= readUserData(userId, role);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -67,14 +72,11 @@ public class DatabaseHandler {
         });
     }
 
-
-    // Example method for updating data in the database
-    public void updateData(String userId, String newData) {
-        ref.child("users").child(userId).setValue(newData);
+    // Method to read data from the database
+    private DatabaseReference readUserData(String userId, String role) {
+        return ref.child("users/"+role+"/"+userId);
     }
 
-    // Example method for deleting data from the database
-    public void deleteData(String userId) {
-        ref.child("users").child(userId).removeValue();
-    }
+
+
 }
