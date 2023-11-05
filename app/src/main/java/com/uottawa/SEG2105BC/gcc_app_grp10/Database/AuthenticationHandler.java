@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.uottawa.SEG2105BC.gcc_app_grp10.MainActivity;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Registration;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Activities.MainActivity;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Activities.Registration;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 public class AuthenticationHandler {

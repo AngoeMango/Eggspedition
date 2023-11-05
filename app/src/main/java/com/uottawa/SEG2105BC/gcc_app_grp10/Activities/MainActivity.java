@@ -1,4 +1,4 @@
-package com.uottawa.SEG2105BC.gcc_app_grp10;
+package com.uottawa.SEG2105BC.gcc_app_grp10.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,16 +10,16 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.uottawa.SEG2105BC.gcc_app_grp10.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import static java.util.Objects.requireNonNull;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
     FirebaseAuth fAuth;
     EditText email;
     EditText password;
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
      * Called by the DatabaseHandler once the users data has been loaded
      * @param user the user data that was retrieved
      */
+    @Override
     public void onUserDataRetrieved(User user){
         //notifies the user that the loading was successful
         Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * called by the DatabaseHandler is the retrieval fails
      */
+    @Override
     public void onDatabaseFailure(){
         Snackbar.make(findViewById(android.R.id.content), "No user exists with given role!", Snackbar.LENGTH_LONG).show();
     }

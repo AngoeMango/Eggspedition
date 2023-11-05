@@ -1,4 +1,4 @@
-package com.uottawa.SEG2105BC.gcc_app_grp10;
+package com.uottawa.SEG2105BC.gcc_app_grp10.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,11 +10,8 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.UserFactory;
 

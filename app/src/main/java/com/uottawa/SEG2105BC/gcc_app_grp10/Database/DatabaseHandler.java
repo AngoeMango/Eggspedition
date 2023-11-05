@@ -9,7 +9,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.uottawa.SEG2105BC.gcc_app_grp10.MainActivity;
+import com.uottawa.SEG2105BC.gcc_app_grp10.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.*;
 
 
@@ -25,6 +25,7 @@ public class DatabaseHandler {
         ref.child("users/"+role+"/"+userId).setValue(data);
     }
     public void addNewUserData(String userId, String role, User user){
+        ref.child("users/theAdminsLittleBlackBook/"+user.getUsername()).setValue(userId);
         ref.child("users/"+role+"/"+userId).setValue(user);
     }
 
@@ -38,6 +39,10 @@ public class DatabaseHandler {
         ref.child("users/"+role+"/"+userId).removeValue();
     }
 
+    public void getUserData(String userId){
+
+    }
+
 
     /**
      * Loads the data of an existing user, and passes it back to the main thread via the onUserDataRetrieved() method
@@ -46,7 +51,7 @@ public class DatabaseHandler {
      * @param userId
      * @param role
      */
-    public void loadUserData(MainActivity main, String userId, String role){
+    public void loadUserData(CanReceiveAUser main, String userId, String role){
         System.out.println("trying to read");
         //sends a request ot the server for data
         DatabaseReference userRef= readUserData(userId, role);

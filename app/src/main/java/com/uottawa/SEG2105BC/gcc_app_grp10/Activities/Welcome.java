@@ -1,10 +1,12 @@
-package com.uottawa.SEG2105BC.gcc_app_grp10;
+package com.uottawa.SEG2105BC.gcc_app_grp10.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 
 public class Welcome extends AppCompatActivity {
 
