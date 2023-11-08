@@ -134,7 +134,6 @@ public class DatabaseHandler {
 
     }
 
-
     /**
      * Loads the data of an existing user, and passes it back to the main thread via the onUserDataRetrieved() method
      * @param main the class currently controlling the main thread, this method must be called while the login screen is active
