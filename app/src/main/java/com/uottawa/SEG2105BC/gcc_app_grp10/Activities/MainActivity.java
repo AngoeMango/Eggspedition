@@ -12,15 +12,14 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.uottawa.SEG2105BC.gcc_app_grp10.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import static java.util.Objects.requireNonNull;
 
 public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
-    FirebaseAuth fAuth;
     EditText email;
     EditText password;
     RadioButton roleParticipant;

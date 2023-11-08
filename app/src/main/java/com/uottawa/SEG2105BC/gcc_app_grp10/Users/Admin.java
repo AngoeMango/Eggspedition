@@ -1,6 +1,10 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Admin extends User{
 
@@ -18,12 +22,18 @@ public class Admin extends User{
         databaseHandler.deleteUserData(this, userId, role);
     }
 
-    private void createEventType(){
-
+    private EventType createEventType(String name, ArrayList<String> properties){
+        EventType eventType=new EventType(name, properties.toArray(new String[0]));
+        databaseHandler.addEventType(name,eventType);
+        return eventType;
     }
 
-    private void deleteEventType(){
+    private void deleteEventType(String name){
+        databaseHandler.deleteEventType(name);
+    }
 
+    private void deleteEvent(String name){
+        databaseHandler.deleteEvent(name);
     }
 
     /**

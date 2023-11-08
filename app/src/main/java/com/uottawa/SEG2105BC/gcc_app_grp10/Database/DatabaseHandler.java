@@ -9,7 +9,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.uottawa.SEG2105BC.gcc_app_grp10.CanReceiveAUser;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEvent;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanReceiveAUser;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.*;
 
 
@@ -24,6 +28,93 @@ public class DatabaseHandler {
     public void writeData(String userId, String role, String data) {
         ref.child("users/"+role+"/"+userId).setValue(data);
     }
+
+
+
+
+
+    /*
+    Event Methods
+     */
+
+    public void addEventType(String eventTypeName, EventType eventType){
+        ref.child("eventTypes/"+eventTypeName).setValue(eventType);
+    }
+
+    public void addEvent(String eventName, Event event){
+        ref.child("events/"+eventName).setValue(event);
+    }
+
+    public void deleteEventType(String eventTypeName){
+        ref.child("eventTypes/"+eventTypeName).removeValue();
+    }
+
+    public void deleteEvent(String eventName){
+        ref.child("events/"+eventName).removeValue();
+    }
+
+    /**
+     * used to load an EventType from the database
+     * @param main the class currently controlling the main thread
+     * @param eventTypeName the name of the EventType your looking for
+     */
+    public void loadEventType(CanReceiveAnEventType main, String eventTypeName){
+        DatabaseReference userRef= ref.child("events/"+eventTypeName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    EventType eventType=new EventType(dataSnapshot);
+                    main.onEventTypeRetrieved(eventType);
+                }
+                else{
+                    main.onDatabaseFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+    /**
+     * used to load an Event from the database
+     * @param main the class currently controlling the main thread
+     * @param eventName the name of the event your looking for
+     */
+    public void loadEvent(CanReceiveAnEvent main, String eventName){
+        DatabaseReference userRef= ref.child("events/"+eventName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    Event event=new Event(dataSnapshot);
+                    main.onEventRetrieved(event);
+                }
+                else{
+                    main.onDatabaseFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+
+
+
+
+    /*
+    User Methods
+     */
+
     public void addNewUserData(String userId, String role, User user){
         ref.child("users/theAdminsLittleBlackBook/"+user.getUsername()).setValue(userId);
         ref.child("users/"+role+"/"+userId).setValue(user);
@@ -54,12 +145,11 @@ public class DatabaseHandler {
     public void loadUserData(CanReceiveAUser main, String userId, String role){
         System.out.println("trying to read");
         //sends a request ot the server for data
-        DatabaseReference userRef= readUserData(userId, role);
+        DatabaseReference userRef= ref.child("users/"+role+"/"+userId);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    //taskSuccessful=true;
                     System.out.println("database works");
                     // Retrieve data from the DataSnapshot
                     UserFactory userFactory=new UserFactory();
@@ -77,11 +167,8 @@ public class DatabaseHandler {
         });
     }
 
-    // Method to read data from the database
-    private DatabaseReference readUserData(String userId, String role) {
-        return ref.child("users/"+role+"/"+userId);
-    }
+  }
 
 
 
-}
+
