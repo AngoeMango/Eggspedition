@@ -1,6 +1,7 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 
 import java.lang.reflect.Type;
@@ -29,6 +30,7 @@ public class Admin extends User{
         return eventType;
     }
 
+
     public EventType createEventType(String name){
         EventType eventType=new EventType(name);
         databaseHandler.addEventType(eventType);
@@ -37,6 +39,10 @@ public class Admin extends User{
 
     public void deleteEventType(String name){
         databaseHandler.deleteEventType(name);
+    }
+
+    public void loadEventType(CanReceiveAnEventType main, String name){
+        databaseHandler.loadEventType(main, name);
     }
 
     public void deleteEvent(String name){

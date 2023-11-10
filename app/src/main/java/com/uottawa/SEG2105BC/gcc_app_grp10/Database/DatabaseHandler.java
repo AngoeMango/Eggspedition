@@ -59,7 +59,7 @@ public class DatabaseHandler {
      * @param eventTypeName the name of the EventType your looking for
      */
     public void loadEventType(CanReceiveAnEventType main, String eventTypeName){
-        DatabaseReference userRef= ref.child("events/"+eventTypeName);
+        DatabaseReference userRef= ref.child("eventTypes/"+eventTypeName);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -43,7 +43,6 @@ public class AddEventTypeProperties extends AppCompatActivity {
 
     }
 
-    @SuppressLint("SetTextI18n")
     public void onAddIndividualFieldButton(View view) {
         LinearLayout linearLayout = findViewById(R.id.fieldsLinearLayout);
 

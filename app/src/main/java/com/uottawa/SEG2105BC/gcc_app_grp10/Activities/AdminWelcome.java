@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdminWelcome extends AppCompatActivity {
+public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEventType {
 
     EditText addEventTypeName;
     Admin admin;
@@ -60,7 +62,7 @@ public class AdminWelcome extends AppCompatActivity {
 
     public void onEditEventTypeButton(View view) {
         try {
-            admin.deleteEventType(addEventTypeName.getText().toString());
+            admin.loadEventType(this, addEventTypeName.getText().toString());
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -75,5 +77,18 @@ public class AdminWelcome extends AppCompatActivity {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void onEventTypeRetrieved (EventType eventType) {
+        Intent intent = new Intent(getApplicationContext(), EditEventTypeProperties.class);
+        intent.putExtra("eventTypeName", eventType.getName());
+        intent.putExtra("eventTypeProperties", eventType.getProperties());
+        startActivity (intent);
+    }
+
+    @Override
+    public void onDatabaseFailure () {
+        Snackbar.make(findViewById(android.R.id.content), "No event type exists with given role!", Snackbar.LENGTH_LONG).show();
     }
 }
