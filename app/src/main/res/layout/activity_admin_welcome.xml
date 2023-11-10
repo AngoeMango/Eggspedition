@@ -46,23 +46,25 @@
                     android:gravity="center"
                     android:hint="Please enter an event type"
                     android:inputType="text" />
-                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_alignParentBottom="true">
+                    <Button
+                        android:id="@+id/AddEventTypeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onAddEventTypeButton"
+                        android:text="Add Event" />
 
-
-
-                <Button
-                    android:id="@+id/AddEventTypeButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onAddEventTypeButton"
-                    android:text="Add Event" />
-
-                <Button
-                    android:id="@+id/deleteEventTypeButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onDeleteEventTypeButton"
-                    android:text="Delete Event" />
+                    <Button
+                        android:id="@+id/deleteEventTypeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onDeleteEventTypeButton"
+                        android:text="Delete Event" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -91,9 +93,37 @@
                         android:text="Add"
                         android:onClick="onAddPropertyType"/>
                 </LinearLayout>
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="User Management"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/deleteUser"
+                    android:layout_width="300dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Property"
+                    android:inputType="text" />
+
+                <Button
+                    android:id="@+id/deleteUserButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Delete User"
+                    android:onClick="onDeleteUserButton"/>
+
 
             </LinearLayout>
         </ScrollView>

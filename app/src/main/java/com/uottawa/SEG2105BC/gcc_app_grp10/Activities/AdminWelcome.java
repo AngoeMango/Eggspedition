@@ -25,6 +25,7 @@ public class AdminWelcome extends AppCompatActivity {
     EditText addEventTypeName;
     EditText addEventTypePropertyName;
     EditText addEventTypePropertyTypeName;
+    EditText deleteUserName;
     Admin admin;
 
     EventType newEventType;
@@ -39,6 +40,8 @@ public class AdminWelcome extends AppCompatActivity {
         addEventTypePropertyName = findViewById(R.id.addEventTypeProperty);
 
         addEventTypePropertyTypeName = findViewById(R.id.addEventTypePropertyType);
+
+        deleteUserName = findViewById(R.id.deleteUser);
 
 
         admin = new Admin("admin", "admin1", "admin@admin.com", "admin");
@@ -67,6 +70,16 @@ public class AdminWelcome extends AppCompatActivity {
         System.out.println(addEventTypeName.getText().toString());
         try {
             admin.deleteEventType(addEventTypeName.getText().toString());
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void onDeleteUserButton(View view) {
+        System.out.println(deleteUserName.getText().toString());
+        try {
+            admin.deleteEventType(deleteUserName.getText().toString());
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
