@@ -11,7 +11,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nameEventTypeAdd"
+        android:id="@+id/nameEventType"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:hint="Enter EventType">
         <com.google.android.material.textfield.TextInputEditText
@@ -40,6 +40,33 @@
             android:text="Delete Event Type"
             android:layout_margin="10dp"/>
     </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameEvent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Enter EventType">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout03"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/buttonDeleteEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="deleteEventType"
+            android:text="Delete Event"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
 
 </LinearLayout>
 
