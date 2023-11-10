@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Users.Admin"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameEventTypeAdd"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Enter EventType">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/buttonAddEventType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="createEventType"
+            android:text="Add Event Type"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/buttonDeleteEventType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="deleteEventType"
+            android:text="Delete Event Type"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
+</LinearLayout>
+
