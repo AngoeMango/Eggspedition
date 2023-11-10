@@ -56,7 +56,11 @@ public class AdminWelcome extends AppCompatActivity {
     }
 
     public void onAddPropertyType(View view) {
-        newEventType.addPropertyToType(addEventTypePropertyName.getText().toString(), addEventTypePropertyTypeName.getText().toString());
+        try {
+            newEventType.addPropertyToType(addEventTypePropertyName.getText().toString(), addEventTypePropertyTypeName.getText().toString());
+        } catch (ClassNotFoundException e) {
+            Toast.makeText(AdminWelcome.this, "invalid type!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onDeleteEventTypeButton(View view) {

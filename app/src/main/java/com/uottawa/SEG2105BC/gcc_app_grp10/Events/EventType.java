@@ -36,6 +36,10 @@ public class EventType {
     public void addPropertyToType(String newProperty,Type type){
         properties.put(newProperty, type);
     }
+    public void addPropertyToType(String newProperty, String type) throws ClassNotFoundException {
+
+        addPropertyToType(newProperty,Class.forName(type));
+    }
 
     public void removePropertyFromType(String property){
         properties.remove(property);
