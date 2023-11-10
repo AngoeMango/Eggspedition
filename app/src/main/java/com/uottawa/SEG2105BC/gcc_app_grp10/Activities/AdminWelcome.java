@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AdminWelcome extends AppCompatActivity {
@@ -35,9 +37,9 @@ public class AdminWelcome extends AppCompatActivity {
 
     public void onAddEventTypeButton(View view) {
         String name = "tt";
-        ArrayList<String> propertyList = new ArrayList<String>();
+        HashMap<String, Type> propertyList = new HashMap<>();
 
-        propertyList.add("why");
+        propertyList.put("why",String.class);
 
         EventType newEventType = admin.createEventType (addEventTypeName.getText().toString(), propertyList);
 

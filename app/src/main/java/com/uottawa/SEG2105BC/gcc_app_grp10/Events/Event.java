@@ -7,13 +7,13 @@ import java.util.HashMap;
 public class Event {
     private EventType eventType;
     private String name;
-    private HashMap<String, String> properties;
+    private HashMap<String, Object> properties;
 
 
     public Event(String name, EventType eventType){
         this.name=name;
         properties=new HashMap<>();
-        for (String property:eventType.getProperties()) {
+        for (String property:eventType.getProperties().keySet()) {
             properties.put(property, null);
         }
     }
