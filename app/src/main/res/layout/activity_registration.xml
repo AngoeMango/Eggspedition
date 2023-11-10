@@ -33,7 +33,7 @@
                 android:layout_height="24dp" />
 
             <EditText
-                android:id="@+id/nameEditText"
+                android:id="@+id/usernameEditText"
                 android:layout_width="300dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"

@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanReceiveAUser;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Role;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import static java.util.Objects.requireNonNull;
@@ -52,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
         String role=checkRole();
         //attempts to sign in to the users account
         authenticationHandler.signIn(this,email.getText().toString().trim(),password.getText().toString().trim(),role,this,this);
-
-
     }
 
     /**
@@ -64,13 +63,19 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
     public void onUserDataRetrieved(User user){
         //notifies the user that the loading was successful
         Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), Welcome.class);
-        // Adds information to the intent for the welcome page to access
-        intent.putExtra("firstName", user.getFirstName());
-        intent.putExtra("role", user.getRole().toString());
+        if (user.getRole().equals(Role.admin)) {
+            Intent intent = new Intent(getApplicationContext(), AdminWelcome.class);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(getApplicationContext(), Welcome.class);
+            // Adds information to the intent for the welcome page to access
+            intent.putExtra("firstName", user.getFirstName());
+            intent.putExtra("role", user.getRole().toString());
 
-        System.out.println("going to next activity");
-        startActivity (intent);
+            System.out.println("going to next activity");
+            startActivity(intent);
+        }
     }
 
     /**

@@ -15,38 +15,38 @@ public class Admin extends User{
         databaseHandler=new DatabaseHandler();
     }
 
-    private void deleteAccount(String userId, String role){
+    public void deleteAccount(String userId, String role){
         if(role.equals("admin")){
             return;
         }
         databaseHandler.deleteUserData(this, userId, role);
     }
 
-    private EventType createEventType(String name, ArrayList<String> properties){
+    public EventType createEventType(String name, ArrayList<String> properties){
         EventType eventType=new EventType(name, properties.toArray(new String[0]));
-        databaseHandler.addEventType(name,eventType);
+        databaseHandler.addEventType(eventType);
         return eventType;
     }
 
-    private void deleteEventType(String name){
+    public void deleteEventType(String name){
         databaseHandler.deleteEventType(name);
     }
 
-    private void deleteEvent(String name){
+    public void deleteEvent(String name){
         databaseHandler.deleteEvent(name);
     }
 
     /**
      * Admins can modify events made by clubs for the purposes of moderation
      */
-    private void editEvent(){
+    public void editEvent(){
 
     }
 
     /**
      * Admins can delete events made by clubs for the purposes of moderation
      */
-    private void deleteEvent(){
+    public void deleteEvent(){
 
     }
 }

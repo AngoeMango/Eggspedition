@@ -143,6 +143,7 @@
                 android:gravity="center"
                 android:onClick="toRegisterPageButton"
                 android:text="@string/register_button" />
+
         </LinearLayout>
     </ScrollView>
 

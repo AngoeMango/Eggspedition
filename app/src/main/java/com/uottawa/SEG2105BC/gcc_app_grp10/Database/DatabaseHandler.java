@@ -37,8 +37,8 @@ public class DatabaseHandler {
     Event Methods
      */
 
-    public void addEventType(String eventTypeName, EventType eventType){
-        ref.child("eventTypes/"+eventTypeName).setValue(eventType);
+    public void addEventType(EventType eventType){
+        ref.child("eventTypes/"+eventType.getName()).setValue(eventType);
     }
 
     public void addEvent(String eventName, Event event){

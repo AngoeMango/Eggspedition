@@ -41,6 +41,8 @@ public class UserFactory {
                 return new Club(username, password, email, bio, firstName);
             case "participant":
                 return new Participant(username, password, email, bio, firstName);
+            case "admin":
+                return new Admin(username, password, email, firstName);
             default:
                 throw new InvalidParameterException();
         }

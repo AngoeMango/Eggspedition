@@ -57,6 +57,7 @@ public class AuthenticationHandler {
                 .addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser fUser = mAuth.getCurrentUser();
+                        System.out.println(fUser.getUid());
                         onSignInAuthorised(main, fUser, role);
                     } else {
                         main.onLoginAuthorisationFailure();
