@@ -20,15 +20,11 @@ public class AdminControlPanel extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_control_panel);
+        setContentView(R.layout.activity_admin_control);
 
-        buttonViewEventTypes = (Button) findViewById(R.id.buttonViewEventTypes);
-        buttonViewEventTypes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openViewEventTypes();
-            }
-        });
+    }
+
+    public void onCreateEventTypeButton(View view) {
 
     }
 }

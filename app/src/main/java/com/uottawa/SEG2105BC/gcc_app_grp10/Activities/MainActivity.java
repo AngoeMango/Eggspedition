@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
         String role=checkRole();
         //attempts to sign in to the users account
         authenticationHandler.signIn(this,email.getText().toString().trim(),password.getText().toString().trim(),role,this,this);
+
+
     }
 
     /**
