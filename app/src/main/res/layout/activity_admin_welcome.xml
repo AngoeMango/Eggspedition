@@ -65,34 +65,6 @@
                         android:onClick="onDeleteEventTypeButton"
                         android:text="Delete Event" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_alignParentBottom="true">
-                    <!-- Property + Input Type -->
-                    <EditText
-                        android:id="@+id/addEventTypeProperty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="center"
-                        android:hint="Property"
-                        android:inputType="text" />
-                    <EditText
-                        android:id="@+id/addEventTypePropertyType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="center"
-                        android:hint="Type"
-                        android:inputType="text" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Add"
-                        android:onClick="onAddPropertyType"/>
-                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"

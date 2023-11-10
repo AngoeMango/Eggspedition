@@ -23,12 +23,10 @@ import java.util.List;
 public class AdminWelcome extends AppCompatActivity {
 
     EditText addEventTypeName;
-    EditText addEventTypePropertyName;
-    EditText addEventTypePropertyTypeName;
-    EditText deleteUserName;
     Admin admin;
 
     EventType newEventType;
+    EditText deleteUserName;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -37,37 +35,30 @@ public class AdminWelcome extends AppCompatActivity {
 
         addEventTypeName = findViewById(R.id.addEventType);
 
-        addEventTypePropertyName = findViewById(R.id.addEventTypeProperty);
-
-        addEventTypePropertyTypeName = findViewById(R.id.addEventTypePropertyType);
-
         deleteUserName = findViewById(R.id.deleteUser);
-
 
         admin = new Admin("admin", "admin1", "admin@admin.com", "admin");
     }
 
     public void onAddEventTypeButton(View view) {
         String name = "tt";
-        HashMap<String, Type> propertyList = new HashMap<>();
+        ArrayList<String> propertyList = new ArrayList<String>();
 
-        //propertyList.put("why",String.class);
-
-        newEventType = admin.createEventType (addEventTypeName.getText().toString(), propertyList);
-
-        System.out.println(newEventType.getName());
-    }
-
-    public void onAddPropertyType(View view) {
-        try {
-            newEventType.addPropertyToType(addEventTypePropertyName.getText().toString(), addEventTypePropertyTypeName.getText().toString());
-        } catch (ClassNotFoundException e) {
-            Toast.makeText(AdminWelcome.this, "invalid type!", Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(getApplicationContext(), AddEventTypeProperties.class);
+        intent.putExtra("eventTypeName", addEventTypeName.getText().toString());
+        startActivity (intent);
     }
 
     public void onDeleteEventTypeButton(View view) {
-        System.out.println(addEventTypeName.getText().toString());
+        try {
+            admin.deleteEventType(addEventTypeName.getText().toString());
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void onEditEventTypeButton(View view) {
         try {
             admin.deleteEventType(addEventTypeName.getText().toString());
         }

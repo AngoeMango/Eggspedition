@@ -19,7 +19,7 @@ public class EventType {
         properties=new HashMap<>();
     }
 
-    public EventType(String name, HashMap<String, Type> propertyList){
+    public EventType(String name, HashMap<String, String> propertyList){
         this.name=name;
         properties= (HashMap<String, Type>) propertyList.clone();
     }

@@ -23,7 +23,7 @@ public class Admin extends User{
         databaseHandler.deleteUserData(this, userId, role);
     }
 
-    public EventType createEventType(String name, HashMap<String, Type> properties){
+    public EventType createEventType(String name, HashMap<String, String> properties){
         EventType eventType=new EventType(name, properties);
         databaseHandler.addEventType(eventType);
         return eventType;
