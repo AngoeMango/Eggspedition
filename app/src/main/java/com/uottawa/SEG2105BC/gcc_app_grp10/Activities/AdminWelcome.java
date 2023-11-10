@@ -23,7 +23,11 @@ import java.util.List;
 public class AdminWelcome extends AppCompatActivity {
 
     EditText addEventTypeName;
+    EditText addEventTypePropertyName;
+    EditText addEventTypePropertyTypeName;
     Admin admin;
+
+    EventType newEventType;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -32,6 +36,11 @@ public class AdminWelcome extends AppCompatActivity {
 
         addEventTypeName = findViewById(R.id.addEventType);
 
+        addEventTypePropertyName = findViewById(R.id.addEventTypeProperty);
+
+        addEventTypePropertyTypeName = findViewById(R.id.addEventTypePropertyType);
+
+
         admin = new Admin("admin", "admin1", "admin@admin.com", "admin");
     }
 
@@ -39,11 +48,15 @@ public class AdminWelcome extends AppCompatActivity {
         String name = "tt";
         HashMap<String, Type> propertyList = new HashMap<>();
 
-        propertyList.put("why",String.class);
+        //propertyList.put("why",String.class);
 
-        EventType newEventType = admin.createEventType (addEventTypeName.getText().toString(), propertyList);
+        newEventType = admin.createEventType (addEventTypeName.getText().toString(), propertyList);
 
         System.out.println(newEventType.getName());
+    }
+
+    public void onAddPropertyType(View view) {
+        newEventType.addPropertyToType(addEventTypePropertyName.getText().toString(), addEventTypePropertyTypeName.getText().toString());
     }
 
     public void onDeleteEventTypeButton(View view) {
