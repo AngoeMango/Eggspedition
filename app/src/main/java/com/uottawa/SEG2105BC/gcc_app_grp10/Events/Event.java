@@ -2,14 +2,16 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Events;
 
 import com.google.firebase.database.DataSnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Event {
     private EventType eventType;
     private String name;
+    //We haven't yet figured out what to do yet exactly
     private ArrayList<Property> properties;
-
+    private HashMap<Property, SpecifiedProperty> propertiesHashmap;
 
     /**
      * simplest implementation of an event
@@ -19,7 +21,7 @@ public class Event {
     public Event(String name, EventType eventType){
         this.name=name;
         this.eventType=eventType;
-        properties= (ArrayList<Property>) eventType.getProperties().clone();
+//        properties= (ArrayList<Property>) eventType.getProperties().clone();
     }
 
     /**
@@ -29,7 +31,7 @@ public class Event {
     public Event(DataSnapshot dataSnapshot){
         name=dataSnapshot.child("name").getValue(String.class);
         eventType=dataSnapshot.child("eventType").getValue(EventType.class);
-        properties=dataSnapshot.child("properties").getValue(ArrayList.class);
+//        properties=dataSnapshot.child("properties").getValue(ArrayList.class);
     }
 
     /*
@@ -45,9 +47,6 @@ public class Event {
         //ArrayList<Property> propertiesList= (ArrayList<Property>) properties.clone();
         return true;
     }
-
-
-
 
 
     /*possible implementation 1
