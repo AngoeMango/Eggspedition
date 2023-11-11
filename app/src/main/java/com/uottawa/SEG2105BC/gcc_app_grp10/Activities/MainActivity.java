@@ -82,17 +82,28 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
      * called by the AuthenticationHandler if the authentication fails
      */
     public void onLoginAuthorisationFailure(){
-        Snackbar.make(findViewById(android.R.id.content), "No user exists with given role!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(findViewById(android.R.id.content), "No user exists with given role (or password is wrong)!", Snackbar.LENGTH_LONG).show();
     }
 
     /**
      * called by the DatabaseHandler is the retrieval fails
      */
     @Override
-    public void onDatabaseFailure(){
-        Snackbar.make(findViewById(android.R.id.content), "No user exists with given role!", Snackbar.LENGTH_LONG).show();
+    public void onUserDatabaseFailure(){
+        Snackbar.make(findViewById(android.R.id.content), "Signing in user failed!", Snackbar.LENGTH_LONG).show();
     }
 
+    //Not used currently by this
+    @Override
+    public void onUserDeleteAccountSuccess() {
+
+    }
+
+    //Not used currently by this
+    @Override
+    public void onUserDeleteAccountFailed() {
+
+    }
 
     private String checkRole(){
         if (roleParticipant.isChecked()){

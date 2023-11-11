@@ -3,6 +3,7 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Property;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -17,14 +18,14 @@ public class Admin extends User{
         databaseHandler=new DatabaseHandler();
     }
 
-    public void deleteAccount(String userId, String role){
+    public void deleteAccount(CanReceiveAUser main, String userName, String role){
         if(role.equals("admin")){
             return;
         }
-        databaseHandler.deleteUserData(this, userId, role);
+        databaseHandler.deleteUserData(main, userName, role);
     }
 
-    public EventType createEventType(String name, HashMap<String, String> properties){
+    public EventType createEventType(String name, ArrayList<Property> properties){
         EventType eventType=new EventType(name, properties);
         databaseHandler.addEventType(eventType);
         return eventType;
@@ -37,12 +38,17 @@ public class Admin extends User{
         return eventType;
     }
 
+    public EventType createEventType(EventType eventType){
+        databaseHandler.addEventType(eventType);
+        return eventType;
+    }
+
     public void deleteEventType(String name){
         databaseHandler.deleteEventType(name);
     }
 
-    public void loadEventType(CanReceiveAnEventType main, String name){
-        databaseHandler.loadEventType(main, name);
+    public void loadEventType(CanReceiveAnEventType main, String name, String receivingFunctionName ){
+        databaseHandler.loadEventType(main, name, receivingFunctionName);
     }
 
     public void deleteEvent(String name){

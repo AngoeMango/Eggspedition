@@ -93,8 +93,26 @@
                     android:layout_gravity="center"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="Property"
+                    android:hint="Please enter a username"
                     android:inputType="text" />
+
+                <RadioGroup
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <RadioButton
+                        android:id="@+id/deleteParticipant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/role_participant" />
+
+                    <RadioButton
+                        android:id="@+id/deleteClub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/role_club" />
+                </RadioGroup>
 
                 <Button
                     android:id="@+id/deleteUserButton"
