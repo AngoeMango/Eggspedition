@@ -6,8 +6,6 @@ import java.lang.reflect.Type;
 public class Property implements Serializable {
     String type;
     String name;
-//    Object value;
-
 
     public Property(){
 
@@ -22,11 +20,7 @@ public class Property implements Serializable {
         this.type=type;
     }
 
-//    public Property(String name, String type, Object value){
-//        this.name=name;
-//        this.type=type;
-//        this.setValue(value);
-//    }
+
 
     public String getName() {
         return name;
@@ -44,11 +38,4 @@ public class Property implements Serializable {
         return type;
     }
 
-//    public Object getValue(){
-//        return value;
-//    }
-//
-//    public void setValue(Object value) {
-//        this.value = value;
-//    }
 }
