@@ -6,5 +6,14 @@ public class Participant extends User{
         super(Role.participant, username, password, email, bio, firstName);
     }
 
+    //To be implemented
+    public void joinEvent() {
+
+    }
+
+    public void leaveEvent() {
+
+    }
+
 
 }
