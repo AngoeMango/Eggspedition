@@ -15,22 +15,20 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Property;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.PropertyType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class EditEventTypeProperties extends AppCompatActivity {
 
     Admin admin;
     String eventTypeName;
-    ArrayList<Property> eventTypeProperties;
+    ArrayList<PropertyType> eventTypeProperties;
     HashMap<Integer, Integer[]> fields;
 
     @Override
@@ -40,14 +38,14 @@ public class EditEventTypeProperties extends AppCompatActivity {
 
         Intent intent = getIntent();
         eventTypeName = intent.getStringExtra("eventTypeName");
-        eventTypeProperties = (ArrayList<Property>) intent.getSerializableExtra("eventTypeProperties");
+        eventTypeProperties = (ArrayList<PropertyType>) intent.getSerializableExtra("eventTypeProperties");
         fields = new HashMap<>();
 
         admin = new Admin("admin", "admin1", "admin@admin.com", "admin");
 
         LinearLayout linearLayout = findViewById(R.id.fieldsLinearLayout);
 
-        for (Property property : eventTypeProperties) {
+        for (PropertyType property : eventTypeProperties) {
             String propertyName = property.getName();
             String propertyType = property.getType();
 

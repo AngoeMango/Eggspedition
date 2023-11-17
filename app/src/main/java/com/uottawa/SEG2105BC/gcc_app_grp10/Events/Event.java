@@ -2,7 +2,6 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Events;
 
 import com.google.firebase.database.DataSnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,8 +9,8 @@ public class Event {
     private EventType eventType;
     private String name;
     //We haven't yet figured out what to do yet exactly
-    private ArrayList<Property> properties;
-    private HashMap<Property, SpecifiedProperty> propertiesHashmap;
+    private ArrayList<PropertyType> properties;
+    private HashMap<PropertyType, SpecifiedProperty> propertiesHashmap;
 
     /**
      * simplest implementation of an event

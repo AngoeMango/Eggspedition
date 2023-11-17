@@ -2,7 +2,6 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,16 +14,13 @@ import android.widget.Space;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Property;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class AddEventTypeProperties extends AppCompatActivity {
 

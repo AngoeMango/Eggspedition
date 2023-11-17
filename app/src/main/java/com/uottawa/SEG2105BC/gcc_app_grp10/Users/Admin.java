@@ -3,11 +3,9 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Property;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.PropertyType;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Admin extends User{
 
@@ -25,7 +23,7 @@ public class Admin extends User{
         databaseHandler.deleteUserData(main, userName, role);
     }
 
-    public EventType createEventType(String name, ArrayList<Property> properties){
+    public EventType createEventType(String name, ArrayList<PropertyType> properties){
         EventType eventType=new EventType(name, properties);
         databaseHandler.addEventType(eventType);
         return eventType;
