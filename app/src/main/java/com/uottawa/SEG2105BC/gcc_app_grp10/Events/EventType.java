@@ -7,23 +7,23 @@ import java.util.ArrayList;
 public class EventType {
     private String name;
 
-    private ArrayList<PropertyType> properties;
+    private ArrayList<PropertyType> propertyTypes;
 
     public EventType(String name){
         this.name=name;
-        properties = new ArrayList<>();
+        propertyTypes = new ArrayList<>();
     }
 
     public EventType(String name, ArrayList<PropertyType> propertyTypeList){
         this.name=name;
-        properties= (ArrayList<PropertyType>) propertyTypeList.clone();
+        propertyTypes = (ArrayList<PropertyType>) propertyTypeList.clone();
     }
 
     public EventType(DataSnapshot dataSnapshot){
         name=dataSnapshot.child("name").getValue(String.class);
-        properties = new ArrayList<>();
+        propertyTypes = new ArrayList<>();
         for (DataSnapshot propertySnapshot : dataSnapshot.child("properties").getChildren()) {
-            properties.add(new PropertyType(propertySnapshot.child("name").getValue(String.class), propertySnapshot.child("type").getValue(String.class)));
+            propertyTypes.add(new PropertyType(propertySnapshot.child("name").getValue(String.class), propertySnapshot.child("type").getValue(String.class)));
         }
     }
 
@@ -32,19 +32,19 @@ public class EventType {
      */
 
     public void addPropertyToType(String newProperty,String type){
-        properties.add(new PropertyType(newProperty, type));
+        propertyTypes.add(new PropertyType(newProperty, type));
     }
 
-    public void removePropertyFromType(String property){
-        properties.remove(property);
+    public void removePropertyTypeFromEventType(String property){
+        propertyTypes.remove(property);
     }
 
-    public void setProperties(ArrayList<PropertyType> properties) {
-        this.properties = properties;
+    public void setPropertyTypes(ArrayList<PropertyType> propertyTypes) {
+        this.propertyTypes = propertyTypes;
     }
 
-    public ArrayList<PropertyType> getProperties() {
-        return properties;
+    public ArrayList<PropertyType> getPropertyTypes() {
+        return propertyTypes;
     }
 
     public String getName() {

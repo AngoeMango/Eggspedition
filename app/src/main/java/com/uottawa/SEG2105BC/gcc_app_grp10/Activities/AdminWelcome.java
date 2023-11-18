@@ -9,24 +9,20 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanDeleteAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
-public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEventType, CanReceiveAUser {
+public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEventType, CanDeleteAUser {
 
     EditText addEventTypeName;
     Admin admin;
-
-    EventType newEventType;
     EditText deleteUserName;
-
     RadioButton deleteParticipant;
     RadioButton deleteClub;
 
@@ -53,7 +49,6 @@ public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEvent
         }
         else {
             admin.loadEventType(this, addEventTypeName.getText().toString(), "addEventType");
-
         }
     }
 
@@ -97,47 +92,46 @@ public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEvent
     }
 
     @Override
-    public void onEventTypeRetrieved (String retreivingFunctionName, EventType eventType) {
-
-        if (retreivingFunctionName.equals("addEventType")) {
-            Snackbar.make(findViewById(android.R.id.content), "Event Type already exists!", Snackbar.LENGTH_LONG).show();
-        } else if (retreivingFunctionName.equals("editEventType")){
-            Intent intent = new Intent(getApplicationContext(), EditEventTypeProperties.class);
-            intent.putExtra("eventTypeName", eventType.getName());
-            intent.putExtra("eventTypeProperties", eventType.getProperties());
-            startActivity(intent);
-        }
-        else if ((retreivingFunctionName.equals("deleteEventType"))){
-            admin.deleteEventType(addEventTypeName.getText().toString());
-            Snackbar.make(findViewById(android.R.id.content), "Deleted event type!", Snackbar.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onEventTypeDatabaseFailure (String retreivingFunctionName) {
-        if (retreivingFunctionName.equals("addEventType")) {
-            Intent intent = new Intent(getApplicationContext(), AddEventTypeProperties.class);
-            intent.putExtra("eventTypeName", addEventTypeName.getText().toString());
-            startActivity(intent);
-        } else if (retreivingFunctionName.equals("editEventType")){
-            Snackbar.make(findViewById(android.R.id.content), "No event type exists with that name!", Snackbar.LENGTH_LONG).show();
-        } else if (retreivingFunctionName.equals("deleteEventType")){
-            Snackbar.make(findViewById(android.R.id.content), "No event type exists with that name!", Snackbar.LENGTH_LONG).show();
-        }
-        else if (retreivingFunctionName.equals("invalidName")){
-            Snackbar.make(findViewById(android.R.id.content), "Invalid event type name (or other database failure)!", Snackbar.LENGTH_LONG).show();
+    public void onEventTypeRetrieved (String retrievingFunctionName, EventType eventType) {
+        switch(retrievingFunctionName){
+            case "addEventType":
+                Snackbar.make(findViewById(android.R.id.content), "Event Type already exists!", Snackbar.LENGTH_LONG).show();
+                break;
+            case "editEventType":
+                Intent intent = new Intent(getApplicationContext(), EditEventTypeProperties.class);
+                intent.putExtra("eventTypeName", eventType.getName());
+                intent.putExtra("eventTypeProperties", eventType.getPropertyTypes());
+                startActivity(intent);
+                break;
+            case "deleteEventType":
+                admin.deleteEventType(addEventTypeName.getText().toString());
+                Snackbar.make(findViewById(android.R.id.content), "Deleted event type!", Snackbar.LENGTH_LONG).show();
+                break;
+            default:
+                Snackbar.make(findViewById(android.R.id.content), "invalid function name got passed", Snackbar.LENGTH_LONG).show();
         }
     }
 
     @Override
-    public void  onUserDataRetrieved(User user) {
+    public void onEventTypeDatabaseFailure (String retrievingFunctionName) {
+        switch(retrievingFunctionName){
+            case "addEventType":
+                Intent intent = new Intent(getApplicationContext(), AddEventTypeProperties.class);
+                intent.putExtra("eventTypeName", addEventTypeName.getText().toString());
+                startActivity(intent);
+                break;
+            case "editEventType":
+                Snackbar.make(findViewById(android.R.id.content), "No event type exists with that name!", Snackbar.LENGTH_LONG).show();
+                break;
+            case "deleteEventType":
+                Snackbar.make(findViewById(android.R.id.content), "No event type exists with that name!", Snackbar.LENGTH_LONG).show();
+                break;
+            default:
+                Snackbar.make(findViewById(android.R.id.content), "Invalid event type name (or other database failure)!", Snackbar.LENGTH_LONG).show();
+        }
 
     }
 
-    @Override
-    public void onUserDatabaseFailure() {
-
-    }
 
     @Override
     public void onUserDeleteAccountSuccess() {

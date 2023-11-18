@@ -93,18 +93,6 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
         Snackbar.make(findViewById(android.R.id.content), "Signing in user failed!", Snackbar.LENGTH_LONG).show();
     }
 
-    //Not used currently by this
-    @Override
-    public void onUserDeleteAccountSuccess() {
-
-    }
-
-    //Not used currently by this
-    @Override
-    public void onUserDeleteAccountFailed() {
-
-    }
-
     private String checkRole(){
         if (roleParticipant.isChecked()){
             return "participant";

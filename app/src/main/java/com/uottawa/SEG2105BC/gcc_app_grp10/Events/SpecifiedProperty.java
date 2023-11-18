@@ -16,4 +16,12 @@ public class SpecifiedProperty extends PropertyType {
         this.value = value;
     }
 
+    /**
+     * checks if value's type matches the eventProperties type, will return true if value is null
+     * @return whether or not the type is invalid
+     */
+    public boolean validateType(){
+        return value==null||super.type.getClass().equals(value.getClass());
+    }
+
 }

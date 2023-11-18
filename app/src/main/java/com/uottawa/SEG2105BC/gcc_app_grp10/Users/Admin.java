@@ -16,7 +16,7 @@ public class Admin extends User{
         databaseHandler=new DatabaseHandler();
     }
 
-    public void deleteAccount(CanReceiveAUser main, String userName, String role){
+    public void deleteAccount(CanDeleteAUser main, String userName, String role){
         if(role.equals("admin")){
             return;
         }

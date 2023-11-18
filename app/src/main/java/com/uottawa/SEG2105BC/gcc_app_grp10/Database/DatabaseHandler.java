@@ -30,9 +30,11 @@ public class DatabaseHandler {
     }
 
 
+
     /*
-    Event Methods
+    EventType Methods
      */
+
 
     public void addEventType(EventType eventType){
         ref.child("eventTypes/"+eventType.getName()).setValue(eventType);
@@ -46,17 +48,14 @@ public class DatabaseHandler {
         ref.child("eventTypes/"+eventTypeName).removeValue();
     }
 
-    public void deleteEvent(String eventName){
-        ref.child("events/"+eventName).removeValue();
-    }
 
     /**
      * used to load an EventType from the database
      * @param main the class currently controlling the main thread
      * @param eventTypeName the name of the EventType your looking for
-     * @param retreivingFunctionName the name of the type of operation being performed on the event type (add, edit, delete)
+     * @param retrievingFunctionName the name of the type of operation being performed on the event type (add, edit, delete)
      */
-    public void loadEventType(CanReceiveAnEventType main, String eventTypeName, String retreivingFunctionName){
+    public void loadEventType(CanReceiveAnEventType main, String eventTypeName, String retrievingFunctionName){
         DatabaseReference userRef;
 
         try {
@@ -73,10 +72,10 @@ public class DatabaseHandler {
                     System.out.println("database works");
                     // Retrieve data from the DataSnapshot
                     EventType eventType=new EventType(dataSnapshot);
-                    main.onEventTypeRetrieved(retreivingFunctionName, eventType);
+                    main.onEventTypeRetrieved(retrievingFunctionName, eventType);
                 }
                 else{
-                    main.onEventTypeDatabaseFailure(retreivingFunctionName);
+                    main.onEventTypeDatabaseFailure(retrievingFunctionName);
                 }
             }
             @Override
@@ -85,6 +84,11 @@ public class DatabaseHandler {
             }
         });
     }
+
+
+    /*
+    Event Methods
+     */
 
     /**
      * used to load an Event from the database
@@ -113,10 +117,19 @@ public class DatabaseHandler {
         });
     }
 
+    public void deleteEvent(String eventName){
+        ref.child("events/"+eventName).removeValue();
+    }
+
+
+
 
     /*
     User Methods
      */
+
+
+
 
     public void addNewUserData(String userId, String role, User user){
         ref.child("users/theAdminsLittleBlackBook/"+user.getUsername()).setValue(userId);
@@ -128,41 +141,10 @@ public class DatabaseHandler {
         ref.child("users/"+role+"/"+userId).setValue(newData);
     }
 
-    //method for deleting data from the database, just takes the admin to make sure no other user can use it
-    public void deleteUserData(CanReceiveAUser main, String userName, String role) {
-        loadUserDataFromBook(main, userName,role);
-    }
-
-    private void finishDeletion(CanReceiveAUser main, String userId, String role, String userName){
-
-        //sends a request to the server for data
-        DatabaseReference userRef= ref.child("users/"+role+"/"+userId);
-
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ref.child("users/"+role+"/"+userId).removeValue();
-                    ref.child("users/theAdminsLittleBlackBook/"+userName).removeValue();
-                    main.onUserDeleteAccountSuccess();
-                }
-                else{
-                    main.onUserDeleteAccountFailed();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("uh oh");
-                main.onUserDeleteAccountFailed();
-            }
-        });
-    }
-
 
     /**
      * Loads the data of an existing user, and passes it back to the main thread via the onUserDataRetrieved() method
-     * @param main the class currently controlling the main thread, this method must be called while the login screen is active
-     *             we might want to overload it later to work from any screen
+     * @param main the class currently controlling the main thread, has to have the right functions, i.e. implement the right interface
      * @param userId
      * @param role
      */
@@ -191,23 +173,71 @@ public class DatabaseHandler {
         });
     }
 
+    /**
+     * Loads the data of an existing user from the admins book, and passes it back to the main thread via the onUserDataRetrieved() method     *
+     * @param main the class currently controlling the main thread
+     * @param userName
+     * @param role
+     */
+    public void loadUserDataFromBook(CanReceiveAUser main, String userName, String role){
+        System.out.println("trying to read");
+        DatabaseReference userRef;
+        //sends a request to the server for data
+        userRef = ref.child("users/theAdminsLittleBlackBook/" + userName);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    try {
+                        System.out.println("database works");
+                        // Retrieve data from the DataSnapshot
+                        String userId = dataSnapshot.getValue(String.class);
+                        loadUserData(main, userId, role);
+                    }
+                    catch (Exception e) {
+                        main.onUserDatabaseFailure();
+                    }
+                }
+                else{
+                    main.onUserDatabaseFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+                main.onUserDatabaseFailure();
+            }
+        });
+    }
+
+
+
+    /*
+    methods for deleting data from the database
+    */
+
+
+    /**
+     *  method used in Admin to delete a user given their username and role
+     * @param main the instance currently controlling the main thread
+     *            has to implement CanDeleteAUser so that it can be notified when/if the database succeeds or fails
+     * @param userName the username of the user you're looking for
+     * @param role the role of the user you want to delete
+     */
+    public void deleteUserData(CanDeleteAUser main, String userName, String role) {
+        loadUserDataFromBookForDeletion(main, userName,role);
+    }
 
     /**
      * helper method for deleting a user using their username, find their user id, then calls finishDeleting with that id
      * @param userName the username of the user you're looking for
      * @param role the role of the user you want to delete
      */
-    public void loadUserDataFromBook(CanReceiveAUser main, String userName, String role){
-        System.out.println("trying to read");
+    private void loadUserDataFromBookForDeletion(CanDeleteAUser main, String userName, String role){
         DatabaseReference userRef;
         //sends a request to the server for data
-        try {
-             userRef = ref.child("users/theAdminsLittleBlackBook/" + userName);
-        }
-        catch (Exception e) {
-            main.onUserDeleteAccountFailed();
-            return;
-        }
+        userRef = ref.child("users/theAdminsLittleBlackBook/" + userName);
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -234,6 +264,32 @@ public class DatabaseHandler {
             }
         });
     }
+
+    private void finishDeletion(CanDeleteAUser main, String userId, String role, String userName){
+        //sends a request to the server for data
+        DatabaseReference userRef= ref.child("users/"+role+"/"+userId);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ref.child("users/"+role+"/"+userId).removeValue();
+                    ref.child("users/theAdminsLittleBlackBook/"+userName).removeValue();
+                    main.onUserDeleteAccountSuccess();
+                }
+                else{
+                    main.onUserDeleteAccountFailed();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+                main.onUserDeleteAccountFailed();
+            }
+        });
+    }
+
+
 
   }
 
