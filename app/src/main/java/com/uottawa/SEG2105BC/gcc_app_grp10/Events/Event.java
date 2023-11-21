@@ -3,12 +3,11 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Events;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class Event extends EventType {
     private String name;
-    private HashMap<PropertyType, SpecifiedProperty> properties;
+    private ArrayList<SpecifiedProperty> properties;
 
     /**
      * simplest implementation of an event
@@ -28,26 +27,8 @@ public class Event extends EventType {
     public Event(DataSnapshot dataSnapshot) {
         super(Objects.requireNonNull(dataSnapshot.child("eventType").getValue(EventType.class)));
         name = dataSnapshot.child("name").getValue(String.class);
-        setUpPropertyTypesWhenLoadingFromDatabase(dataSnapshot.child("properties").getValue(HashMap.class));
+        properties = dataSnapshot.child("properties").getValue(ArrayList.class);
     }
-
-    /**
-     *
-     * @param savedMap
-     */
-    private void setUpPropertyTypesWhenLoadingFromDatabase(HashMap<PropertyType, SpecifiedProperty> savedMap){
-        if(savedMap==null){return;}
-        for (PropertyType typeFromMap:savedMap.keySet()) {
-            for (PropertyType propertyType:super.getRequiredPropertyTypes()) {
-                if(propertyType.name.equals(typeFromMap.name)){properties.put(propertyType,savedMap.get(typeFromMap));}
-                else{properties.put(typeFromMap,savedMap.get(typeFromMap));}
-            }
-        }
-    }
-
-    /*
-    these should be accessible by admin or club
-     */
 
 
     /**
@@ -56,10 +37,20 @@ public class Event extends EventType {
      * @return whether or not the event is valide
      */
     public boolean validate(){
-        for (PropertyType propertyType:super.getRequiredPropertyTypes()) {
-
+        for (PropertyType requiredType:super.getRequiredPropertyTypes()) {
+            if(!properties.contains(requiredType))return false;
         }
         return true;
+    }
+
+    public void addProperty(String name, SpecifiedProperty property){
+        properties.add(property);
+    }
+
+    public void removeProperty(String propertyName){
+        for (SpecifiedProperty property:properties) {
+            if(property.getName().equals(propertyName))properties.remove(property);
+        }
     }
 
     @Override
@@ -72,7 +63,5 @@ public class Event extends EventType {
         this.name = name;
     }
 
-    public void addProperty(String name,SpecifiedProperty property){
 
-    }
 }

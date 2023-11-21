@@ -1,44 +1,41 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
-import java.util.ArrayList;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Club extends User{
-    /**
-     * hashmap mutable so we can add more as needed, and easy to search for a particular one,
-     * we can potentially use it for future deliverables
-     */
-//    private ArrayList<Participant> members;
+    private HashMap<String ,Event> events;
 
-    public Club(String username, String password, String email, String bio, String firstName){
-        super(Role.club, username, password, email, bio, firstName);
-//        members=new ArrayList<>();
+    public Club(String username, String password, String email, String bio, String socialMediaLink, String mainContactName, String phoneNumber){
+        super(Role.club, username, password, email, bio, mainContactName);
+        events=new HashMap<>();
     }
 
-    /**
-     * methods for later
-     */
-//    public void addMember(Participant member){
-//        members.add(member);
-//    }
-//
-//    public void removeMember(Participant member){
-//       members.remove(member);
-//    }
-
-    //To be implemented
     public void createEvent(){
 
     }
 
-    public void deleteEvent(){
-
+    public void deleteEvent(String name){
+        DatabaseHandler databaseHandler=new DatabaseHandler();
+        databaseHandler.deleteEvent(name);
     }
 
-    public void editEvent(){
-
+    public Event getEvent(String name){
+        return events.get(name);
     }
+
+    public void addEvent(Event event){
+        events.put(event.getName(), event);
+    }
+
+    public HashMap<String, Event> getEvents(){
+        return events;
+    }
+
 
 
 }

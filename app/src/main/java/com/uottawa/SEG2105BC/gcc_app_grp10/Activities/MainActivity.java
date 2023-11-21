@@ -9,12 +9,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanReceiveAUser;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Role;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 

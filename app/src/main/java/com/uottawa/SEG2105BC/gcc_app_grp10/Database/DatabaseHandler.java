@@ -9,10 +9,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEvent;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEvent;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanReceiveAUser;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanDeleteAUser;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.*;
 

@@ -1,9 +1,10 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.PropertyType;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanDeleteAUser;
 
 import java.util.ArrayList;
 

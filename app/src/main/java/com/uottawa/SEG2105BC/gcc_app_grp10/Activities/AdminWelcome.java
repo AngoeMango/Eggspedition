@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Events.CanReceiveAnEventType;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanDeleteAUser;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanDeleteAUser;
 
 import android.content.Intent;
 import android.view.View;

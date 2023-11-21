@@ -47,7 +47,7 @@ public class EditEventTypeProperties extends AppCompatActivity {
 
         for (PropertyType property : eventTypeProperties) {
             String propertyName = property.getName();
-            String propertyType = property.getType();
+            String propertyType = property.getType().toString();
 
             LinearLayout fieldLinearLayout = new LinearLayout(this);
             int fieldGroupId = View.generateViewId();

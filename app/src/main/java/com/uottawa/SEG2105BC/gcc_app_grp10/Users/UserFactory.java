@@ -22,12 +22,16 @@ public class UserFactory {
     public User makeUser(String role, String username, String password, String email, String bio, String firstName) {
         switch (role){
             case "club":
-                return new Club(username, password, email, bio, firstName);
+                return new Club(username, password, email, bio, firstName, "", "");
             case "participant":
                 return new Participant(username, password, email, bio, firstName);
             default:
                 throw new InvalidParameterException();
         }
+    }
+
+    public User makeUser(String username, String password, String email, String bio, String socialMediaLink, String mainContactName, String phoneNumber) {
+        return new Club(username, password, email, bio, socialMediaLink, mainContactName, phoneNumber);
     }
 
     public User makeUser(DataSnapshot dataSnapshot, String role) {
@@ -38,7 +42,7 @@ public class UserFactory {
         String firstName=dataSnapshot.child("firstName").getValue(String.class);
         switch (role){
             case "club":
-                return new Club(username, password, email, bio, firstName);
+                return new Club(username, password, email, bio, firstName, "", "");
             case "participant":
                 return new Participant(username, password, email, bio, firstName);
             case "admin":

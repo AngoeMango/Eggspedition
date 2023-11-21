@@ -1,10 +1,12 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Events;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 
 public class PropertyType implements Serializable {
-    String type;
-    String name;
+
+    private Type type;
+    private String name;
 
     public PropertyType(){
 
@@ -21,13 +23,28 @@ public class PropertyType implements Serializable {
 
     public PropertyType(String name, String type){
         this.name=name;
-        this.type=type;
+        try {
+            this.type=Class.forName(type);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
-    //override
-    public boolean equals(){
-return true;
+    /**
+     * like all the other methods, SpecifiedProperty inherits this
+     * and it still overrides it's equal method
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof PropertyType){
+            if(((PropertyType) o).getName().equals(name)){
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -39,11 +56,19 @@ return true;
         this.name = name;
     }
 
-    public void setType(String type){
+    public void setType(String type) throws PropertyTypeMismatchException {
+        try {
+            setType(Class.forName(type));
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setType(Type type) throws PropertyTypeMismatchException {
         this.type=type;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
