@@ -253,7 +253,7 @@ public class EditEventTypeProperties extends AppCompatActivity {
                 }
                 else {
                     propertyNames.add(currentFieldName.getText().toString());
-                    newEventType.addPropertyToType(currentFieldName.getText().toString(), selectedText);
+                    newEventType.addRequiredPropertyToType(currentFieldName.getText().toString(), selectedText);
                 }
             }
         }

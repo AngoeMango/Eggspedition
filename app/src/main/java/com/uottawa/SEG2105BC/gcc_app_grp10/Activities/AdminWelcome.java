@@ -10,8 +10,6 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanDeleteAUser;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.CanReceiveAUser;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import android.content.Intent;
 import android.view.View;
@@ -100,7 +98,7 @@ public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEvent
             case "editEventType":
                 Intent intent = new Intent(getApplicationContext(), EditEventTypeProperties.class);
                 intent.putExtra("eventTypeName", eventType.getName());
-                intent.putExtra("eventTypeProperties", eventType.getPropertyTypes());
+                intent.putExtra("eventTypeProperties", eventType.getRequiredPropertyTypes());
                 startActivity(intent);
                 break;
             case "deleteEventType":

@@ -6,24 +6,28 @@ import java.util.ArrayList;
 
 public class EventType {
     private String name;
-
-    private ArrayList<PropertyType> propertyTypes;
+    private ArrayList<PropertyType> requiredPropertyTypes;
 
     public EventType(String name){
         this.name=name;
-        propertyTypes = new ArrayList<>();
+        requiredPropertyTypes = new ArrayList<>();
     }
-
     public EventType(String name, ArrayList<PropertyType> propertyTypeList){
         this.name=name;
-        propertyTypes = (ArrayList<PropertyType>) propertyTypeList.clone();
+        requiredPropertyTypes.addAll(propertyTypeList);
+    }
+
+    public EventType(EventType template){
+        this.name= template.getName();
+        requiredPropertyTypes =new ArrayList<>();
+        requiredPropertyTypes.addAll(template.getRequiredPropertyTypes());
     }
 
     public EventType(DataSnapshot dataSnapshot){
         name=dataSnapshot.child("name").getValue(String.class);
-        propertyTypes = new ArrayList<>();
+        requiredPropertyTypes = new ArrayList<>();
         for (DataSnapshot propertySnapshot : dataSnapshot.child("properties").getChildren()) {
-            propertyTypes.add(new PropertyType(propertySnapshot.child("name").getValue(String.class), propertySnapshot.child("type").getValue(String.class)));
+            requiredPropertyTypes.add(new PropertyType(propertySnapshot.child("name").getValue(String.class), propertySnapshot.child("type").getValue(String.class)));
         }
     }
 
@@ -31,23 +35,27 @@ public class EventType {
     these ones should only be accessible by admin
      */
 
-    public void addPropertyToType(String newProperty,String type){
-        propertyTypes.add(new PropertyType(newProperty, type));
+    public void addRequiredPropertyToType(String newProperty, String type){
+        requiredPropertyTypes.add(new PropertyType(newProperty, type));
     }
 
-    public void removePropertyTypeFromEventType(String property){
-        propertyTypes.remove(property);
+    public void removeRequiredPropertyTypeFromEventType(String property){
+        requiredPropertyTypes.remove(property);
     }
 
-    public void setPropertyTypes(ArrayList<PropertyType> propertyTypes) {
-        this.propertyTypes = propertyTypes;
+    public void setRequiredPropertyTypes(ArrayList<PropertyType> requiredPropertyTypes) {
+        this.requiredPropertyTypes = requiredPropertyTypes;
     }
 
-    public ArrayList<PropertyType> getPropertyTypes() {
-        return propertyTypes;
+    public ArrayList<PropertyType> getRequiredPropertyTypes() {
+        return requiredPropertyTypes;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

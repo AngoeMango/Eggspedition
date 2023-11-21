@@ -25,6 +25,11 @@ public class PropertyType implements Serializable {
     }
 
 
+    //override
+    public boolean equals(){
+return true;
+    }
+
 
     public String getName() {
         return name;
@@ -40,6 +45,10 @@ public class PropertyType implements Serializable {
 
     public String getType() {
         return type;
+    }
+
+    public PropertyType clone(){
+        return new PropertyType(this);
     }
 
 }

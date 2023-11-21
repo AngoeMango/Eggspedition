@@ -4,70 +4,75 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
-public class Event {
-    private EventType eventType;
+public class Event extends EventType {
     private String name;
-    //We haven't yet figured out what to do yet exactly
-    private ArrayList<PropertyType> properties;
-    private HashMap<PropertyType, SpecifiedProperty> propertiesHashmap;
+    private HashMap<PropertyType, SpecifiedProperty> properties;
 
     /**
      * simplest implementation of an event
+     *
      * @param name
      * @param eventType
      */
-    public Event(String name, EventType eventType){
-        this.name=name;
-        this.eventType=eventType;
-//        properties= (ArrayList<Property>) eventType.getProperties().clone();
+    public Event(String name, EventType eventType) {
+        super(eventType);
+        this.name = name;
     }
 
     /**
      * used when loading an event Type from the database
      * @param dataSnapshot this is the form data takes when loaded from the database
      */
-    public Event(DataSnapshot dataSnapshot){
-        name=dataSnapshot.child("name").getValue(String.class);
-        eventType=dataSnapshot.child("eventType").getValue(EventType.class);
-//        properties=dataSnapshot.child("properties").getValue(ArrayList.class);
+    public Event(DataSnapshot dataSnapshot) {
+        super(Objects.requireNonNull(dataSnapshot.child("eventType").getValue(EventType.class)));
+        name = dataSnapshot.child("name").getValue(String.class);
+        setUpPropertyTypesWhenLoadingFromDatabase(dataSnapshot.child("properties").getValue(HashMap.class));
+    }
+
+    /**
+     *
+     * @param savedMap
+     */
+    private void setUpPropertyTypesWhenLoadingFromDatabase(HashMap<PropertyType, SpecifiedProperty> savedMap){
+        if(savedMap==null){return;}
+        for (PropertyType typeFromMap:savedMap.keySet()) {
+            for (PropertyType propertyType:super.getRequiredPropertyTypes()) {
+                if(propertyType.name.equals(typeFromMap.name)){properties.put(propertyType,savedMap.get(typeFromMap));}
+                else{properties.put(typeFromMap,savedMap.get(typeFromMap));}
+            }
+        }
     }
 
     /*
     these should be accessible by admin or club
      */
 
+
     /**
-     * this is for a club to setup an event
-     * @param properties needs to be reconsidered
-     * @return whether or not the setup was successful
+     * The idea here is the event is valid if it has a value for every property type
+     * it can have other propertyTypes and values if it wants to though
+     * @return whether or not the event is valide
      */
-    public boolean setupEvent(ArrayList properties){
-        //ArrayList<Property> propertiesList= (ArrayList<Property>) properties.clone();
+    public boolean validate(){
+        for (PropertyType propertyType:super.getRequiredPropertyTypes()) {
+
+        }
         return true;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
 
-    /*possible implementation 1
-        private String eventType;
-        private ArrayList<String> registrationRequirements;
-        private String eventDetails;
-        private String location;
-        private String dateTime;
-        //add whatever other things we might need to store about an abstract event
-     */
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    /*possible implementation 2
-        private String eventType;
-        private Hashmap<String, object> informationAboutEvent;
-        //the hashmap would hold an abstract amount of information about the event
-        //it could have registration details, dates, location, anything
-        //we'd have to decide what kind of object though
-     */
+    public void addProperty(String name,SpecifiedProperty property){
 
-    /*possible implementation 3
-        make this abstract and make a new class for the new type at runtime?
-        no clue how to do that though
-     */
-
+    }
 }
