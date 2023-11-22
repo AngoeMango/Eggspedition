@@ -38,7 +38,7 @@ public class AddEventTypeProperties extends AppCompatActivity {
 
         fields = new HashMap<>();
 
-        admin = new Admin("admin", "admin1", "admin@admin.com", "admin");
+        admin = new Admin("admin", "admin1", "admin@admin.com");
 
     }
 

@@ -37,7 +37,7 @@ public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEvent
 
         deleteClub = findViewById(R.id.deleteClub);
 
-        admin = new Admin("admin", "admin1", "admin@admin.com", "admin");
+        admin = new Admin("admin", "admin1", "admin@admin.com");
     }
 
     public void onAddEventTypeButton(View view) {

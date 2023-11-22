@@ -12,8 +12,8 @@ public class Admin extends User{
 
     DatabaseHandler databaseHandler;
 
-    public Admin(String username, String password, String email, String firstName){
-        super(Role.admin, username, password, email, "Admin account", firstName);
+    public Admin(String username, String password, String email){
+        super(username, password, email, "Admin account");
         databaseHandler=new DatabaseHandler();
     }
 
@@ -66,5 +66,10 @@ public class Admin extends User{
      */
     public void deleteEvent(){
 
+    }
+
+    @Override
+    public String getRole(){
+        return "Admin";
     }
 }

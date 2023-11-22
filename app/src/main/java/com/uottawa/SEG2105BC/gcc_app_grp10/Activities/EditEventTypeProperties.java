@@ -41,7 +41,7 @@ public class EditEventTypeProperties extends AppCompatActivity {
         eventTypeProperties = (ArrayList<PropertyType>) intent.getSerializableExtra("eventTypeProperties");
         fields = new HashMap<>();
 
-        admin = new Admin("admin", "admin1", "admin@admin.com", "admin");
+        admin = new Admin("admin", "admin1", "admin@admin.com");
 
         LinearLayout linearLayout = findViewById(R.id.fieldsLinearLayout);
 

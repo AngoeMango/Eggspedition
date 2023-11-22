@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Role;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import static java.util.Objects.requireNonNull;
@@ -61,15 +61,15 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
     public void onUserDataRetrieved(User user){
         //notifies the user that the loading was successful
         Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-        if (user.getRole().equals(Role.admin)) {
+        if (user.getClass().equals(Admin.class)) {
             Intent intent = new Intent(getApplicationContext(), AdminWelcome.class);
             startActivity(intent);
         }
         else {
             Intent intent = new Intent(getApplicationContext(), Welcome.class);
             // Adds information to the intent for the welcome page to access
-            intent.putExtra("firstName", user.getFirstName());
-            intent.putExtra("role", user.getRole().toString());
+            intent.putExtra("firstName", user.getUsername());
+            intent.putExtra("role", user.getRole());
 
             System.out.println("going to next activity");
             startActivity(intent);

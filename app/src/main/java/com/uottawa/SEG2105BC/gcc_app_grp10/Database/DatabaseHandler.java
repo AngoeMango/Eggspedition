@@ -159,8 +159,7 @@ public class DatabaseHandler {
                 if (dataSnapshot.exists()) {
                     System.out.println("database works");
                     // Retrieve data from the DataSnapshot
-                    UserFactory userFactory=new UserFactory();
-                    User user=userFactory.makeUser(dataSnapshot, role);
+                    User user=User.makeUser(role, dataSnapshot);
                     main.onUserDataRetrieved(user);
                 }
                 else{

@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Participant;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.UserFactory;
 
 public class Registration extends AppCompatActivity {
 
@@ -43,11 +43,10 @@ public class Registration extends AppCompatActivity {
 
     public void OnRegisterButton(View view) {
         if(!validateInputs()){return;}
-        UserFactory uF = new UserFactory();//makes new user
         User user;//to hold new users
-        String role=selectRole();
-
-        user = uF.makeUser(role, username.getText().toString().trim(), password.getText().toString().trim(), email.getText().toString().trim(), bio.getText().toString().trim(), firstName.getText().toString().trim());
+        //String role=selectRole();
+        user = new Participant(username.getText().toString().trim(), password.getText().toString().trim(), email.getText().toString().trim(), bio.getText().toString().trim());
+        user.setUsername(firstName.getText().toString().trim());
         //makes the user with the info to be saved a little later
         authenticationHandler.signUp(this, user, email.getText().toString().trim(), password.getText().toString().trim(), this, this);
     }

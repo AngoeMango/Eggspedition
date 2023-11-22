@@ -1,22 +1,43 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
+import com.google.firebase.database.DataSnapshot;
+
+import java.security.InvalidParameterException;
+import java.util.HashMap;
+
 public abstract class User {
 
     private String username;
     private String password;
     private String bio;
     private String email;
-    private String firstName;
-    private final Role ROLE;
 
-    protected User(Role role, String username, String password, String email, String bio, String firstName){
-        this.ROLE=role;
+    public static User makeUser(String role, DataSnapshot dataSnapshot) {
+        switch (role) {
+            case "Club":
+                return new Club(dataSnapshot);
+            case "Participant":
+                return new Participant(dataSnapshot);
+            default:
+                throw new InvalidParameterException();
+        }
+    }
+
+
+    protected User(String username, String password, String email, String bio){
         this.username=username;
         this.password=password;
         this.email=email;
         this.bio=bio;
-        this.firstName = firstName;
     }
+
+    protected User(DataSnapshot dataSnapshot){
+        username=dataSnapshot.child("username").getValue(String.class);
+        password=dataSnapshot.child("password").getValue(String.class);
+        email=dataSnapshot.child("email").getValue(String.class);
+        bio=dataSnapshot.child("bio").getValue(String.class);
+    }
+
 
     public boolean isPasswordCorrect(String passwordAttempt) {
         return password.equals(passwordAttempt);
@@ -54,16 +75,6 @@ public abstract class User {
         this.bio = bio;
     }
 
-    public String getFirstName(){
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public Role getRole(){
-        return ROLE;
-    }
+    public abstract String getRole();
 
 }
