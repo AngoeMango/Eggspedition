@@ -99,7 +99,7 @@ public class ClubRegistration extends AppCompatActivity implements Registration 
             Toast.makeText(ClubRegistration.this, "You need a social media link!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        // checks that the social media link starts with http or https, is followed by a name, then ends with a domain like com
+        // checks that the social media link is in the form https://name.com/name or http://name.org/name
         if (!socialMedia.getText().toString().matches("^https?://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/.*$")) {
             Toast.makeText(ClubRegistration.this, "Invalid social media link!", Toast.LENGTH_SHORT).show();
             return false;
