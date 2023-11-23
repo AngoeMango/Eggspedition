@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Registration">
+    tools:context=".Activities.ParticipantRegistration">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,9 +24,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/login_title"
+                android:text="Participant Registration"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <EditText
+                android:id="@+id/usernameEditText"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/name_hint"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/name_label" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <EditText
+                android:id="@+id/firstNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/firstName_hint"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/firstNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/firstName_label" />
 
             <Space
                 android:layout_width="match_parent"
@@ -54,6 +96,27 @@
                 android:layout_height="24dp" />
 
             <EditText
+                android:id="@+id/bioEditText"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/bio_hint"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/bioTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/bio_label" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <EditText
                 android:id="@+id/passwordEditText"
                 android:layout_width="300dp"
                 android:layout_height="48dp"
@@ -74,101 +137,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp" />
 
-            <TextView
-                android:id="@+id/roleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/role_label" />
-
-            <RadioGroup
-                android:id="@+id/roleGroup"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center">
-
-                <RadioButton
-                    android:id="@+id/roleParticipant"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/role_participant" />
-
-                <RadioButton
-                    android:id="@+id/roleClub"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/role_club" />
-
-                <RadioButton
-                    android:id="@+id/roleAdmin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/role_admin" />
-            </RadioGroup>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/registerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:onClick="OnLoginButton"
-                android:text="@string/login_button" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="120dp" />
-
-            <TextView
-                android:id="@+id/registerPromptTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/reg_prompt" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <Button
-                android:id="@+id/registerParticipantButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:onClick="toRegisterParticipantPageButton"
-                android:text="@string/register_p_button" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <Button
-                android:id="@+id/registerClubButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:onClick="toRegisterClubPageButton"
-                android:text="@string/register_c_button" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-            <Button
-                android:id="@+id/registerAdminButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:onClick="toRegisterAdminPageButton"
-                android:text="@string/register_a_button" />
+                android:onClick="OnRegisterButton"
+                android:text="@string/register_button" />
 
         </LinearLayout>
     </ScrollView>

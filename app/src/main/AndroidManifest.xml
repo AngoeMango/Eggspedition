@@ -25,6 +25,15 @@
             android:name=".Activities.Registration"
             android:exported="false" />
         <activity
+            android:name=".Activities.ParticipantRegistration"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ClubRegistration"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.AdminRegistration"
+            android:exported="false" />
+        <activity
             android:name=".Activities.Welcome"
             android:exported="false" />
         <activity

@@ -39,9 +39,21 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
         authenticationHandler=new AuthenticationHandler();
     }
 
-    public void toRegisterPageButton(View view){
+    public void toRegisterParticipantPageButton(View view){
         //when go to register gets pressed, bring you to register page
-        Intent intent = new Intent(getApplicationContext(), Registration.class);
+        Intent intent = new Intent(getApplicationContext(), ParticipantRegistration.class);
+        startActivity(intent);
+    }
+
+    public void toRegisterClubPageButton(View view){
+        //when go to register gets pressed, bring you to register page
+        Intent intent = new Intent(getApplicationContext(), ClubRegistration.class);
+        startActivity (intent);
+    }
+
+    public void toRegisterAdminPageButton(View view){
+        //when go to register gets pressed, bring you to register page
+        Intent intent = new Intent(getApplicationContext(), AdminRegistration.class);
         startActivity (intent);
     }
 
