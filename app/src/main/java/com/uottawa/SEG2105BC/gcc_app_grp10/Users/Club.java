@@ -4,7 +4,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -25,15 +24,6 @@ public class Club extends User{
     public Club(DataSnapshot dataSnapshot){
         super(dataSnapshot);
         events=new HashMap<>();
-    }
-
-    public void createEvent(){
-
-    }
-
-    public void deleteEvent(String name){
-        DatabaseHandler databaseHandler=new DatabaseHandler();
-        databaseHandler.deleteEvent(name);
     }
 
     @Override

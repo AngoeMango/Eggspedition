@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 
 public class PropertyType implements Serializable {
 
-    private Type type;
+    private String type;
     private String name;
 
     public PropertyType(){
@@ -23,11 +23,7 @@ public class PropertyType implements Serializable {
 
     public PropertyType(String name, String type){
         this.name=name;
-        try {
-            this.type=Class.forName(type);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        this.type = type;
     }
 
 
@@ -37,15 +33,15 @@ public class PropertyType implements Serializable {
      * @param o
      * @return
      */
-    @Override
-    public boolean equals(Object o){
-        if(o instanceof PropertyType){
-            if(((PropertyType) o).getName().equals(name)){
-                return true;
-            }
-        }
-        return false;
-    }
+//    @Override
+//    public boolean equals(Object o){
+//        if(o instanceof PropertyType){
+//            if(((PropertyType) o).getName().equals(name)){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 
     public String getName() {
@@ -56,19 +52,12 @@ public class PropertyType implements Serializable {
         this.name = name;
     }
 
-    public void setType(String type) throws PropertyTypeMismatchException {
-        try {
-            setType(Class.forName(type));
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setType(Type type) throws PropertyTypeMismatchException {
-        this.type=type;
-    }
 
-    public Type getType() {
+    public String getType() {
         return type;
     }
 

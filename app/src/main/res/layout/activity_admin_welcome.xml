@@ -56,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onAddEventTypeButton"
-                        android:text="Add Event" />
+                        android:text="Add Event Type" />
 
                     <Button
                         android:id="@+id/editEventTypeButton"
@@ -64,14 +64,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onEditEventTypeButton"
-                        android:text="Edit Event" />
+                        android:text="Edit Event Type" />
 
                     <Button
                         android:id="@+id/deleteEventTypeButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onDeleteEventTypeButton"
-                        android:text="Delete Event" />
+                        android:text="Delete Event Type" />
                 </LinearLayout>
 
                 <Space

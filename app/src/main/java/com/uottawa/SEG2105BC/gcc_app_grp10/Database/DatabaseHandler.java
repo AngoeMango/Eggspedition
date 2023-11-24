@@ -11,11 +11,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEvent;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEventType;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveEventTypes;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveEvents;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanDeleteAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.*;
+
+import java.util.ArrayList;
 
 
 public class DatabaseHandler {
@@ -42,6 +46,7 @@ public class DatabaseHandler {
     }
 
     public void addEvent(String eventName, Event event){
+
         ref.child("events/"+eventName).setValue(event);
     }
 
@@ -93,10 +98,12 @@ public class DatabaseHandler {
 
     /**
      * used to load an Event from the database
-     * @param main the class currently controlling the main thread
-     * @param eventName the name of the event your looking for
+     *
+     * @param main                  the class currently controlling the main thread
+     * @param eventName             the name of the event your looking for
+     * @param retrievingFunctionName
      */
-    public void loadEvent(CanReceiveAnEvent main, String eventName){
+    public void loadEvent(CanReceiveAnEvent main, String eventName, String retrievingFunctionName){
         DatabaseReference userRef= ref.child("events/"+eventName);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -105,10 +112,78 @@ public class DatabaseHandler {
                     System.out.println("database works");
                     // Retrieve data from the DataSnapshot
                     Event event=new Event(dataSnapshot);
-                    main.onEventRetrieved(event);
+                    main.onEventRetrieved(retrievingFunctionName, event);
                 }
                 else{
-                    main.onEventDatabaseFailure();
+                    main.onEventDatabaseFailure(retrievingFunctionName);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+    /**
+     * used to load an Event from the database
+     *
+     * @param main                  the class currently controlling the main thread
+     */
+    public void loadAllEvents(CanReceiveEvents main){
+        DatabaseReference userRef= ref.child("events");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    ArrayList<Event> events=new ArrayList<>();
+                    for (DataSnapshot folderSnapshot : dataSnapshot.getChildren()) {
+                        Event event = folderSnapshot.getValue(Event.class);
+                        events.add(event);
+
+                    }
+
+                    main.onEventsRetrieved(events);
+                }
+                else{
+                    main.onEventsDatabaseFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+
+    /**
+     * used to load an Event from the database
+     *
+     * @param main                  the class currently controlling the main thread
+     */
+    public void loadAllEventTypes(CanReceiveEventTypes main){
+        DatabaseReference userRef= ref.child("eventTypes");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    ArrayList<EventType> eventTypes=new ArrayList<>();
+                    for (DataSnapshot folderSnapshot : dataSnapshot.getChildren()) {
+                        System.out.println(folderSnapshot);
+                        EventType eventType=new EventType(folderSnapshot);
+                        eventTypes.add(eventType);
+
+                    }
+
+                    main.onEventTypesRetrieved(eventTypes);
+                }
+                else{
+                    main.onEventTypesDatabaseFailure();
                 }
             }
             @Override
@@ -119,6 +194,7 @@ public class DatabaseHandler {
     }
 
     public void deleteEvent(String eventName){
+        System.out.println("Event name" + eventName);
         ref.child("events/"+eventName).removeValue();
     }
 

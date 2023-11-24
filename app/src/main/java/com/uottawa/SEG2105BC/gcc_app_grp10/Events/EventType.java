@@ -2,9 +2,10 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Events;
 
 import com.google.firebase.database.DataSnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EventType {
+public class EventType implements Serializable {
     private String name;
     private ArrayList<PropertyType> requiredPropertyTypes;
 

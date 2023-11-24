@@ -40,7 +40,7 @@ public class AuthenticationHandler {
                 });
     }
     private void onSignUpAuthorised(FirebaseUser fUser, User user){
-        databaseHandler.addNewUserData(fUser.getUid(),user.getRole().toString(),user);
+        databaseHandler.addNewUserData(fUser.getUid(),user.getRole(),user);
     }
 
     /**

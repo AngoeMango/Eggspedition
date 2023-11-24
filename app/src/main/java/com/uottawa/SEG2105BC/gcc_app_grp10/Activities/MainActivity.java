@@ -14,6 +14,7 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Club;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import static java.util.Objects.requireNonNull;
@@ -75,6 +76,14 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
         Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
         if (user.getClass().equals(Admin.class)) {
             Intent intent = new Intent(getApplicationContext(), AdminWelcome.class);
+            startActivity(intent);
+        }
+        else if (user.getClass().equals(Club.class)) {
+
+            Intent intent = new Intent(getApplicationContext(), ClubWelcome.class);
+            intent.putExtra("firstName", user.getUsername());
+            intent.putExtra("role", user.getRole());
+            intent.putExtra("clubName", user.getUsername());
             startActivity(intent);
         }
         else {
