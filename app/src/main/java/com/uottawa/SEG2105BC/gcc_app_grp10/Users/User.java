@@ -14,9 +14,9 @@ public abstract class User {
 
     public static User makeUser(String role, DataSnapshot dataSnapshot) {
         switch (role) {
-            case "Club":
+            case "club":
                 return new Club(dataSnapshot);
-            case "Participant":
+            case "participant":
                 return new Participant(dataSnapshot);
             default:
                 throw new InvalidParameterException();

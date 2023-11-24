@@ -10,33 +10,29 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanRegister;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Club;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Participant;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
-public class ClubRegistration extends AppCompatActivity implements Registration {
-
+public class ParticipantCanRegister extends AppCompatActivity implements CanRegister {
     EditText username ;
     EditText email;
     EditText bio;
     EditText password;
-    EditText contactName;
-    EditText phoneNumber;
-    EditText socialMedia;
+    EditText firstName;
     AuthenticationHandler authenticationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_club_registration);
+        setContentView(R.layout.activity_participant_registration);
 
         username = findViewById(R.id.usernameEditText);
         email = findViewById(R.id.emailEditText);
         bio = findViewById(R.id.bioEditText);
         password = findViewById(R.id.passwordEditText);
-        contactName = findViewById(R.id.contactEditText);
-        phoneNumber = findViewById(R.id.phoneEditText);
-        socialMedia = findViewById(R.id.socialEditText);
+        firstName = findViewById(R.id.firstNameEditText);
         authenticationHandler=new AuthenticationHandler();
     }
 
@@ -44,7 +40,8 @@ public class ClubRegistration extends AppCompatActivity implements Registration 
         if(!validateInputs()){return;}
         User user;//to hold new users
 
-        user = new Club(username.getText().toString().trim(), password.getText().toString().trim(), email.getText().toString().trim(), bio.getText().toString().trim(), socialMedia.getText().toString().trim(), contactName.getText().toString().trim(), phoneNumber.getText().toString().trim());
+        user = new Participant(username.getText().toString().trim(), password.getText().toString().trim(), email.getText().toString().trim(), bio.getText().toString().trim());
+        user.setUsername(firstName.getText().toString().trim());
         //makes the user with the info to be saved a little later
         authenticationHandler.signUp(this, user, email.getText().toString().trim(), password.getText().toString().trim(), this, this);
     }
@@ -55,12 +52,12 @@ public class ClubRegistration extends AppCompatActivity implements Registration 
      * @param user the user that was just registered
      */
     public void onRegistrationComplete(User user){
-        Toast.makeText(ClubRegistration.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ParticipantCanRegister.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
 
         //switches window to welcome window
         Intent intent = new Intent(getApplicationContext(), Welcome.class);
         // Adds information to the intent for the welcome page to access
-        intent.putExtra("firstName", username.getText().toString());
+        intent.putExtra("firstName", firstName.getText().toString());
         intent.putExtra("role", user.getRole().toString());
 
         startActivity (intent);
@@ -83,46 +80,34 @@ public class ClubRegistration extends AppCompatActivity implements Registration 
     private boolean validateInputs(){
         //if username is left empty, that's a nono
         if (username.getText().length() == 0) {
-            Toast.makeText(ClubRegistration.this, "You need a username!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ParticipantCanRegister.this, "You need a username!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (phoneNumber.getText().length() == 0) {
-            Toast.makeText(ClubRegistration.this, "You need a phone number!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        // checks that the phone number is 10 digits
-        if (!phoneNumber.getText().toString().matches("^\\d{10}$")) {
-            Toast.makeText(ClubRegistration.this, "You need a valid phone number with 10 digits!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (socialMedia.getText().length() == 0) {
-            Toast.makeText(ClubRegistration.this, "You need a social media link!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        // checks that the social media link is in the form https://name.com/name or http://name.org/name
-        if (!socialMedia.getText().toString().matches("^https?://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/.*$")) {
-            Toast.makeText(ClubRegistration.this, "Invalid social media link!", Toast.LENGTH_SHORT).show();
+        if (firstName.getText().length() == 0) {
+            Toast.makeText(ParticipantCanRegister.this, "You need a first name!", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (email.getText().length() == 0) {
-            Toast.makeText(ClubRegistration.this, "You need an email!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ParticipantCanRegister.this, "You need an email!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //if the first name is empty, or if it doesn't match standard email rules (RFC 5322)
+        if (!firstName.getText().toString().matches(".*\\p{L}.*")) {
+            Toast.makeText(ParticipantCanRegister.this, "You need a valid first name with letters!", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (!email.getText().toString().matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
-            Toast.makeText(ClubRegistration.this, "Invalid email address!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ParticipantCanRegister.this, "Invalid email address!", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (password.getText().toString().length() < 6) {
-            Toast.makeText(ClubRegistration.this, "Password must be at least 6 characters long!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        // checks that the contact name is a valid name, if there is any
-        if (!contactName.getText().toString().matches("^[A-Za-z]*([ ][A-Za-z]+)?$|^$")) {
-            Toast.makeText(ClubRegistration.this, "You need a valid contact name formed of letters!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ParticipantCanRegister.this, "Password must be at least 6 characters long!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         return true;
     }
+
+
 
 }

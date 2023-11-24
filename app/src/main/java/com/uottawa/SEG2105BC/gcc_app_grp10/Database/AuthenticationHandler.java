@@ -5,7 +5,7 @@ import android.content.Context;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Activities.MainActivity;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Activities.Registration;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanRegister;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 public class AuthenticationHandler {
@@ -27,7 +27,7 @@ public class AuthenticationHandler {
      * @param activity the current activity being displayed
      * @param context no clue honestly, might be the main thread
      */
-    public void signUp(Registration main, User user, String email, String password, final Activity activity, final Context context) {
+    public void signUp(CanRegister main, User user, String email, String password, final Activity activity, final Context context) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {

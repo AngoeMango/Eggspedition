@@ -25,7 +25,6 @@ public class Club extends User{
     public Club(DataSnapshot dataSnapshot){
         super(dataSnapshot);
         events=new HashMap<>();
-
     }
 
     public void createEvent(){
@@ -39,7 +38,7 @@ public class Club extends User{
 
     @Override
     public String getRole(){
-        return "Club";
+        return "club";
     }
 
     public Event getEvent(String name){

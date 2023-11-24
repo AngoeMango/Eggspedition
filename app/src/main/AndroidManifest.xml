@@ -22,16 +22,16 @@
             android:name=".Activities.AdminWelcome"
             android:exported="false" />
         <activity
-            android:name=".Activities.Registration"
+            android:name=".Database.Interfaces.CanRegister"
             android:exported="false" />
         <activity
-            android:name=".Activities.ParticipantRegistration"
+            android:name=".Activities.ParticipantCanRegister"
             android:exported="false" />
         <activity
-            android:name=".Activities.ClubRegistration"
+            android:name=".Activities.ClubCanRegister"
             android:exported="false" />
         <activity
-            android:name=".Activities.AdminRegistration"
+            android:name=".Activities.AdminCanRegister"
             android:exported="false" />
         <activity
             android:name=".Activities.Welcome"

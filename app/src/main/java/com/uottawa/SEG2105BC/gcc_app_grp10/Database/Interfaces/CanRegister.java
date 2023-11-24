@@ -1,12 +1,12 @@
-package com.uottawa.SEG2105BC.gcc_app_grp10.Activities;
+package com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces;
 
 
 import android.view.View;
-import android.widget.EditText;
+
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 
-public interface Registration {
+public interface CanRegister {
 
 
 

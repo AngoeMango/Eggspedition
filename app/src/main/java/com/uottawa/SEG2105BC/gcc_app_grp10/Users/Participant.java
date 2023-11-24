@@ -14,7 +14,7 @@ public class Participant extends User{
 
     @Override
     public String getRole(){
-        return "Participant";
+        return "participant";
     }
 
     //To be implemented

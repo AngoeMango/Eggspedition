@@ -41,19 +41,19 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
 
     public void toRegisterParticipantPageButton(View view){
         //when go to register gets pressed, bring you to register page
-        Intent intent = new Intent(getApplicationContext(), ParticipantRegistration.class);
+        Intent intent = new Intent(getApplicationContext(), ParticipantCanRegister.class);
         startActivity(intent);
     }
 
     public void toRegisterClubPageButton(View view){
         //when go to register gets pressed, bring you to register page
-        Intent intent = new Intent(getApplicationContext(), ClubRegistration.class);
+        Intent intent = new Intent(getApplicationContext(), ClubCanRegister.class);
         startActivity (intent);
     }
 
     public void toRegisterAdminPageButton(View view){
         //when go to register gets pressed, bring you to register page
-        Intent intent = new Intent(getApplicationContext(), AdminRegistration.class);
+        Intent intent = new Intent(getApplicationContext(), AdminCanRegister.class);
         startActivity (intent);
     }
 
@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
     public void onLoginAuthorisationFailure(){
         Snackbar.make(findViewById(android.R.id.content), "No user exists with given role (or password is wrong)!", Snackbar.LENGTH_LONG).show();
     }
+
+
 
     /**
      * called by the DatabaseHandler is the retrieval fails
