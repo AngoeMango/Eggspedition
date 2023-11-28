@@ -38,6 +38,7 @@ public class EditEventProperties extends AppCompatActivity implements CanReceive
     String clubName;
     ArrayList<SpecifiedProperty> eventSpecifiedProperties;
     ArrayList<Integer> fieldValueIDs;
+    String callingClubName;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -52,8 +53,9 @@ public class EditEventProperties extends AppCompatActivity implements CanReceive
         clubName = intent.getStringExtra("clubName");
         eventName = intent.getStringExtra("eventName");
         eventTypeName = intent.getStringExtra("eventTypeName");
+        callingClubName = intent.getStringExtra("callingClubName");
 
-        databaseHandler.loadEvent(this, getIntent().getStringExtra("eventName"), clubName, "editEvent");
+        databaseHandler.loadEvent(this, getIntent().getStringExtra("eventName"), callingClubName, "editEvent");
     }
 
     public void onEventRetrieved (String retrievingFunctionName, Event event) {

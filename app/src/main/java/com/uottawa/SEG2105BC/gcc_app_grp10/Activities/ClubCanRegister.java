@@ -91,8 +91,8 @@ public class ClubCanRegister extends AppCompatActivity implements CanRegister {
             Toast.makeText(ClubCanRegister.this, "You need a phone number!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        // checks that the phone number is 10 digits
-        if (!phoneNumber.getText().toString().matches("^\\d{10}$")) {
+        // checks that the phone number is valid according to https://ihateregex.io/expr/phone/
+        if (!phoneNumber.getText().toString().matches("^^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$")) {
             Toast.makeText(ClubCanRegister.this, "You need a valid phone number with 10 digits!", Toast.LENGTH_SHORT).show();
             return false;
         }
