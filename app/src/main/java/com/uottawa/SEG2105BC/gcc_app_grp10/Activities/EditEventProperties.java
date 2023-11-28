@@ -47,7 +47,13 @@ public class EditEventProperties extends AppCompatActivity implements CanReceive
         fieldValueIDs = new ArrayList<>();
 
         DatabaseHandler databaseHandler = new DatabaseHandler();
-        databaseHandler.loadEvent(this, getIntent().getStringExtra("eventName"), "editEvent");
+
+        Intent intent = getIntent();
+        clubName = intent.getStringExtra("clubName");
+        eventName = intent.getStringExtra("eventName");
+        eventTypeName = intent.getStringExtra("eventTypeName");
+
+        databaseHandler.loadEvent(this, getIntent().getStringExtra("eventName"), clubName, "editEvent");
     }
 
     public void onEventRetrieved (String retrievingFunctionName, Event event) {

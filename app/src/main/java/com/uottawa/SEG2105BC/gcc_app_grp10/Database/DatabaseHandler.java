@@ -46,6 +46,7 @@ public class DatabaseHandler {
     }
 
     public void addEvent(String eventName, Event event){
+        System.out.println(event.getClubName());
 
         ref.child("events/"+eventName).setValue(event);
     }
@@ -103,7 +104,7 @@ public class DatabaseHandler {
      * @param eventName             the name of the event your looking for
      * @param retrievingFunctionName
      */
-    public void loadEvent(CanReceiveAnEvent main, String eventName, String retrievingFunctionName){
+    public void loadEvent(CanReceiveAnEvent main, String eventName, String callingClubName, String retrievingFunctionName){
         DatabaseReference userRef= ref.child("events/"+eventName);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -112,7 +113,14 @@ public class DatabaseHandler {
                     System.out.println("database works");
                     // Retrieve data from the DataSnapshot
                     Event event=new Event(dataSnapshot);
-                    main.onEventRetrieved(retrievingFunctionName, event);
+
+                    if (!event.getClubName().equals(callingClubName)) {
+                        main.onEventDatabaseFailure("callingClubNotAuthorized");
+                    }
+                    else {
+                        main.onEventRetrieved(retrievingFunctionName, event);
+                    }
+
                 }
                 else{
                     main.onEventDatabaseFailure(retrievingFunctionName);

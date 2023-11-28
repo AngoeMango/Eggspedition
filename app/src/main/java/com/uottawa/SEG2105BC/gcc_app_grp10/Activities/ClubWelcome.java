@@ -57,7 +57,7 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, addEventName.getText().toString(), "addEvent");        }
+            databaseHandler.loadEvent(this, addEventName.getText().toString(),clubName,  "addEvent");        }
     }
 
     public void onEditEventButton(View view) {
@@ -67,7 +67,7 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, addEventName.getText().toString(), "editEvent");        }
+            databaseHandler.loadEvent(this, addEventName.getText().toString(), clubName, "editEvent");        }
     }
 
     public void onDeleteEventButton(View view) {
@@ -76,7 +76,7 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, addEventName.getText().toString(), "deleteEvent");        }
+            databaseHandler.loadEvent(this, addEventName.getText().toString(), clubName,  "deleteEvent");        }
     }
 
     @Override
@@ -88,6 +88,8 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
             case "editEvent":
                 Intent intent = new Intent(getApplicationContext(), EditEventProperties.class);
                 intent.putExtra("eventName", event.getName());
+                intent.putExtra("eventTypeName", event.getEventTypeName());
+                intent.putExtra("clubName", clubName);
                 startActivity(intent);
                 break;
             case "deleteEvent":
@@ -107,6 +109,7 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
             case "addEvent":
                 Intent intent = new Intent(getApplicationContext(), AddEventProperties.class);
                 intent.putExtra("eventName", addEventName.getText().toString());
+                intent.putExtra("clubName", clubName);
                 startActivity(intent);
                 break;
             case "editEvent":
@@ -114,6 +117,9 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
                 break;
             case "deleteEvent":
                 Snackbar.make(findViewById(android.R.id.content),  "No event exists with that name!", Snackbar.LENGTH_LONG).show();
+                break;
+            case "callingClubNotAuthorized":
+                Snackbar.make(findViewById(android.R.id.content), "You can only allowed to make changes to events your club created!", Snackbar.LENGTH_LONG).show();
                 break;
             default:
                 Snackbar.make(findViewById(android.R.id.content), "Invalid event type name (or other database failure)!", Snackbar.LENGTH_LONG).show();

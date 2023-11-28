@@ -44,7 +44,8 @@ public class Event {
      */
     public Event(DataSnapshot dataSnapshot) {
         name = dataSnapshot.child("name").getValue(String.class);
-        eventTypeName = dataSnapshot.child("name").getValue(String.class);
+        eventTypeName = dataSnapshot.child("eventTypeName").getValue(String.class);
+        clubName = dataSnapshot.child("clubName").getValue(String.class);
         specifiedProperties = new ArrayList<>();
         for (DataSnapshot propertySnapshot : dataSnapshot.child("specifiedProperties").getChildren()) {
             specifiedProperties.add(new SpecifiedProperty(propertySnapshot.child("value").getValue(Object.class), propertySnapshot.child("propertyType").getValue(PropertyType.class)));
@@ -77,6 +78,7 @@ public class Event {
     public String getName() {
         return name;
     }
+
 
     public ArrayList<SpecifiedProperty> getSpecifiedProperties() {
         return specifiedProperties;

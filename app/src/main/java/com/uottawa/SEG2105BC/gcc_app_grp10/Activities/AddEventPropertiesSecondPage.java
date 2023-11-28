@@ -142,6 +142,8 @@ public class AddEventPropertiesSecondPage extends AppCompatActivity implements C
 
         Event event = new Event(eventName, eventType, specifiedProperties, clubName);
 
+        System.out.println("Club name: " + clubName);
+
         DatabaseHandler databaseHandler = new DatabaseHandler();
 
         databaseHandler.addEvent(eventName, event);
