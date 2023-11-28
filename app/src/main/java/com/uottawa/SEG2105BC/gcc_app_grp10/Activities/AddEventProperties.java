@@ -45,8 +45,6 @@ public class AddEventProperties extends AppCompatActivity implements CanReceiveE
     }
 
     public void onEventTypesRetrieved (ArrayList<EventType> eventTypes) {
-        System.out.println("WHAT HAPPENED");
-        System.out.println(eventTypes.get(1));
         LinearLayout linearLayout = findViewById(R.id.fieldsLinearLayoutClub);
 
         RadioGroup radioGroup = new RadioGroup(this);

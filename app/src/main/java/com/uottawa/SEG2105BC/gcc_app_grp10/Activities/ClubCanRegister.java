@@ -101,8 +101,8 @@ public class ClubCanRegister extends AppCompatActivity implements CanRegister {
             return false;
         }
         // checks that the social media link is in the form https://name.com/name or http://name.org/name
-        if (!socialMedia.getText().toString().matches("^https?://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/.*$")) {
-            Toast.makeText(ClubCanRegister.this, "Invalid social media link!", Toast.LENGTH_SHORT).show();
+        if (!socialMedia.getText().toString().matches("^(https?:\\/\\/)?[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/.*)?$")) {
+            Toast.makeText(ClubCanRegister.this, "Invalid social media link (need domain)!", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (email.getText().length() == 0) {

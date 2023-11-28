@@ -39,6 +39,7 @@ public class EditEventTypeProperties extends AppCompatActivity {
         Intent intent = getIntent();
         eventTypeName = intent.getStringExtra("eventTypeName");
         eventTypeProperties = (ArrayList<PropertyType>) intent.getSerializableExtra("eventTypeProperties");
+        System.out.println(eventTypeProperties);
         fields = new HashMap<>();
 
         admin = new Admin("admin", "admin1", "admin@admin.com");
@@ -75,7 +76,6 @@ public class EditEventTypeProperties extends AppCompatActivity {
                     RadioGroup.LayoutParams.MATCH_PARENT,
                     RadioGroup.LayoutParams.WRAP_CONTENT));
             radioGroup.setOrientation(RadioGroup.HORIZONTAL);
-
             RadioButton stringButton = new RadioButton(this);
             int stringButtonID = View.generateViewId();
             stringButton.setId(stringButtonID);

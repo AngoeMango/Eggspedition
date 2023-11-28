@@ -18,6 +18,8 @@ public abstract class User {
                 return new Club(dataSnapshot);
             case "participant":
                 return new Participant(dataSnapshot);
+            case "admin":
+                return new Admin("admin", "admin1", "admin@admin");
             default:
                 throw new InvalidParameterException();
         }

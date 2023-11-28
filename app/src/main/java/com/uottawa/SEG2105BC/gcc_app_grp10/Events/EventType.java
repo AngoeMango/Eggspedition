@@ -27,9 +27,10 @@ public class EventType implements Serializable {
     public EventType(DataSnapshot dataSnapshot){
         name=dataSnapshot.child("name").getValue(String.class);
         requiredPropertyTypes = new ArrayList<>();
-        for (DataSnapshot propertySnapshot : dataSnapshot.child("properties").getChildren()) {
+        for (DataSnapshot propertySnapshot : dataSnapshot.child("requiredPropertyTypes").getChildren()) {
             requiredPropertyTypes.add(new PropertyType(propertySnapshot.child("name").getValue(String.class), propertySnapshot.child("type").getValue(String.class)));
         }
+
     }
 
     /*
