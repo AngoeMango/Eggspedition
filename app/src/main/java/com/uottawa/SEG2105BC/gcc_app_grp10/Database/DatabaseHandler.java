@@ -114,8 +114,15 @@ public class DatabaseHandler {
                     // Retrieve data from the DataSnapshot
                     Event event=new Event(dataSnapshot);
 
+
+
                     if (!event.getClubName().equals(callingClubName)) {
-                        main.onEventDatabaseFailure("callingClubNotAuthorized");
+                        if (retrievingFunctionName.equals("addEvent")) {
+                            main.onEventRetrieved("addEvent", event);
+                        }
+                        else {
+                            main.onEventDatabaseFailure("callingClubNotAuthorized");
+                        }
                     }
                     else {
                         main.onEventRetrieved(retrievingFunctionName, event);

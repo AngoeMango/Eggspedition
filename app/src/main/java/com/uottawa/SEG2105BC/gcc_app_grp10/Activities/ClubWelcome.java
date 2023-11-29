@@ -89,7 +89,8 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
                 Intent intent = new Intent(getApplicationContext(), EditEventProperties.class);
                 intent.putExtra("eventName", event.getName());
                 intent.putExtra("eventTypeName", event.getEventTypeName());
-                intent.putExtra("clubName", clubName);
+                intent.putExtra("clubName", event.getClubName());
+                intent.putExtra("callingClubName", clubName);
                 startActivity(intent);
                 break;
             case "deleteEvent":
