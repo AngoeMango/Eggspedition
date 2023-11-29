@@ -130,6 +130,11 @@ public class EditEventProperties extends AppCompatActivity implements CanReceive
 
             String fieldValue = fieldValueEditText.getText().toString();
 
+            if (fieldValue.equals("")) {
+                Snackbar.make(findViewById(android.R.id.content), "You must fill in all fields!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             // Add the specified property
             SpecifiedProperty newSpecifiedProperty = null;
             try {

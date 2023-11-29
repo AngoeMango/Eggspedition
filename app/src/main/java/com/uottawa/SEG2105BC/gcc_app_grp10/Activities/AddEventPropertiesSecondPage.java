@@ -116,6 +116,11 @@ public class AddEventPropertiesSecondPage extends AppCompatActivity implements C
 
             String fieldValue = fieldValueEditText.getText().toString();
 
+            if (fieldValue.equals("")) {
+                Snackbar.make(findViewById(android.R.id.content), "You must fill in all fields!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             // Add the specified property
             SpecifiedProperty specifiedProperty = null;
             try {
