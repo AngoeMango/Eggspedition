@@ -5,7 +5,7 @@ import com.google.firebase.database.DataSnapshot;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 
-public class Participant extends User{
+public class Participant extends User {
     private String firstName;
 
     public Participant(String username, String password, String email, String bio){
@@ -38,4 +38,5 @@ public class Participant extends User{
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
 }
