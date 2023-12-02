@@ -56,12 +56,14 @@ public class Event {
     /**
      * The idea here is the event is valid if it has a value for every property type
      * it can have other propertyTypes and values if it wants to though
-     * @return whether or not the event is valide
+     * @return whether or not the event is valid
      */
     public boolean validate(){
         for (PropertyType requiredType:eventType.getRequiredPropertyTypes()) {
             if(!specifiedProperties.contains(requiredType))return false;
         }
+        DatabaseHandler handler=new DatabaseHandler();
+        handler.addEvent(name,this);
         return true;
     }
 
@@ -93,8 +95,8 @@ public class Event {
     }
 
 
-    public void setName(String name) {
-        this.name = name;
-    }
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
 }

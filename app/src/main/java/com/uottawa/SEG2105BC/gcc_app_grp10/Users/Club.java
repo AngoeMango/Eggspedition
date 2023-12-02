@@ -2,20 +2,27 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
 import com.google.firebase.database.DataSnapshot;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEvent;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Club extends User{
+public class Club extends User implements CanReceiveAnEvent {
     private HashMap<String ,Event> events;
+
+    //This is what will be stored in the database and used to load the events into the hashmap
+    private ArrayList<String> eventNames;
     private String socialMediaLink;
     private String phoneNumber;
     private String mainContactName;
 
+
     public Club(String username, String password, String email, String bio, String socialMediaLink, String mainContactName, String phoneNumber){
         super(username, password, email, bio);
         events=new HashMap<>();
+        eventNames=new ArrayList<>();
         this.mainContactName=mainContactName;
         this.phoneNumber=phoneNumber;
         this.socialMediaLink=socialMediaLink;
@@ -24,6 +31,24 @@ public class Club extends User{
     public Club(DataSnapshot dataSnapshot){
         super(dataSnapshot);
         events=new HashMap<>();
+        DatabaseHandler handler=new DatabaseHandler();
+        eventNames = dataSnapshot.child("eventNames").getValue(ArrayList.class);
+        if(eventNames!=null) {
+            for (String name : eventNames) {
+                handler.loadEvent(this, name, super.getUsername(), "");
+            }
+        }
+
+    }
+
+    @Override
+    public void onEventDatabaseFailure(String retrievingFunctionName) {
+
+    }
+
+    @Override
+    public void onEventRetrieved(String retrievingFunctionName, Event event) {
+        events.put(event.getName(), event);
     }
 
     @Override

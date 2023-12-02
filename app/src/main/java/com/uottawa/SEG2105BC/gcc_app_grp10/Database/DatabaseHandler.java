@@ -47,7 +47,6 @@ public class DatabaseHandler {
 
     public void addEvent(String eventName, Event event){
         System.out.println(event.getClubName());
-
         ref.child("events/"+eventName).setValue(event);
     }
 
@@ -113,9 +112,7 @@ public class DatabaseHandler {
                     System.out.println("database works");
                     // Retrieve data from the DataSnapshot
                     Event event=new Event(dataSnapshot);
-
-
-
+                    //verification that the club trying to access the event should have access to it
                     if (!event.getClubName().equals(callingClubName)) {
                         if (retrievingFunctionName.equals("addEvent")) {
                             main.onEventRetrieved("addEvent", event);
@@ -127,7 +124,6 @@ public class DatabaseHandler {
                     else {
                         main.onEventRetrieved(retrievingFunctionName, event);
                     }
-
                 }
                 else{
                     main.onEventDatabaseFailure(retrievingFunctionName);
@@ -224,6 +220,12 @@ public class DatabaseHandler {
 
 
     public void addNewUserData(String userId, String role, User user){
+        if(role.equals("club")){
+            Club club=(Club)user;
+            for (String eventName:club.getEvents().keySet()) {
+                club.getEvent(eventName).validate();
+            }
+        }
         ref.child("users/theAdminsLittleBlackBook/"+user.getUsername()).setValue(userId);
         ref.child("users/"+role+"/"+userId).setValue(user);
     }

@@ -1,4 +1,4 @@
-package com.uottawa.SEG2105BC.gcc_app_grp10.Activities;
+package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
 public class Rating {
     String ratingID;
