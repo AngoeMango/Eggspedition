@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements CanReceiveAUser {
             startActivity(intent);
         }
         else if (user.getClass().equals(Participant.class)) {
-            Intent intent = new Intent(getApplicationContext(), Welcome.class);
+            Intent intent = new Intent(getApplicationContext(), ParticipantWelcome.class);
             intent.putExtra("participantEmail", user.getEmail());
             intent.putExtra("participantPassword", user.getPassword());
             startActivity(intent);

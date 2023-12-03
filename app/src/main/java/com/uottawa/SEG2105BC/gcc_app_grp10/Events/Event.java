@@ -4,10 +4,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Club;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Event {
+public class Event implements Serializable {
     private String name;
     private ArrayList<SpecifiedProperty> specifiedProperties;
 
