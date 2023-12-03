@@ -41,14 +41,12 @@ public class DatabaseHandler {
      */
 
 
+
     public void addEventType(EventType eventType){
         ref.child("eventTypes/"+eventType.getName()).setValue(eventType);
     }
 
-    public void addEvent(String eventName, Event event){
-        System.out.println(event.getClubName());
-        ref.child("events/"+eventName).setValue(event);
-    }
+
 
     public void deleteEventType(String eventTypeName){
         ref.child("eventTypes/"+eventTypeName).removeValue();
@@ -82,84 +80,6 @@ public class DatabaseHandler {
                 }
                 else{
                     main.onEventTypeDatabaseFailure(retrievingFunctionName);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("uh oh");
-            }
-        });
-    }
-
-
-    /*
-    Event Methods
-     */
-
-    /**
-     * used to load an Event from the database
-     *
-     * @param main                  the class currently controlling the main thread
-     * @param eventName             the name of the event your looking for
-     * @param retrievingFunctionName
-     */
-    public void loadEvent(CanReceiveAnEvent main, String eventName, String callingClubName, String retrievingFunctionName){
-        DatabaseReference userRef= ref.child("events/"+eventName);
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    System.out.println("database works");
-                    // Retrieve data from the DataSnapshot
-                    Event event=new Event(dataSnapshot);
-                    //verification that the club trying to access the event should have access to it
-                    if (!event.getClubName().equals(callingClubName)) {
-                        if (retrievingFunctionName.equals("addEvent")) {
-                            main.onEventRetrieved("addEvent", event);
-                        }
-                        else {
-                            main.onEventDatabaseFailure("callingClubNotAuthorized");
-                        }
-                    }
-                    else {
-                        main.onEventRetrieved(retrievingFunctionName, event);
-                    }
-                }
-                else{
-                    main.onEventDatabaseFailure(retrievingFunctionName);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("uh oh");
-            }
-        });
-    }
-
-    /**
-     * used to load an Event from the database
-     *
-     * @param main                  the class currently controlling the main thread
-     */
-    public void loadAllEvents(CanReceiveEvents main){
-        DatabaseReference userRef= ref.child("events");
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    System.out.println("database works");
-                    // Retrieve data from the DataSnapshot
-                    ArrayList<Event> events=new ArrayList<>();
-                    for (DataSnapshot folderSnapshot : dataSnapshot.getChildren()) {
-                        Event event = folderSnapshot.getValue(Event.class);
-                        events.add(event);
-
-                    }
-
-                    main.onEventsRetrieved(events);
-                }
-                else{
-                    main.onEventsDatabaseFailure();
                 }
             }
             @Override
@@ -204,10 +124,246 @@ public class DatabaseHandler {
         });
     }
 
-    public void deleteEvent(String eventName){
+
+
+
+    /*
+    Event Methods
+     */
+
+
+
+
+    /**
+     * used to load an Event from the database
+     *
+     * @param main                  the class currently controlling the main thread
+     * @param eventName             the name of the event your looking for
+     * @param retrievingFunctionName
+     */
+    public void loadEvent(CanReceiveAnEvent main, String eventName, String callingClubName, String retrievingFunctionName){
+        DatabaseReference userRef= ref.child("events/"+eventName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    Event event=new Event(dataSnapshot);
+                    //verification that the club trying to access the event should have access to it
+                    if (!event.getClubName().equals(callingClubName)) {
+                        if (retrievingFunctionName.equals("addEvent")) {
+                            main.onEventRetrieved("addEvent", event);
+                        }
+                        else {
+                            main.onEventDatabaseFailure("callingClubNotAuthorized");
+                        }
+                    }
+                    else {
+                        main.onEventRetrieved(retrievingFunctionName, event);
+                    }
+                }
+                else{
+                    main.onEventDatabaseFailure(retrievingFunctionName);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+
+    public void loadEventsFromEventTypeName(CanReceiveEvents main, String eventTypeName){
+        DatabaseReference userRef= ref.child("eventsByEventType/"+eventTypeName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    ArrayList<String> eventNames=dataSnapshot.getValue(ArrayList.class);
+                    //verification that the club trying to access the event should have access to it
+                    loadMultipleEvents(main,eventNames);
+                }
+                else{
+                    main.onEventsDatabaseFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+    public void loadEventsFromClubName(CanReceiveEvents main, String clubName){
+        DatabaseReference userRef= ref.child("clubs/"+clubName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    Club club=dataSnapshot.getValue(Club.class);
+                    //verification that the club trying to access the event should have access to it
+                    ArrayList<String> eventNames=new ArrayList<>();
+                    for (Event event:club.getEvents().values()) {
+                        eventNames.add(event.getName());
+                    }
+                    loadMultipleEvents(main, eventNames);
+                }
+                else{
+                    main.onEventsDatabaseFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+    public void loadMultipleEvents(CanReceiveEvents main, ArrayList<String> eventNames){
+        for (String name:eventNames) {
+            DatabaseReference userRef= ref.child("events/"+name);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        System.out.println("database works");
+                        // Retrieve data from the DataSnapshot
+                        Event event=new Event(dataSnapshot);
+                        //verification that the club trying to access the event should have access to it
+                        eventCollector(main, event, eventNames.size());
+                    }
+                    else{
+                        main.onEventsDatabaseFailure();
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    System.out.println("uh oh");
+                }
+            });
+        }
+
+    }
+
+    private ArrayList<Event> events=new ArrayList<>();
+    private int eventsLoaded=0;
+    private void eventCollector(CanReceiveEvents main, Event event, int eventsToLoad){
+        events.add(event);
+        eventsLoaded++;
+        if(eventsToLoad==eventsLoaded){
+            main.onEventsRetrieved(events);
+            //Are these unreachable
+            System.out.println("They were reached!!! line 235 databaseHandler");
+            events=new ArrayList<>();
+            eventsLoaded=0;
+        }
+    }
+
+
+
+
+    /**
+     * used to load an Event from the database
+     *
+     * @param main                  the class currently controlling the main thread
+     */
+    public void loadAllEvents(CanReceiveEvents main){
+        DatabaseReference userRef= ref.child("events");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    ArrayList<Event> events=new ArrayList<>();
+                    for (DataSnapshot folderSnapshot : dataSnapshot.getChildren()) {
+                        Event event = folderSnapshot.getValue(Event.class);
+                        events.add(event);
+
+                    }
+
+                    main.onEventsRetrieved(events);
+                }
+                else{
+                    main.onEventsDatabaseFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+
+
+    public void deleteEvent(String eventName, Event event){
         System.out.println("Event name" + eventName);
         ref.child("events/"+eventName).removeValue();
+        deleteEventFromEventTypesFolder(eventName, event.getEventTypeName());
     }
+
+    private void deleteEventFromEventTypesFolder(String eventName, String eventTypeName){
+        DatabaseReference userRef= ref.child("eventsByEventType/"+eventTypeName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    ArrayList<String> eventNames=dataSnapshot.getValue(ArrayList.class);
+                    eventNames.remove(eventName);
+                    //verification that the club trying to access the event should have access to it
+                    ref.child("eventsByEventType/"+eventTypeName).setValue(eventNames);
+                }
+                else{
+                    System.out.println("Database failure line 306 in databaseHandler");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+    public void addEvent(String eventName, Event event){
+        System.out.println(event.getClubName());
+        ref.child("events/"+eventName).setValue(event);
+        addEventToEventTypesFolder(eventName,event.getEventTypeName());
+    }
+
+    private void addEventToEventTypesFolder(String eventName, String eventTypeName){
+        DatabaseReference userRef= ref.child("eventsByEventType/"+eventTypeName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    ArrayList<String> eventNames=dataSnapshot.getValue(ArrayList.class);
+                    eventNames.add(eventName);
+                    //verification that the club trying to access the event should have access to it
+                    ref.child("eventsByEventType/"+eventTypeName).setValue(eventNames);
+                }
+                else{
+                    System.out.println("Database failure line 306 in databaseHandler");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+
 
 
 
@@ -307,7 +463,7 @@ public class DatabaseHandler {
 
 
     /*
-    methods for deleting data from the database
+    methods for deleting users from the database
     */
 
 

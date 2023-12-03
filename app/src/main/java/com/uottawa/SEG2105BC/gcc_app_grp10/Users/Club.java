@@ -18,6 +18,8 @@ public class Club extends User implements CanReceiveAnEvent {
     private String phoneNumber;
     private String mainContactName;
 
+    private ArrayList<Rating> ratings;
+
 
     public Club(String username, String password, String email, String bio, String socialMediaLink, String mainContactName, String phoneNumber){
         super(username, password, email, bio);
@@ -26,10 +28,19 @@ public class Club extends User implements CanReceiveAnEvent {
         this.mainContactName=mainContactName;
         this.phoneNumber=phoneNumber;
         this.socialMediaLink=socialMediaLink;
+        ratings=new ArrayList<>();
     }
 
+    /**
+     * Events have to be loaded from their folder, so we load the names then use the databaseHandler to find the events
+     * @param dataSnapshot
+     */
     public Club(DataSnapshot dataSnapshot){
         super(dataSnapshot);
+        mainContactName=dataSnapshot.child("mainContactName").getValue(String.class);
+        socialMediaLink=dataSnapshot.child("socialMediaLink").getValue(String.class);
+        phoneNumber=dataSnapshot.child("phoneNumber").getValue(String.class);
+        ratings=dataSnapshot.child("ratings").getValue(ArrayList.class);
         events=new HashMap<>();
         DatabaseHandler handler=new DatabaseHandler();
         eventNames = dataSnapshot.child("eventNames").getValue(ArrayList.class);

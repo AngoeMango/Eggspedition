@@ -2,6 +2,7 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEventType;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.PropertyType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanDeleteAUser;
@@ -50,8 +51,8 @@ public class Admin extends User{
         databaseHandler.loadEventType(main, name, receivingFunctionName);
     }
 
-    public void deleteEvent(String name){
-        databaseHandler.deleteEvent(name);
+    public void deleteEvent(String name, Event event){
+        databaseHandler.deleteEvent(name, event);
     }
 
     /**

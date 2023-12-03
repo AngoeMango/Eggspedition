@@ -95,8 +95,7 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
                 break;
             case "deleteEvent":
                 DatabaseHandler databaseHandler = new DatabaseHandler();
-                databaseHandler.deleteEvent(event.getName());
-
+                databaseHandler.deleteEvent(event.getName(), event);
                 Snackbar.make(findViewById(android.R.id.content), "Deleted event!", Snackbar.LENGTH_LONG).show();
                 break;
             default:
