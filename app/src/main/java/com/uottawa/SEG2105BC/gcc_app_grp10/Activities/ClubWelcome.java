@@ -57,7 +57,7 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, addEventName.getText().toString(),clubName,  "addEvent");        }
+            databaseHandler.loadEvent(this, addEventName.getText().toString(), "addEvent");        }
     }
 
     public void onEditEventButton(View view) {
@@ -67,7 +67,7 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, addEventName.getText().toString(), clubName, "editEvent");        }
+            databaseHandler.loadEvent(this, addEventName.getText().toString(), "editEvent");        }
     }
 
     public void onDeleteEventButton(View view) {
@@ -76,7 +76,7 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, addEventName.getText().toString(), clubName,  "deleteEvent");        }
+            databaseHandler.loadEvent(this, addEventName.getText().toString(), "deleteEvent");        }
     }
 
     @Override

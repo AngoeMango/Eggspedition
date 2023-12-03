@@ -1,6 +1,7 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEvent;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
@@ -40,15 +41,19 @@ public class Club extends User implements CanReceiveAnEvent {
         mainContactName=dataSnapshot.child("mainContactName").getValue(String.class);
         socialMediaLink=dataSnapshot.child("socialMediaLink").getValue(String.class);
         phoneNumber=dataSnapshot.child("phoneNumber").getValue(String.class);
-        ratings=dataSnapshot.child("ratings").getValue(ArrayList.class);
+        GenericTypeIndicator<ArrayList<Rating>> r = new GenericTypeIndicator<ArrayList<Rating>>() {};
+        ratings= dataSnapshot.child("ratings").getValue(r);
+        if(ratings==null)ratings=new ArrayList<>();
         events=new HashMap<>();
         DatabaseHandler handler=new DatabaseHandler();
-        eventNames = dataSnapshot.child("eventNames").getValue(ArrayList.class);
+        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+        eventNames= dataSnapshot.child("eventNames").getValue(t);
         if(eventNames!=null) {
             for (String name : eventNames) {
-                handler.loadEvent(this, name, super.getUsername(), "");
+                handler.loadEvent(this, super.getUsername(), "");
             }
         }
+
 
     }
 
@@ -59,6 +64,7 @@ public class Club extends User implements CanReceiveAnEvent {
 
     @Override
     public void onEventRetrieved(String retrievingFunctionName, Event event) {
+        System.out.println("temp");
         events.put(event.getName(), event);
     }
 

@@ -70,7 +70,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, searchText.getText().toString(), "null", "searchEvent");        }
+            databaseHandler.loadEvent(this, searchText.getText().toString(),"searchEvent");        }
     }
 
     public void onSearchEventTypeButton(View view) {
@@ -85,7 +85,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     }
 
     public void onEventRetrieved(String retrievingFunctionName, Event event) {
-
+        System.out.println(event.getName());
     }
 
     public void onEventDatabaseFailure(String retrievingFunctionName) {
@@ -102,6 +102,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
 
     @Override
     public void onEventsRetrieved (ArrayList<Event> events) {
+        System.out.println(events.get(0).getName());
         Intent intent = new Intent(getApplicationContext(), ParticipantSearchClubEvents.class);
         intent.putExtra("participantEmail", participantEmail);
         intent.putExtra("participantPassword", participantPassword);
