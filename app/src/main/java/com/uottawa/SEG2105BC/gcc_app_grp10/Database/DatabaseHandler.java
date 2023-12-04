@@ -512,6 +512,40 @@ public class DatabaseHandler {
     }
 
 
+    public void loadUserDataUsingUsername(CanReceiveAUser main, String username, String role){
+        System.out.println("trying to read");
+        DatabaseReference userRef;
+        //sends a request to the server for data
+        userRef = ref.child("users/theAdminsLittleBlackBook/" + username);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    try {
+                        System.out.println("database works");
+                        // Retrieve data from the DataSnapshot
+                        String userId = dataSnapshot.getValue(String.class);
+                        loadUserData(main,userId, role);
+                    }
+                    catch (Exception e) {
+                        System.out.println("rip");
+                        main.onUserDatabaseFailure();
+                    }
+                }
+                else{
+                    System.out.println("rip");
+                    main.onUserDatabaseFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("rip");
+            }
+        });
+
+    }
+
     /**
      * Loads the data of an existing user, and passes it back to the main thread via the onUserDataRetrieved() method
      * @param main the class currently controlling the main thread, has to have the right functions, i.e. implement the right interface
