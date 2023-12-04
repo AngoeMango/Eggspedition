@@ -111,7 +111,17 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     }
 
     @Override
-    public void onEventsDatabaseFailure () {
+    public void onEventsDatabaseFailure (String failureDescription) {
+        switch(failureDescription){
+            case "errorLoadingClub":
+                Toast.makeText(getApplicationContext(), "Event retrieval failed from club name given!", Toast.LENGTH_LONG).show();
+                break;
+            case "noEventsForClub":
+                Toast.makeText(getApplicationContext(), "No events for given club!", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_LONG).show();
+        }
         Toast.makeText(getApplicationContext(), "Event retrieval failed from club name given!", Toast.LENGTH_LONG).show();
     }
 }

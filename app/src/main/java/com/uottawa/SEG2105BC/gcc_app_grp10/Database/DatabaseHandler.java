@@ -179,7 +179,7 @@ public class DatabaseHandler {
                     loadMultipleEvents(main,eventNames);
                 }
                 else{
-                    main.onEventsDatabaseFailure();
+                    main.onEventsDatabaseFailure("errorLoadingEventType");
                 }
             }
             @Override
@@ -206,17 +206,17 @@ public class DatabaseHandler {
                         loadEventsFromClubNameHelper(main, userId);
                     }
                     catch (Exception e) {
-                        main.onEventsDatabaseFailure();
+                        main.onEventsDatabaseFailure("errorLoadingClub");
                     }
                 }
                 else{
-                    main.onEventsDatabaseFailure();
+                    main.onEventsDatabaseFailure("errorLoadingClub");
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println("uh oh");
-                main.onEventsDatabaseFailure();
+                main.onEventsDatabaseFailure("errorLoadingClub");
             }
         });
     }
@@ -236,7 +236,7 @@ public class DatabaseHandler {
                     loadMultipleEvents(main, eventNames);
                 }
                 else{
-                    main.onEventsDatabaseFailure();
+                    main.onEventsDatabaseFailure("errorLoadingClub");
                 }
             }
             @Override
@@ -247,6 +247,10 @@ public class DatabaseHandler {
     }
 
     public void loadMultipleEvents(CanReceiveEvents main, ArrayList<String> eventNames){
+        if (eventNames==null){
+            main.onEventsDatabaseFailure("noEventsForClub");
+            return;
+        }
         for (String name:eventNames) {
             DatabaseReference userRef= ref.child("events/"+name);
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -260,7 +264,7 @@ public class DatabaseHandler {
                         eventCollector(main, event, eventNames.size());
                     }
                     else{
-                        main.onEventsDatabaseFailure();
+                        main.onEventsDatabaseFailure("errorLoadingEvent");
                     }
                 }
                 @Override
@@ -310,7 +314,7 @@ public class DatabaseHandler {
                     main.onEventsRetrieved(events);
                 }
                 else{
-                    main.onEventsDatabaseFailure();
+                    main.onEventsDatabaseFailure("errorLoadingEvents");
                 }
             }
             @Override

@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ParticipantSearchClubEvents">
+    tools:context=".Activities.ParticipantSearchEventsSecondPage">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/parentFieldsLinearLayoutEventsSearch"
+            android:id="@+id/parentFieldsLinearLayoutEventsSearchSecondPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/fieldsLinearLayoutEventsSearch"
+                android:id="@+id/fieldsLinearLayoutEventsSearchSecondPage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -27,12 +27,11 @@
                     android:layout_height="24dp" />
 
                 <TextView
-                    android:id="@+id/selectEventSearch"
+                    android:id="@+id/selectEventSearchSecondPage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Select Event To View Its Details"
-                    android:textSize="24sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <Space
@@ -42,11 +41,18 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/selectEventSearchButton"
+                android:id="@+id/selectEventSearchButtonSecondPage2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="onSelectEventSearchButton"
-                android:text="View Details About Event" />
+                android:onClick="onSelectEventSearchButtonSecondPage"
+                android:text="Join Event" />
+
+            <Button
+                android:id="@+id/selectEventSearchButtonSecondPage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="goBack"
+                android:text="Go Back" />
 
         </LinearLayout>
 

@@ -60,7 +60,7 @@ public class Participant extends User implements CanReceiveEvents {
     }
 
     @Override
-    public void onEventsDatabaseFailure() {
+    public void onEventsDatabaseFailure(String failureDescription) {
         System.out.println("uh oh, participant couldn't load cause events it was part of don't exist");
     }
 

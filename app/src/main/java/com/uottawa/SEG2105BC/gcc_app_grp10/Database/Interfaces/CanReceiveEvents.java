@@ -8,5 +8,5 @@ public interface CanReceiveEvents {
     void onEventsRetrieved(ArrayList<Event> events);
 
 
-    void onEventsDatabaseFailure();
+    void onEventsDatabaseFailure(String failureDescription);
 }
