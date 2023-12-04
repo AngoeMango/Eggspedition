@@ -50,7 +50,7 @@ public class Club extends User implements CanReceiveAnEvent {
         eventNames= dataSnapshot.child("eventNames").getValue(t);
         if(eventNames!=null) {
             for (String name : eventNames) {
-                handler.loadEvent(this, super.getUsername(), "");
+                handler.loadEvent(this, name, "");
             }
         }
 

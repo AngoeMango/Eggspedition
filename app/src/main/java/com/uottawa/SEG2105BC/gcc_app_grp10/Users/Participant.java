@@ -3,6 +3,7 @@ package com.uottawa.SEG2105BC.gcc_app_grp10.Users;
 import android.provider.ContactsContract;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEvent;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveEvents;
@@ -16,12 +17,14 @@ public class Participant extends User implements CanReceiveEvents {
     private String firstName;
     private ArrayList<Event> eventsJoined;
 
+
     //This is what will be stored in the database and used to load the events into the hashmap
     private ArrayList<String> eventNames;
 
     public Participant(String username, String password, String email, String bio){
         super(username, password, email, bio);
         eventsJoined=new ArrayList<>();
+        eventNames=new ArrayList<>();
     }
 
     @Override
@@ -33,6 +36,8 @@ public class Participant extends User implements CanReceiveEvents {
     public void joinEvent(Event event) {
         eventsJoined.add(event);
         eventNames.add(event.getName());
+        DatabaseHandler handler=new DatabaseHandler();
+        handler.addEventToAssociatedUser(event.getEventTypeName(), getUsername(),getRole());
     }
 
     public void leaveEvent(Event event) {
@@ -47,7 +52,9 @@ public class Participant extends User implements CanReceiveEvents {
     public Participant(DataSnapshot dataSnapshot) {
         super(dataSnapshot);
         firstName=dataSnapshot.child("firstname").getValue(String.class);
-        eventsJoined=dataSnapshot.child("eventsJoined").getValue(ArrayList.class);
+        eventsJoined=new ArrayList<>();
+        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+        eventNames=dataSnapshot.child("eventName").getValue(t);
         if(eventNames!=null){
             DatabaseHandler handler=new DatabaseHandler();
             handler.loadMultipleEvents(this, eventNames);

@@ -361,7 +361,7 @@ public class DatabaseHandler {
         System.out.println(event.getClubName());
         ref.child("events/"+eventName).setValue(event);
         addEventToEventTypesFolder(eventName,event.getEventTypeName());
-        addEventToAssociatedClub(eventName, event.getClubName());
+        addEventToAssociatedUser(eventName, event.getClubName(), "club");
     }
 
     private void addEventToEventTypesFolder(String eventName, String eventTypeName){
@@ -392,10 +392,10 @@ public class DatabaseHandler {
         });
     }
 
-    public void addEventToAssociatedClub(String eventName, String clubName){
+    public void addEventToAssociatedUser(String eventName, String userName, String role){
         DatabaseReference userRef;
         //sends a request to the server for data
-        userRef = ref.child("users/theAdminsLittleBlackBook/" + clubName);
+        userRef = ref.child("users/theAdminsLittleBlackBook/" + userName);
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -405,7 +405,7 @@ public class DatabaseHandler {
                         System.out.println("database works");
                         // Retrieve data from the DataSnapshot
                         String userId = dataSnapshot.getValue(String.class);
-                        addEventToClubHelper(eventName, userId);
+                        addEventToUserHelper(eventName, userId, role);
                     }
                     catch (Exception e) {
                         System.out.println("uh oh");
@@ -423,8 +423,8 @@ public class DatabaseHandler {
         });
     }
 
-    private void addEventToClubHelper(String eventName, String clubId){
-        DatabaseReference userRef= ref.child("users/club/"+clubId);
+    private void addEventToUserHelper(String eventName, String userId, String role){
+        DatabaseReference userRef= ref.child("users/"+role+"/"+userId);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -436,7 +436,7 @@ public class DatabaseHandler {
                     if(eventNames==null){eventNames=new ArrayList<>();}
                     eventNames.add(eventName);
                     //verification that the club trying to access the event should have access to it
-                    ref.child("users/club/"+clubId+"/eventNames").setValue(eventNames);
+                    ref.child("users/"+role+"/"+userId+"/eventNames").setValue(eventNames);
                 }
                 else{
                     System.out.println("Database failure line 306 in databaseHandler");
@@ -448,6 +448,8 @@ public class DatabaseHandler {
             }
         });
     }
+
+
 
 
 
@@ -473,8 +475,40 @@ public class DatabaseHandler {
     }
 
     //method for updating data in the database
-    public void updateData(String userId, String role, String newData) {
-        ref.child("users/"+role+"/"+userId).setValue(newData);
+    public void updateUserData(String userId, String role, User user) {
+        ref.child("users/"+role+"/"+userId).setValue(user);
+    }
+
+    public void updateUserData(User user){
+        System.out.println("trying to read");
+        DatabaseReference userRef;
+        //sends a request to the server for data
+        userRef = ref.child("users/theAdminsLittleBlackBook/" + user.getUsername());
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    try {
+                        System.out.println("database works");
+                        // Retrieve data from the DataSnapshot
+                        String userId = dataSnapshot.getValue(String.class);
+                        updateUserData(userId, user.getRole(), user);
+                    }
+                    catch (Exception e) {
+                        System.out.println("rip");
+                    }
+                }
+                else{
+                    System.out.println("rip");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("rip");
+            }
+        });
+
     }
 
 
@@ -508,43 +542,7 @@ public class DatabaseHandler {
         });
     }
 
-    /**
-     * Loads the data of an existing user from the admins book, and passes it back to the main thread via the onUserDataRetrieved() method     *
-     * @param main the class currently controlling the main thread
-     * @param userName
-     * @param role
-     */
-    public void loadUserDataFromBook(CanReceiveAUser main, String userName, String role){
-        System.out.println("trying to read");
-        DatabaseReference userRef;
-        //sends a request to the server for data
-        userRef = ref.child("users/theAdminsLittleBlackBook/" + userName);
 
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    try {
-                        System.out.println("database works");
-                        // Retrieve data from the DataSnapshot
-                        String userId = dataSnapshot.getValue(String.class);
-                        loadUserData(main, userId, role);
-                    }
-                    catch (Exception e) {
-                        main.onUserDatabaseFailure();
-                    }
-                }
-                else{
-                    main.onUserDatabaseFailure();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("uh oh");
-                main.onUserDatabaseFailure();
-            }
-        });
-    }
 
 
 
