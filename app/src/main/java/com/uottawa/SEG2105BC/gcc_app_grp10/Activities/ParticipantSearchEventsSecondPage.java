@@ -27,6 +27,7 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity {
     Event event;
     String participantEmail;
     String participantPassword;
+    String participantUsername;
 
 
     @SuppressLint("SetTextI18n")
@@ -41,6 +42,7 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity {
 
         participantEmail = intent.getStringExtra("participantEmail");
         participantPassword = intent.getStringExtra("participantPassword");
+        participantUsername = intent.getStringExtra("participantUsername");
 
         String eventName = event.getName();
         String clubName = event.getClubName();
@@ -104,7 +106,7 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity {
     }
 
     public void onSelectEventSearchButtonSecondPage(View view) {
-        //        DatabaseHandler databaseHandler = new DatabaseHandler();
-        //        databaseHandler.
+                DatabaseHandler databaseHandler = new DatabaseHandler();
+                databaseHandler.addEventToAssociatedUser(event.getName(), participantUsername, "participant");
     }
 }

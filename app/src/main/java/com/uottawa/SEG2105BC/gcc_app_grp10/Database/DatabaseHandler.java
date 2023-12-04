@@ -423,6 +423,8 @@ public class DatabaseHandler {
         });
     }
 
+
+
     private void addEventToUserHelper(String eventName, String userId, String role){
         DatabaseReference userRef= ref.child("users/"+role+"/"+userId);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {

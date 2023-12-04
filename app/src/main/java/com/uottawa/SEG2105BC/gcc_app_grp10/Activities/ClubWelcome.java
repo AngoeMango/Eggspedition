@@ -4,21 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEvent;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
-import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Club;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Rating;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
-public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent {
+public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent, CanReceiveAUser {
 
     EditText addEventName;
     String clubName;
@@ -47,6 +47,9 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
         if (role != null && !role.equals("unknown")) {
             welcomeRoleTextView.setText("You are logged in as " + role + ".");
         }
+
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        databaseHandler.loadUserDataUsingUsername(this, clubName, "club");
 
     }
 
@@ -126,4 +129,26 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent 
         }
 
     }
+
+    @Override
+    public void onUserDataRetrieved (User club) {
+        TextView ratingsText = findViewById(R.id.welcomeTextView11);
+        if (((Club) club).getRatings() == null) {
+            ratingsText.setText("You have no ratings yet!");
+        }
+        else {
+            String ratingsTextString = "";
+            for (Rating rating : ((Club) club).getRatings()) {
+                ratingsTextString += " \n Rating: " + rating.getRating() + " \n Comment: " + rating.getRatingDescription() + "\n";
+
+            }
+
+            ratingsText.setText(ratingsTextString);
+        }
+    }
+
+    @Override
+    public void onUserDatabaseFailure () {
+    }
+
 }

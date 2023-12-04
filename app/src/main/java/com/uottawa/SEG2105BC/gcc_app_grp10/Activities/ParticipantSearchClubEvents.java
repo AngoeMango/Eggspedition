@@ -21,6 +21,8 @@ public class ParticipantSearchClubEvents extends AppCompatActivity {
 
     String participantEmail;
     String participantPassword;
+    String participantUsername;
+
     ArrayList<Event> events;
     int radioGroupID;
 
@@ -32,7 +34,9 @@ public class ParticipantSearchClubEvents extends AppCompatActivity {
         Intent intent = getIntent();
         participantEmail = intent.getStringExtra("participantEmail");
         participantPassword = intent.getStringExtra("participantPassword");
+        participantUsername = intent.getStringExtra("participantUsername");
         events = (ArrayList<Event>) intent.getSerializableExtra("events");
+
 
         LinearLayout linearLayout = findViewById(R.id.fieldsLinearLayoutEventsSearch);
 

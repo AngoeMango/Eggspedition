@@ -71,6 +71,10 @@ public class Participant extends User implements CanReceiveEvents {
         System.out.println("uh oh, participant couldn't load cause events it was part of don't exist");
     }
 
+    public ArrayList<Event> getEvents(){
+        return eventsJoined;
+    }
+
 
 
     public String getFirstName() {

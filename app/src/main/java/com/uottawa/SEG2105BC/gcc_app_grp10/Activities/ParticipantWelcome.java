@@ -17,6 +17,9 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveEvents;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Club;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Participant;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Rating;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import java.util.ArrayList;
@@ -26,6 +29,12 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     EditText searchText;
     String participantEmail;
     String participantPassword;
+    String participantUsername;
+
+    EditText ratingClubName;
+    EditText ratingComment;
+    EditText ratingValue;
+    boolean addRating = false;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -38,19 +47,14 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
 
         searchText = findViewById(R.id.EventEditTextParticipant);
 
+        ratingClubName = findViewById(R.id.EventEditTextParticipant2);
+        ratingComment = findViewById(R.id.EventEditTextParticipant3);
+        ratingValue = findViewById(R.id.EventEditTextParticipant4);
+
 
     }
 
-    @Override
-    public void onUserDataRetrieved(User user){
 
-    }
-
-    @Override
-    public void onUserDatabaseFailure(){
-        Toast.makeText(getApplicationContext(), "User retrieval failed!", Toast.LENGTH_LONG).show();
-        finish();
-    }
 
     public void onSearchClubButton(View view) {
 
@@ -85,11 +89,15 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     }
 
     public void onEventRetrieved(String retrievingFunctionName, Event event) {
-        System.out.println(event.getName());
+        Intent intent = new Intent(getApplicationContext(), ParticipantSearchEventsSecondPage.class);
+        intent.putExtra("participantEmail", participantEmail);
+        intent.putExtra("participantPassword", participantPassword);
+        intent.putExtra("event", event);
+        startActivity(intent);
     }
 
     public void onEventDatabaseFailure(String retrievingFunctionName) {
-
+        Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_LONG).show();
     }
 
     public void onEventTypeRetrieved(String retrievingFunctionName, EventType eventType) {
@@ -106,6 +114,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
         Intent intent = new Intent(getApplicationContext(), ParticipantSearchClubEvents.class);
         intent.putExtra("participantEmail", participantEmail);
         intent.putExtra("participantPassword", participantPassword);
+        intent.putExtra("participantUsername", participantUsername);
         intent.putExtra("events", events);
         startActivity(intent);
     }
@@ -124,4 +133,69 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
         }
         Toast.makeText(getApplicationContext(), "Event retrieval failed from club name given!", Toast.LENGTH_LONG).show();
     }
+
+    public void onRateClubButton(View view){
+        if (ratingClubName.getText().toString().equals("")) {
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_LONG).show();
+        }
+        else if (ratingComment.getText().toString().equals("")) {
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a comment!", Snackbar.LENGTH_LONG).show();
+        }
+        else if (ratingValue.getText().toString().equals("")) {
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a rating!", Snackbar.LENGTH_LONG).show();
+        }
+        try {
+            Integer.parseInt(ratingValue.getText().toString());
+        }
+        catch (Exception e) {
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a number for the rating!", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+
+        if (Integer.parseInt(ratingValue.getText().toString())>5 || Integer.parseInt(ratingValue.getText().toString())<0) {
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a rating between 0 and 5!", Snackbar.LENGTH_LONG).show();
+        }
+        else {
+            addRating = true;
+            DatabaseHandler databaseHandler=new DatabaseHandler();
+            databaseHandler.loadUserDataUsingUsername(this, ratingClubName.getText().toString(), "club");
+        }
+    }
+
+    public void onJoinedEventsButton(View view) {
+
+        DatabaseHandler databaseHandler=new DatabaseHandler();
+        databaseHandler.loadUserDataUsingUsername(this, participantUsername, "participant");
+
+    }
+
+    @Override
+    public void onUserDataRetrieved(User user){
+        if (user.getRole().equals("participant")) {
+            Intent intent = new Intent(getApplicationContext(), ParticipantJoinedEvents.class);
+
+            ArrayList<Event> events = ((Participant) user).getEvents();
+
+            intent.putExtra("joinedEvents", events);
+        }
+        if (user.getRole().equals("club")) {
+            Rating rating = new Rating(ratingClubName.getText().toString(), ratingComment.getText().toString(), Integer.parseInt(ratingValue.getText().toString()));
+            ((Club) user).addRating(rating);
+            DatabaseHandler databaseHandler=new DatabaseHandler();
+            databaseHandler.updateUserData(user);
+            Toast.makeText(getApplicationContext(), "Rating added!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onUserDatabaseFailure(){
+        if (addRating) {
+            Snackbar.make(findViewById(android.R.id.content), "Could not find club with that name!", Snackbar.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "User retrieval failed!", Toast.LENGTH_LONG).show();
+            finish();
+        }
+    }
+
 }

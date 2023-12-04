@@ -5,6 +5,9 @@ public class Rating {
     String ratingDescription;
     int rating;
 
+    public Rating(){
+    }
+
     public Rating(String ratingID, String ratingDescription, int rating){
         this.ratingID = ratingID;
         this.ratingDescription = ratingDescription;
@@ -21,5 +24,17 @@ public class Rating {
 
     public int getRating(){
         return rating;
+    }
+
+    public void setRatingID(String ratingID){
+        this.ratingID = ratingID;
+    }
+
+    public void setRatingDescription(String ratingDescription){
+        this.ratingDescription = ratingDescription;
+    }
+
+    public void setRating(int rating){
+        this.rating = rating;
     }
 }

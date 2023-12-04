@@ -13,4 +13,5 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 public interface CanReceiveAUser {
     void onUserDataRetrieved(User user);
     void onUserDatabaseFailure();
+
 }

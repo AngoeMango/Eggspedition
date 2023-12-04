@@ -109,4 +109,12 @@ public class Club extends User implements CanReceiveAnEvent {
     public void setMainContactName(String mainContactName) {
         this.mainContactName = mainContactName;
     }
+
+    public ArrayList<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void addRating(Rating rating){
+        ratings.add(rating);
+    }
 }

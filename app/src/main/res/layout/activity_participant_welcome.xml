@@ -83,7 +83,75 @@
 
                 <Space
                     android:layout_width="match_parent"
+                    android:layout_height="100sp" />
+
+                <EditText
+                    android:id="@+id/EventEditTextParticipant2"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Please enter a club name"
+                    android:inputType="text"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/EventEditTextParticipant3"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Please enter a comment about the club"
+                    android:inputType="text"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/EventEditTextParticipant4"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Please enter a rating from 1-5 for the club"
+                    android:inputType="text"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center">
+
+                    <Button
+                        android:id="@+id/RateClubButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_horizontal"
+                        android:foregroundGravity="center|center_horizontal"
+                        android:gravity="center"
+                        android:onClick="onRateClubButton"
+                        android:text="Rate Club"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
                     android:layout_height="24dp" />
+
+                <Button
+                    android:id="@+id/JoinedEventsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
+                    android:layout_weight="1"
+                    android:foregroundGravity="center|center_horizontal"
+                    android:gravity="center"
+                    android:onClick="onJoinedEventsButton"
+                    android:text="View Joined Events"
+                    android:textSize="10sp" />
 
 
             </LinearLayout>
