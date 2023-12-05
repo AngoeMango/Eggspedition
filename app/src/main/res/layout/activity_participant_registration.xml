@@ -36,6 +36,8 @@
                 android:id="@+id/usernameEditText"
                 android:hint="Username"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -53,6 +55,8 @@
                 android:id="@+id/firstNameEditText"
                 android:hint="First Name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">>
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -69,6 +73,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">>
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -85,6 +91,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Bio"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -101,6 +109,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 app:passwordToggleEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

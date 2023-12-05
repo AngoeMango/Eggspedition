@@ -40,6 +40,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Username"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -56,6 +58,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -72,6 +76,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -88,6 +94,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Social Media Link"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -104,6 +112,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Main Contact Name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -120,6 +130,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Bio"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 android:layout_marginBottom="10sp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -136,6 +148,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/darkbrown"
+                app:boxBackgroundColor="@color/eggwhite"
                 app:passwordToggleEnabled="true"
                 android:layout_marginBottom="10sp">
                 <com.google.android.material.textfield.TextInputEditText
