@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Database.Interfaces.CanRegister"
+    android:orientation="vertical"
+    android:background="@color/yellow3"
+    android:padding="20dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Welcome Back!"
+                android:textSize="40sp"
+                android:textColor="@color/darkbrown"
+                android:fontFamily="@font/bubblebobble" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Sign in to continue"
+                android:textSize="20sp"
+                android:textColor="@color/darkbrown"
+                android:fontFamily="@font/quicksand_bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailEditText"
+                android:hint="Email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/darkbrown"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/passwordEditText"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Password"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/darkbrown"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/roleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/role_label"
+                android:fontFamily="@font/quicksand_bold"
+                android:textColor="@color/darkbrown"/>
+
+            <RadioGroup
+                android:id="@+id/roleGroup"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_bold"
+                android:textColor="@color/darkbrown">
+
+                <RadioButton
+                    android:id="@+id/roleParticipant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/role_participant"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/darkbrown"/>
+
+                <RadioButton
+                    android:id="@+id/roleClub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/role_club"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/darkbrown"/>
+
+                <RadioButton
+                    android:id="@+id/roleAdmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/role_admin"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/darkbrown"/>
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:onClick="OnLoginButton"
+                android:text="@string/login_button"
+                app:backgroundTint="@color/orange"
+                app:strokeWidth="3dp"
+                app:strokeColor="@color/darkbrown"
+                android:textColor="@color/eggwhite"
+                android:fontFamily="@font/bubblebobble"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="120dp" />
+
+            <TextView
+                android:id="@+id/registerPromptTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/reg_prompt"
+                android:fontFamily="@font/quicksand_bold"
+                android:textColor="@color/darkbrown"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <Button
+                    android:id="@+id/registerParticipantButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:onClick="toRegisterParticipantPageButton"
+                    android:text="Participant"
+                    app:backgroundTint="@color/orange"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="@color/darkbrown"
+                    android:textColor="@color/eggwhite"
+                    android:fontFamily="@font/bubblebobble" />
+
+                <Button
+                    android:id="@+id/registerClubButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:onClick="toRegisterClubPageButton"
+                    android:text="Club"
+                    app:backgroundTint="@color/orange"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="@color/darkbrown"
+                    android:textColor="@color/eggwhite"
+                    android:fontFamily="@font/bubblebobble"/>
+
+                <Button
+                    android:id="@+id/registerAdminButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:onClick="toRegisterAdminPageButton"
+                    android:text="Admin"
+                    app:backgroundTint="@color/orange"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="@color/darkbrown"
+                    android:textColor="@color/eggwhite"
+                    android:fontFamily="@font/bubblebobble"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
