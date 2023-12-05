@@ -34,7 +34,9 @@
                     android:gravity="center"
                     android:text="Add Fields for Event Type"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bubblebobble"
+                    android:textColor="@color/darkbrown"/>
 
                 <Space
                     android:layout_width="match_parent"
@@ -53,14 +55,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onAddIndividualFieldButton"
-                    android:text="Add Field" />
+                    android:text="Add Field"
+                    app:backgroundTint="@color/orange"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="@color/darkbrown"
+                    android:textColor="@color/eggwhite"
+                    android:fontFamily="@font/bubblebobble"/>
 
                 <Button
                     android:id="@+id/addFieldsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onAddFieldsButton"
-                    android:text="Add Fields" />
+                    android:text="Add Fields"
+                    app:backgroundTint="@color/orange"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="@color/darkbrown"
+                    android:textColor="@color/eggwhite"
+                    android:fontFamily="@font/bubblebobble"/>
             </LinearLayout>
 
         </LinearLayout>

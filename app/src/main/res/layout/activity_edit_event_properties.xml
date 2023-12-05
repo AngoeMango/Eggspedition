@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.EditEventProperties">
+    tools:context=".Activities.EditEventProperties"
+    android:padding="20dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,7 +34,9 @@
                     android:gravity="center"
                     android:text="Add Event Fields"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bubblebobble"
+                    android:textColor="@color/darkbrown"/>
 
                 <Space
                     android:layout_width="match_parent"
@@ -52,7 +55,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onEditEventFieldsButton"
-                    android:text="Edit Fields" />
+                    android:text="Edit Fields"
+                    app:backgroundTint="@color/orange"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="@color/darkbrown"
+                    android:textColor="@color/eggwhite"
+                    android:fontFamily="@font/bubblebobble"/>
             </LinearLayout>
 
         </LinearLayout>

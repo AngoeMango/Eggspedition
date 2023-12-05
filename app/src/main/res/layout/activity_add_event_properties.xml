@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.AddEventProperties">
+    tools:context=".Activities.AddEventProperties"
+    android:padding="20dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,7 +34,8 @@
                     android:gravity="center"
                     android:text="Select Event Type"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bubblebobble"/>
 
                 <Space
                     android:layout_width="match_parent"
@@ -46,7 +48,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onSelectEventTypeButton"
-                android:text="Select Event Type" />
+                android:text="Select Event Type"
+                app:backgroundTint="@color/orange"
+                app:strokeWidth="3dp"
+                app:strokeColor="@color/darkbrown"
+                android:textColor="@color/eggwhite"
+                android:fontFamily="@font/bubblebobble"/>
 
         </LinearLayout>
 
