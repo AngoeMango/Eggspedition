@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ParticipantWelcome">
+    tools:context=".Activities.ParticipantWelcome"
+    android:padding="20dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,28 +27,38 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/welcome"
-                    android:textSize="20sp" />
+                    android:textSize="40sp"
+                    android:fontFamily="@font/bubblebobble"
+                    android:textColor="@color/darkbrown"/>
 
                 <TextView
                     android:id="@+id/welcomeRoleTextView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/darkbrown"/>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/EventEditTextParticipant"
-                    android:layout_width="366dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="Please enter a club, event, or event type to search for an event"
-                    android:inputType="text"
-                    android:textSize="12sp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Search.."
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="@color/darkbrown"
+                    app:boxBackgroundColor="@color/eggwhite">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textColor="@color/darkbrown"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -60,8 +71,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onSearchClubButton"
-                        android:text="Search Club"
-                        android:textSize="10sp" />
+                        android:text="Club"
+                        app:backgroundTint="@color/orange"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"/>
 
                     <Button
                         android:id="@+id/searchEventButton"
@@ -69,23 +86,35 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onSearchEventButton"
-                        android:text="Search Event Name"
-                        android:textSize="10sp" />
+                        android:text="Event Name"
+                        app:backgroundTint="@color/orange"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"/>
 
                     <Button
                         android:id="@+id/searchEventTypeButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onSearchEventTypeButton"
-                        android:text="Search Event Type"
-                        android:textSize="10sp" />
+                        android:text="Event Type"
+                        app:backgroundTint="@color/orange"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"/>
                 </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="100sp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/EventEditTextParticipant2"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -93,10 +122,20 @@
                     android:ems="10"
                     android:gravity="center"
                     android:hint="Please enter a club name"
-                    android:inputType="text"
-                    android:textSize="12sp" />
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="@color/darkbrown"
+                    app:boxBackgroundColor="@color/eggwhite" >
 
-                <EditText
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textColor="@color/darkbrown"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/EventEditTextParticipant3"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -104,10 +143,20 @@
                     android:ems="10"
                     android:gravity="center"
                     android:hint="Please enter a comment about the club"
-                    android:inputType="text"
-                    android:textSize="12sp" />
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="@color/darkbrown"
+                    app:boxBackgroundColor="@color/eggwhite" >
 
-                <EditText
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textColor="@color/darkbrown"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/EventEditTextParticipant4"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -115,8 +164,18 @@
                     android:ems="10"
                     android:gravity="center"
                     android:hint="Please enter a rating from 1-5 for the club"
-                    android:inputType="text"
-                    android:textSize="12sp" />
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxStrokeColor="@color/darkbrown"
+                    app:boxBackgroundColor="@color/eggwhite">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textColor="@color/darkbrown"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -133,7 +192,11 @@
                         android:gravity="center"
                         android:onClick="onRateClubButton"
                         android:text="Rate Club"
-                        android:textSize="10sp" />
+                        app:backgroundTint="@color/orange"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble" />
 
                 </LinearLayout>
 
@@ -151,7 +214,11 @@
                     android:gravity="center"
                     android:onClick="onJoinedEventsButton"
                     android:text="View Joined Events"
-                    android:textSize="10sp" />
+                    app:backgroundTint="@color/orange"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="@color/darkbrown"
+                    android:textColor="@color/eggwhite"
+                    android:fontFamily="@font/bubblebobble" />
 
 
             </LinearLayout>

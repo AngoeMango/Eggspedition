@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ParticipantSearchClubEvents">
+    tools:context=".Activities.ParticipantSearchClubEvents"
+    android:padding="20dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,12 +34,15 @@
                     android:gravity="center"
                     android:text="Select Event To View Its Details"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bubblebobble"
+                    android:textColor="@color/darkbrown"/>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="24dp"
-                    android:onClick="onAddFieldsButton" />
+                    android:onClick="onAddFieldsButton"
+                    android:fontFamily="@font/quicksand_bold"/>
             </LinearLayout>
 
             <Button
@@ -46,7 +50,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onSelectEventSearchButton"
-                android:text="View Details About Event" />
+                android:text="View Details About Event"
+                app:backgroundTint="@color/orange"
+                app:strokeWidth="3dp"
+                app:strokeColor="@color/darkbrown"
+                android:textColor="@color/eggwhite"
+                android:fontFamily="@font/bubblebobble"/>
 
         </LinearLayout>
 

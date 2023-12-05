@@ -26,14 +26,14 @@ import java.util.ArrayList;
 
 public class ParticipantWelcome extends AppCompatActivity implements CanReceiveAUser, CanReceiveEvents, CanReceiveAnEvent, CanReceiveAnEventType {
 
-    EditText searchText;
+    com.google.android.material.textfield.TextInputLayout searchText;
     String participantEmail;
     String participantPassword;
     String participantUsername;
 
-    EditText ratingClubName;
-    EditText ratingComment;
-    EditText ratingValue;
+    com.google.android.material.textfield.TextInputLayout ratingClubName;
+    com.google.android.material.textfield.TextInputLayout ratingComment;
+    com.google.android.material.textfield.TextInputLayout ratingValue;
     boolean addRating = false;
 
     @Override
@@ -58,32 +58,32 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
 
     public void onSearchClubButton(View view) {
 
-        if (searchText.getText().toString().equals("")) {
+        if (searchText.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_LONG).show();
         }
         else {
             DatabaseHandler databaseHandler = new DatabaseHandler();
-            databaseHandler.loadEventsFromClubName(this, searchText.getText().toString());
+            databaseHandler.loadEventsFromClubName(this, searchText.getEditText().getText().toString());
         }
     }
 
     public void onSearchEventButton(View view) {
 
-        if (searchText.getText().toString().equals("")) {
+        if (searchText.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_LONG).show();
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, searchText.getText().toString(),"searchEvent");        }
+            databaseHandler.loadEvent(this, searchText.getEditText().getText().toString(),"searchEvent");        }
     }
 
     public void onSearchEventTypeButton(View view) {
-        if (searchText.getText().toString().equals("")) {
+        if (searchText.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_LONG).show();
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEventsFromEventTypeName(this, searchText.getText().toString());
+            databaseHandler.loadEventsFromEventTypeName(this, searchText.getEditText().getText().toString());
 
         }
     }
@@ -135,30 +135,30 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     }
 
     public void onRateClubButton(View view){
-        if (ratingClubName.getText().toString().equals("")) {
+        if (ratingClubName.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_LONG).show();
         }
-        else if (ratingComment.getText().toString().equals("")) {
+        else if (ratingComment.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a comment!", Snackbar.LENGTH_LONG).show();
         }
-        else if (ratingValue.getText().toString().equals("")) {
+        else if (ratingValue.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a rating!", Snackbar.LENGTH_LONG).show();
         }
         try {
-            Integer.parseInt(ratingValue.getText().toString());
+            Integer.parseInt(ratingValue.getEditText().getText().toString());
         }
         catch (Exception e) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a number for the rating!", Snackbar.LENGTH_LONG).show();
             return;
         }
 
-        if (Integer.parseInt(ratingValue.getText().toString())>5 || Integer.parseInt(ratingValue.getText().toString())<0) {
+        if (Integer.parseInt(ratingValue.getEditText().getText().toString())>5 || Integer.parseInt(ratingValue.getEditText().getText().toString())<0) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a rating between 0 and 5!", Snackbar.LENGTH_LONG).show();
         }
         else {
             addRating = true;
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadUserDataUsingUsername(this, ratingClubName.getText().toString(), "club");
+            databaseHandler.loadUserDataUsingUsername(this, ratingClubName.getEditText().getText().toString(), "club");
         }
     }
 
@@ -179,7 +179,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
             intent.putExtra("joinedEvents", events);
         }
         if (user.getRole().equals("club")) {
-            Rating rating = new Rating(ratingClubName.getText().toString(), ratingComment.getText().toString(), Integer.parseInt(ratingValue.getText().toString()));
+            Rating rating = new Rating(ratingClubName.getEditText().getText().toString(), ratingComment.getEditText().getText().toString(), Integer.parseInt(ratingValue.getEditText().getText().toString()));
             ((Club) user).addRating(rating);
             DatabaseHandler databaseHandler=new DatabaseHandler();
             databaseHandler.updateUserData(user);

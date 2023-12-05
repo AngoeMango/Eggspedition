@@ -20,7 +20,8 @@
                 android:id="@+id/fieldsLinearLayoutEventsSearchSecondPage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:fontFamily="@font/quicksand_bold">
 
                 <Space
                     android:layout_width="match_parent"
@@ -32,7 +33,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/quicksand_bold"/>
 
                 <Space
                     android:layout_width="match_parent"
@@ -45,14 +47,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onSelectEventSearchButtonSecondPage"
-                android:text="Join Event" />
+                android:text="Join Event"
+                app:backgroundTint="@color/orange"
+                app:strokeWidth="3dp"
+                app:strokeColor="@color/darkbrown"
+                android:textColor="@color/eggwhite"
+                android:fontFamily="@font/bubblebobble"/>
 
             <Button
                 android:id="@+id/selectEventSearchButtonSecondPage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="goBack"
-                android:text="Go Back" />
+                android:text="Go Back"
+                app:backgroundTint="@color/orange"
+                app:strokeWidth="3dp"
+                app:strokeColor="@color/darkbrown"
+                android:textColor="@color/eggwhite"
+                android:fontFamily="@font/bubblebobble"/>
 
         </LinearLayout>
 

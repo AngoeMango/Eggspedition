@@ -87,7 +87,7 @@ public class Login extends AppCompatActivity implements CanReceiveAUser {
             startActivity(intent);
         }
         else {
-            Intent intent = new Intent(getApplicationContext(), Welcome.class);
+            Intent intent = new Intent(getApplicationContext(), ParticipantWelcome.class);
             // Adds information to the intent for the welcome page to access
             intent.putExtra("firstName", user.getUsername());
             intent.putExtra("role", user.getRole());
