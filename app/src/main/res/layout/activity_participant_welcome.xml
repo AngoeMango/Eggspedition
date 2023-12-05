@@ -117,10 +117,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/EventEditTextParticipant2"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:ems="10"
-                    android:gravity="center"
                     android:hint="Please enter a club name"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/darkbrown"
@@ -129,7 +127,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
                         android:fontFamily="@font/quicksand_bold"
                         android:textColor="@color/darkbrown"/>
 
@@ -138,10 +135,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/EventEditTextParticipant3"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:ems="10"
-                    android:gravity="center"
                     android:hint="Please enter a comment about the club"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/darkbrown"
@@ -150,7 +145,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
                         android:fontFamily="@font/quicksand_bold"
                         android:textColor="@color/darkbrown"/>
 
@@ -159,10 +153,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/EventEditTextParticipant4"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:ems="10"
-                    android:gravity="center"
                     android:hint="Please enter a rating from 1-5 for the club"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/darkbrown"
@@ -171,7 +163,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
                         android:fontFamily="@font/quicksand_bold"
                         android:textColor="@color/darkbrown"/>
 

@@ -35,7 +35,8 @@
                     android:text="Add Event Fields"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/bubblebobble"/>
+                    android:fontFamily="@font/bubblebobble"
+                    android:textColor="@color/darkbrown"/>
 
                 <Space
                     android:layout_width="match_parent"
