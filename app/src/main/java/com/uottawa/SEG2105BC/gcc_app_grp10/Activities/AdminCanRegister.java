@@ -16,10 +16,10 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 public class AdminCanRegister extends AppCompatActivity implements CanRegister {
-    EditText username ;
-    EditText email;
-    EditText password;
-    EditText firstName;
+    com.google.android.material.textfield.TextInputLayout username ;
+    com.google.android.material.textfield.TextInputLayout email;
+    com.google.android.material.textfield.TextInputLayout password;
+    com.google.android.material.textfield.TextInputLayout firstName;
     AuthenticationHandler authenticationHandler;
 
     @Override
@@ -37,9 +37,9 @@ public class AdminCanRegister extends AppCompatActivity implements CanRegister {
         if(!validateInputs()){return;}
         User user;//to hold new users
 
-        user = new Admin(username.getText().toString().trim(), password.getText().toString().trim(), email.getText().toString().trim());
+        user = new Admin(username.getEditText().getText().toString().trim(), password.getEditText().getText().toString().trim(), email.getEditText().getText().toString().trim());
         //makes the user with the info to be saved a little later
-        authenticationHandler.signUp(this, user, email.getText().toString().trim(), password.getText().toString().trim(), this, this);
+        authenticationHandler.signUp(this, user, email.getEditText().getText().toString().trim(), password.getEditText().getText().toString().trim(), this, this);
     }
 
     /**
@@ -53,7 +53,7 @@ public class AdminCanRegister extends AppCompatActivity implements CanRegister {
         //switches window to welcome window
         Intent intent = new Intent(getApplicationContext(), Welcome.class);
         // Adds information to the intent for the welcome page to access
-        intent.putExtra("firstName", username.getText().toString());
+        intent.putExtra("firstName", username.getEditText().getText().toString());
         intent.putExtra("role", user.getRole().toString());
 
         startActivity (intent);
@@ -75,19 +75,19 @@ public class AdminCanRegister extends AppCompatActivity implements CanRegister {
 
     private boolean validateInputs(){
         //if username is left empty, that's a nono
-        if (username.getText().length() == 0) {
+        if (username.getEditText().getText().length() == 0) {
             Toast.makeText(AdminCanRegister.this, "You need a username!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (email.getText().length() == 0) {
+        if (email.getEditText().getText().length() == 0) {
             Toast.makeText(AdminCanRegister.this, "You need an email!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (!email.getText().toString().matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
+        if (!email.getEditText().getText().toString().matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
             Toast.makeText(AdminCanRegister.this, "Invalid email address!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (password.getText().toString().length() < 6) {
+        if (password.getEditText().getText().toString().length() < 6) {
             Toast.makeText(AdminCanRegister.this, "Password must be at least 6 characters long!", Toast.LENGTH_SHORT).show();
             return false;
         }
