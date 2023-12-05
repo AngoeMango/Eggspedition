@@ -20,7 +20,7 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent, CanReceiveAUser {
 
-    EditText addEventName;
+    com.google.android.material.textfield.TextInputLayout addEventName;
     String clubName;
 
     @Override
@@ -55,31 +55,31 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent,
 
     public void onAddEventButton(View view) {
 
-        if (addEventName.getText().toString().equals("")) {
+        if (addEventName.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter an event name!", Snackbar.LENGTH_LONG).show();
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, addEventName.getText().toString(), "addEvent");        }
+            databaseHandler.loadEvent(this, addEventName.getEditText().getText().toString(), "addEvent");        }
     }
 
     public void onEditEventButton(View view) {
 
-        if (addEventName.getText().toString().equals("")) {
+        if (addEventName.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter an event name!", Snackbar.LENGTH_LONG).show();
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, addEventName.getText().toString(), "editEvent");        }
+            databaseHandler.loadEvent(this, addEventName.getEditText().getText().toString(), "editEvent");        }
     }
 
     public void onDeleteEventButton(View view) {
-        if (addEventName.getText().toString().equals("")) {
+        if (addEventName.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter an event name!", Snackbar.LENGTH_LONG).show();
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
-            databaseHandler.loadEvent(this, addEventName.getText().toString(), "deleteEvent");        }
+            databaseHandler.loadEvent(this, addEventName.getEditText().getText().toString(), "deleteEvent");        }
     }
 
     @Override
@@ -111,7 +111,7 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent,
         switch(retrievingFunctionName){
             case "addEvent":
                 Intent intent = new Intent(getApplicationContext(), AddEventProperties.class);
-                intent.putExtra("eventName", addEventName.getText().toString());
+                intent.putExtra("eventName", addEventName.getEditText().getText().toString());
                 intent.putExtra("clubName", clubName);
                 startActivity(intent);
                 break;

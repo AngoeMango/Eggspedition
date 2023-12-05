@@ -18,9 +18,9 @@ import android.widget.RadioButton;
 
 public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEventType, CanDeleteAUser {
 
-    EditText addEventTypeName;
+    com.google.android.material.textfield.TextInputLayout addEventTypeName;
     Admin admin;
-    EditText deleteUserName;
+    com.google.android.material.textfield.TextInputLayout deleteUserName;
     RadioButton deleteParticipant;
     RadioButton deleteClub;
 
@@ -42,29 +42,29 @@ public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEvent
 
     public void onAddEventTypeButton(View view) {
 
-        if (addEventTypeName.getText().toString().equals("")) {
+        if (addEventTypeName.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter an event type name!", Snackbar.LENGTH_LONG).show();
         }
         else {
-            admin.loadEventType(this, addEventTypeName.getText().toString(), "addEventType");
+            admin.loadEventType(this, addEventTypeName.getEditText().getText().toString(), "addEventType");
         }
     }
 
     public void onDeleteEventTypeButton(View view) {
-        if (addEventTypeName.getText().toString().equals("")) {
+        if (addEventTypeName.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter an event type name!", Snackbar.LENGTH_LONG).show();
         }
         else {
-            admin.loadEventType(this, addEventTypeName.getText().toString(), "deleteEventType");
+            admin.loadEventType(this, addEventTypeName.getEditText().getText().toString(), "deleteEventType");
         }
     }
 
     public void onEditEventTypeButton(View view) {
-        if (addEventTypeName.getText().toString().equals("")) {
+        if (addEventTypeName.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter an event type name!", Snackbar.LENGTH_LONG).show();
         }
         else {
-            admin.loadEventType(this, addEventTypeName.getText().toString(), "editEventType");
+            admin.loadEventType(this, addEventTypeName.getEditText().getText().toString(), "editEventType");
         }
     }
 
@@ -78,14 +78,14 @@ public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEvent
     }
 
     public void onDeleteUserButton(View view) {
-        if (deleteUserName.getText().toString().equals("")) {
+        if (deleteUserName.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a username to delete!", Snackbar.LENGTH_LONG).show();
         }
         else if(selectRole() == null) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a role for the user!", Snackbar.LENGTH_LONG).show();
         }
         else {
-            admin.deleteAccount(this, deleteUserName.getText().toString(), selectRole());
+            admin.deleteAccount(this, deleteUserName.getEditText().getText().toString(), selectRole());
         }
     }
 
@@ -102,7 +102,7 @@ public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEvent
                 startActivity(intent);
                 break;
             case "deleteEventType":
-                admin.deleteEventType(addEventTypeName.getText().toString());
+                admin.deleteEventType(addEventTypeName.getEditText().getText().toString());
                 Snackbar.make(findViewById(android.R.id.content), "Deleted event type!", Snackbar.LENGTH_LONG).show();
                 break;
             default:
@@ -115,7 +115,7 @@ public class AdminWelcome extends AppCompatActivity implements CanReceiveAnEvent
         switch(retrievingFunctionName){
             case "addEventType":
                 Intent intent = new Intent(getApplicationContext(), AddEventTypeProperties.class);
-                intent.putExtra("eventTypeName", addEventTypeName.getText().toString());
+                intent.putExtra("eventTypeName", addEventTypeName.getEditText().getText().toString());
                 startActivity(intent);
                 break;
             case "editEventType":

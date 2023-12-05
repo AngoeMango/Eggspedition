@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ClubWelcome">
+    tools:context=".Activities.ClubWelcome"
+    android:padding="20dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,7 +27,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/welcome"
-                    android:textSize="20sp" />
+                    android:textSize="40sp"
+                    android:fontFamily="@font/bubblebobble"
+                    android:textColor="@color/darkbrown"/>
 
                 <TextView
                     android:id="@+id/welcomeRoleTextView3"
@@ -38,15 +41,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/EventEditText"
-                    android:layout_width="300dp"
-                    android:layout_height="48dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:ems="10"
-                    android:gravity="center"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:hint="Please enter an event name"
-                    android:inputType="text" />
+                    app:boxStrokeColor="@color/darkbrown"
+                    app:boxBackgroundColor="@color/eggwhite"
+                    android:layout_marginBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textColor="@color/darkbrown"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -59,7 +71,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onAddEventButton"
-                        android:text="Add Event" />
+                        android:text="Add"
+                        app:backgroundTint="@color/green"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"/>
 
                     <Button
                         android:id="@+id/editEventButton"
@@ -67,14 +86,28 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onEditEventButton"
-                        android:text="Edit Event" />
+                        android:text="Edit"
+                        app:backgroundTint="@color/orange"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"/>
 
                     <Button
                         android:id="@+id/deleteEventButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onDeleteEventButton"
-                        android:text="Delete Event" />
+                        android:text="Delete"
+                        app:backgroundTint="@color/red"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"/>
                 </LinearLayout>
 
                 <Space
@@ -87,7 +120,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Ratings"
-                    android:textSize="20sp" />
+                    android:textSize="40sp"
+                    android:fontFamily="@font/bubblebobble"
+                    android:textColor="@color/darkbrown"/>
 
                 <TextView
                     android:id="@+id/welcomeTextView11"
@@ -95,7 +130,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="No Ratings Found"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/darkbrown"/>
 
                 <Space
                     android:layout_width="match_parent"

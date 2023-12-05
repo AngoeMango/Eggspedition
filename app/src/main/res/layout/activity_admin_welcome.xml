@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.AdminWelcome">
+    tools:context=".Activities.AdminWelcome"
+    android:padding="20dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,15 +38,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/addEventType"
-                    android:layout_width="300dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:ems="10"
-                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Please enter an event type"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    app:boxStrokeColor="@color/darkbrown"
+                    app:boxBackgroundColor="@color/eggwhite"
+                    android:layout_marginBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textColor="@color/darkbrown"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -57,8 +67,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onAddEventTypeButton"
-                        android:text="Add Event Type"
-                        android:textSize="10sp" />
+                        android:text="Add"
+                        app:backgroundTint="@color/green"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"/>
 
                     <Button
                         android:id="@+id/editEventTypeButton"
@@ -66,16 +82,28 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onEditEventTypeButton"
-                        android:text="Edit Event Type"
-                        android:textSize="10sp" />
+                        android:text="Edit"
+                        app:backgroundTint="@color/orange"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"/>
 
                     <Button
                         android:id="@+id/deleteEventTypeButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onDeleteEventTypeButton"
-                        android:text="Delete Event Type"
-                        android:textSize="10sp" />
+                        android:text="Delete"
+                        app:backgroundTint="@color/red"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/darkbrown"
+                        android:textColor="@color/eggwhite"
+                        android:fontFamily="@font/bubblebobble"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"/>
                 </LinearLayout>
 
                 <Space
@@ -88,9 +116,11 @@
                     android:gravity="center"
                     android:text="User Management"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bubblebobble"
+                    android:textColor="@color/darkbrown"/>
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/deleteUser"
                     android:layout_width="300dp"
                     android:layout_height="48dp"
@@ -98,7 +128,19 @@
                     android:ems="10"
                     android:gravity="center"
                     android:hint="Please enter a username"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    app:boxStrokeColor="@color/darkbrown"
+                    app:boxBackgroundColor="@color/eggwhite"
+                    android:layout_marginBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textColor="@color/darkbrown"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <RadioGroup
                     android:layout_width="300dp"
@@ -124,7 +166,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Delete User"
-                    android:onClick="onDeleteUserButton"/>
+                    android:onClick="onDeleteUserButton"
+                    app:backgroundTint="@color/red"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="@color/darkbrown"
+                    android:textColor="@color/eggwhite"
+                    android:fontFamily="@font/bubblebobble"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"/>
 
 
             </LinearLayout>
