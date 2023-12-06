@@ -336,6 +336,30 @@ public class DatabaseHandler {
 
     private void deleteEventClubFolder (Event event) {
         String clubName = event.getClubName();
+        DatabaseReference userRef;
+        //sends a request to the server for data
+        userRef = ref.child("users/theAdminsLittleBlackBook/" + clubName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                        System.out.println("database works");
+                        // Retrieve data from the DataSnapshot
+                        String userId = dataSnapshot.getValue(String.class);
+                        deleteEventFromAssociatedUser(event.getName(), userId, "club");
+                }
+                else{
+                    System.out.println("Database failure line 306 in databaseHandler");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+
+
 
     }
 
