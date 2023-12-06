@@ -51,10 +51,8 @@ public class AdminCanRegister extends AppCompatActivity implements CanRegister {
         Toast.makeText(AdminCanRegister.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
 
         //switches window to welcome window
-        Intent intent = new Intent(getApplicationContext(), Welcome.class);
+        Intent intent = new Intent(getApplicationContext(), AdminWelcome.class);
         // Adds information to the intent for the welcome page to access
-        intent.putExtra("firstName", username.getEditText().getText().toString());
-        intent.putExtra("role", user.getRole().toString());
 
         startActivity (intent);
     }
@@ -70,7 +68,7 @@ public class AdminCanRegister extends AppCompatActivity implements CanRegister {
      * called by the DatabaseHandler if the creation fails
      */
     public void onDatabaseFailure(){
-        Snackbar.make(findViewById(android.R.id.content), "registration failed" , Toast.LENGTH_LONG).show();
+        Snackbar.make(findViewById(android.R.id.content), "registration failed registration failed (potentially due to username/email that already exists)" , Toast.LENGTH_LONG).show();
     }
 
     private boolean validateInputs(){

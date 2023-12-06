@@ -1,6 +1,7 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Database;
 import android.app.Activity;
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -13,7 +14,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Activities.Login;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Activities.MainActivity;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanRegister;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 public class AuthenticationHandler {
@@ -36,45 +39,40 @@ public class AuthenticationHandler {
      * @param context no clue honestly, might be the main thread
      */
     public void signUp(CanRegister main, User user, String email, String password, final Activity activity, final Context context) {
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-//
-//        //sends a request ot the server for data
-//        DatabaseReference userRef= ref.child("users/"+role+"/"+userId);
-//        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    System.out.println("database works");
-//                    // Retrieve data from the DataSnapshot
-//                    User user=User.makeUser(role, dataSnapshot);
-//                    main.onUserDataRetrieved(user);
-//                }
-//                else{
-//                    main.onUserDatabaseFailure();
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                System.out.println("uh oh");
-//            }
-//        });
 
-//        if (user.getRole().equals("club")) {
-//            String clubName = user.getUsername();
-//            databaseHandler.loadUserDataFromBook(main, clubName, "signUp", user, email, password, activity, context);
-//
-//        }
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(activity, task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser fUser = mAuth.getCurrentUser();
-                        onSignUpAuthorised(fUser, user);
-                        main.onRegistrationComplete(user);
-                    } else {
-                        main.onRegistrationAuthenticationFailure();
-                    }
-                });
+        System.out.println("trying to read");
+        DatabaseReference userRef;
+        //sends a request to the server for data
+        userRef = ref.child("users/theAdminsLittleBlackBook/" + user.getUsername());
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    main.onDatabaseFailure();
+                }
+                else{
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(activity, task -> {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser fUser = mAuth.getCurrentUser();
+                                    onSignUpAuthorised(fUser, user);
+                                    main.onRegistrationComplete(user);
+                                } else {
+                                    main.onRegistrationAuthenticationFailure();
+                                }
+                            });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("rip");
+                main.onDatabaseFailure();
+            }
+        });
+
     }
 
 
@@ -115,4 +113,6 @@ public class AuthenticationHandler {
     public void signOut() {
         mAuth.signOut();
     }
+
+
 }

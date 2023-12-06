@@ -93,7 +93,7 @@ public class ParticipantCanRegister extends AppCompatActivity implements CanRegi
      * called by the DatabaseHandler if the creation fails
      */
     public void onDatabaseFailure(){
-        Snackbar.make(findViewById(android.R.id.content), "registration failed" , Toast.LENGTH_LONG).show();
+        Snackbar.make(findViewById(android.R.id.content), "registration failed (potentially due to username/email that already exists)" , Toast.LENGTH_LONG).show();
     }
 
     private boolean validateInputs(){
