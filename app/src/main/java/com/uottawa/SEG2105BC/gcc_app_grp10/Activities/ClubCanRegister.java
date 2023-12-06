@@ -58,11 +58,11 @@ public class ClubCanRegister extends AppCompatActivity implements CanRegister {
     public void onRegistrationComplete(User user){
         Toast.makeText(ClubCanRegister.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
 
-        //switches window to welcome window
-        Intent intent = new Intent(getApplicationContext(), Welcome.class);
-        // Adds information to the intent for the welcome page to access
-        intent.putExtra("firstName", username.getEditText().getText().toString());
-        intent.putExtra("role", user.getRole().toString());
+        Intent intent = new Intent(getApplicationContext(), ClubWelcome.class);
+        intent.putExtra("firstName", user.getUsername());
+        intent.putExtra("role", user.getRole());
+        intent.putExtra("clubName", user.getUsername());
+        startActivity(intent);
 
         startActivity (intent);
     }
@@ -78,7 +78,7 @@ public class ClubCanRegister extends AppCompatActivity implements CanRegister {
      * called by the DatabaseHandler if the creation fails
      */
     public void onDatabaseFailure(){
-        Snackbar.make(findViewById(android.R.id.content), "registration failed" , Toast.LENGTH_LONG).show();
+        Snackbar.make(findViewById(android.R.id.content), "registration failed registration failed (potentially due to username/email that already exists)" , Toast.LENGTH_LONG).show();
     }
 
     private boolean validateInputs(){
