@@ -364,11 +364,14 @@ public class DatabaseHandler {
         });
     }
 
-    public void addEvent(String eventName, Event event){
-        System.out.println(event.getClubName());
+    public void addEvent(String eventName, Event event, String typeCall){
+
         ref.child("events/"+eventName).setValue(event);
         addEventToEventTypesFolder(eventName,event.getEventTypeName());
-        addEventToAssociatedUser(eventName, event.getClubName(), "club");
+        if (typeCall.equals("addEvent")) {
+            addEventToAssociatedUser(eventName, event.getClubName(), "club");
+        }
+
     }
 
     private void addEventToEventTypesFolder(String eventName, String eventTypeName){

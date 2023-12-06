@@ -163,7 +163,7 @@ public class EditEventProperties extends AppCompatActivity implements CanReceive
 
         DatabaseHandler databaseHandler = new DatabaseHandler();
 
-        databaseHandler.addEvent(eventName, event);
+        databaseHandler.addEvent(eventName, event, "editEvent");
 
         Toast.makeText(getApplicationContext(), "Edited event!", Toast.LENGTH_SHORT).show();
 
