@@ -58,6 +58,7 @@ public class Event implements Serializable {
         }
         GenericTypeIndicator<ArrayList<String>> p = new GenericTypeIndicator<ArrayList<String>>() {};
         participants=dataSnapshot.child("participants").getValue(p);
+        if (participants==null)participants=new ArrayList<>();
 
     }
 
@@ -105,6 +106,10 @@ public class Event implements Serializable {
 
     public String getClubName() {
         return clubName;
+    }
+
+    public ArrayList<String> getParticipants () {
+        return participants;
     }
 
 

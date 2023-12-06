@@ -43,7 +43,7 @@ public class ParticipantCanRegister extends AppCompatActivity implements CanRegi
         User user;//to hold new users
 
         user = new Participant(username.getEditText().getText().toString().trim(), password.getEditText().getText().toString().trim(), email.getEditText().getText().toString().trim(), bio.getEditText().getText().toString().trim());
-        user.setUsername(firstName.getEditText().getText().toString().trim());
+        user.setUsername(username.getEditText().getText().toString().trim());
         //makes the user with the info to be saved a little later
         authenticationHandler.signUp(this, user, email.getEditText().getText().toString().trim(), password.getEditText().getText().toString().trim(), this, this);
     }

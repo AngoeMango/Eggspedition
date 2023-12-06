@@ -113,6 +113,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
+                <Button
+                    android:id="@+id/SearchParticipantsEventButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bubblebobble"
+                    android:onClick="onSearchParticipantsButton"
+                    android:text="Search Participants In Event"
+                    android:textColor="@color/eggwhite"
+                    app:backgroundTint="@color/green"
+                    app:strokeColor="@color/darkbrown"
+                    app:strokeWidth="3dp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
                 <TextView
                     android:id="@+id/welcomeTextView10"
                     android:layout_width="match_parent"

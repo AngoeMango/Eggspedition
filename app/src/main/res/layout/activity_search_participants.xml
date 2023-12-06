@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.SearchParticipants">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/parentFieldsLinearLayoutSearchParticipants"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/fieldsLinearLayoutSearchParticipants"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:id="@+id/searchParticipantsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:onClick="onAddFieldsButton" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/goBackSearchParticipants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bubblebobble"
+                android:onClick="goBack1"
+                android:text="Go Back"
+                android:textColor="@color/eggwhite"
+                app:backgroundTint="@color/orange"
+                app:strokeColor="@color/darkbrown"
+                app:strokeWidth="3dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

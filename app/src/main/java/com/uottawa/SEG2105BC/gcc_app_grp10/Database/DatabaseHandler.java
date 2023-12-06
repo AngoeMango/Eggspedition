@@ -331,7 +331,7 @@ public class DatabaseHandler {
         System.out.println("Event name" + eventName);
         ref.child("events/"+eventName).removeValue();
         deleteEventFromEventTypesFolder(eventName, event.getEventTypeName());
-        //deleteEventClubFolder(event);
+        deleteEventClubFolder(event);
     }
 
     private void deleteEventClubFolder (Event event) {
@@ -347,7 +347,7 @@ public class DatabaseHandler {
                         System.out.println("database works");
                         // Retrieve data from the DataSnapshot
                         String userId = dataSnapshot.getValue(String.class);
-                        deleteEventFromAssociatedUser(event.getName(), userId, "club");
+//                        deleteEventFromAssociatedUser(event.getName(), userId, "club");
                 }
                 else{
                     System.out.println("Database failure line 306 in databaseHandler");

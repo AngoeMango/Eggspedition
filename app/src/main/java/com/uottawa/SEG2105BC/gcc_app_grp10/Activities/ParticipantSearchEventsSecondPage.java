@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEvent;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.SpecifiedProperty;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
@@ -26,7 +27,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class ParticipantSearchEventsSecondPage extends AppCompatActivity implements CanReceiveAUser {
+public class ParticipantSearchEventsSecondPage extends AppCompatActivity implements CanReceiveAUser, CanReceiveAnEvent {
 
     Event event;
     String participantEmail;
@@ -136,6 +137,7 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity impleme
         }
         DatabaseHandler databaseHandler = new DatabaseHandler();
         databaseHandler.addEventToAssociatedUser(event.getName(), participantUsername, "participant");
+        databaseHandler.loadEvent(this, event.getName(), "addParticipant");
 
         Toast.makeText(getApplicationContext(), "Event added to your events!", Toast.LENGTH_LONG).show();
         finish();
@@ -146,4 +148,18 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity impleme
         Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_LONG).show();
         finish();
     }
+
+    @Override
+    public void onEventRetrieved (String retrievingFunctionName, Event event) {
+        event.addParticipant(participantUsername);
+
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        databaseHandler.addEvent(event.getName(), event, "addParticipant");
+    }
+
+    @Override
+    public void onEventDatabaseFailure(String retrievingFunctionName) {
+        Toast.makeText(getApplicationContext(), "Event addition failed!", Toast.LENGTH_LONG).show();
+    }
+
 }

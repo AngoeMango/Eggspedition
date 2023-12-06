@@ -101,6 +101,11 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent,
                 databaseHandler.deleteEvent(event.getName(), event);
                 Snackbar.make(findViewById(android.R.id.content), "Deleted event!", Snackbar.LENGTH_LONG).show();
                 break;
+            case "searchParticipants":
+                Intent intent2 = new Intent(getApplicationContext(), SearchParticipants.class);
+                intent2.putExtra("participants", event.getParticipants());
+                startActivity(intent2);
+
             default:
                 Snackbar.make(findViewById(android.R.id.content), "invalid function name got passed", Snackbar.LENGTH_LONG).show();
         }
@@ -124,10 +129,23 @@ public class ClubWelcome extends AppCompatActivity implements CanReceiveAnEvent,
             case "callingClubNotAuthorized":
                 Snackbar.make(findViewById(android.R.id.content), "You can only allowed to make changes to events your club created!", Snackbar.LENGTH_LONG).show();
                 break;
+            case "searchParticipants":
+                Snackbar.make(findViewById(android.R.id.content), "No event exists with this name!", Snackbar.LENGTH_LONG).show();
+                break;
             default:
                 Snackbar.make(findViewById(android.R.id.content), "Invalid event type name (or other database failure)!", Snackbar.LENGTH_LONG).show();
         }
 
+    }
+
+    public void onSearchParticipantsButton(View view) {
+        if (addEventName.getEditText().getText().toString().equals("")) {
+            Snackbar.make(findViewById(android.R.id.content), "You must enter an event name!", Snackbar.LENGTH_LONG).show();
+        }
+        else {
+            DatabaseHandler databaseHandler=new DatabaseHandler();
+            databaseHandler.loadEvent(this, addEventName.getEditText().getText().toString(), "searchParticipants");
+        }
     }
 
     @Override
