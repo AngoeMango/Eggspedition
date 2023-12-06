@@ -358,10 +358,15 @@ public class DatabaseHandler {
                 System.out.println("uh oh");
             }
         });
+    }
 
 
+    private void deleteEventFromAssociatedUser(String eventName, String userId, String role){
 
     }
+
+
+
 
     private void deleteEventFromEventTypesFolder(String eventName, String eventTypeName){
         DatabaseReference userRef= ref.child("eventsByEventType/"+eventTypeName);

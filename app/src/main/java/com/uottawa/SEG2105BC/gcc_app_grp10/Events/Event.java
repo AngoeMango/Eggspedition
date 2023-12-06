@@ -76,6 +76,10 @@ public class Event implements Serializable {
         return true;
     }
 
+    public void addParticipant(String username){
+        participants.add(username);
+    }
+
     public void addProperty(String name, SpecifiedProperty property){
         specifiedProperties.add(property);
     }
