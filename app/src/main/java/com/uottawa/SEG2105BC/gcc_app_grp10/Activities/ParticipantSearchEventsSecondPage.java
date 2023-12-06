@@ -15,15 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.SpecifiedProperty;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Participant;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class ParticipantSearchEventsSecondPage extends AppCompatActivity {
+public class ParticipantSearchEventsSecondPage extends AppCompatActivity implements CanReceiveAUser {
 
     Event event;
     String participantEmail;
@@ -109,19 +112,38 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity {
     }
 
     public void onSelectEventSearchButtonSecondPage(View view) {
-                DatabaseHandler databaseHandler = new DatabaseHandler();
                 System.out.println("Adding event to associated user" + event.getName() + participantUsername+ "participant");
 
-                for (Event event: events){
-                    if (event.getName().equals(event.getName())){
-                        Toast.makeText(getApplicationContext(), "Event already added to your joined events!", Toast.LENGTH_LONG).show();
-                        finish();
-                        return;
-                    }
-                }
+                DatabaseHandler db = new DatabaseHandler();
+                db.loadUserDataUsingUsername((CanReceiveAUser) this, participantUsername, "participant");
 
-                databaseHandler.addEventToAssociatedUser(event.getName(), participantUsername, "participant");
-                Toast.makeText(getApplicationContext(), "Event added to your events!", Toast.LENGTH_LONG).show();
-                finish();
+    }
+
+
+    @Override
+    public void onUserDataRetrieved (User user) {
+
+        ArrayList<String> eventNames = ((Participant) user).getEventNames();
+
+        if (eventNames != null) {
+            for (String eventName : eventNames) {
+                if (eventName.equals(event.getName())) {
+                    Toast.makeText(getApplicationContext(), "Event already added to your joined events!", Toast.LENGTH_LONG).show();
+                    finish();
+                    return;
+                }
+            }
+        }
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+        databaseHandler.addEventToAssociatedUser(event.getName(), participantUsername, "participant");
+
+        Toast.makeText(getApplicationContext(), "Event added to your events!", Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    @Override
+    public void onUserDatabaseFailure () {
+        Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_LONG).show();
+        finish();
     }
 }

@@ -27,6 +27,9 @@ public class ParticipantJoinedEvents extends AppCompatActivity implements CanRec
         Intent intent = getIntent();
 
         joinedEvents = (ArrayList<String>) intent.getSerializableExtra("joinedEvents");
+        joinedEventsText = findViewById(R.id.joinedEventsText);
+
+        joinedEventsText.setText("No Events Found!");
         DatabaseHandler db = new DatabaseHandler();
         db.loadMultipleEvents(this, joinedEvents);
 
@@ -39,8 +42,6 @@ public class ParticipantJoinedEvents extends AppCompatActivity implements CanRec
     @Override
     public void onEventsRetrieved (ArrayList<Event> events) {
         joinedEventsText = findViewById(R.id.joinedEventsText);
-
-        joinedEventsText.setText("No Events Found!");
 
         String textView = "";
 
@@ -56,6 +57,5 @@ public class ParticipantJoinedEvents extends AppCompatActivity implements CanRec
 
     @Override
     public void onEventsDatabaseFailure (String failureDescription) {
-        Toast.makeText(this, "Loading events failed!", Toast.LENGTH_SHORT).show();
     }
 }
