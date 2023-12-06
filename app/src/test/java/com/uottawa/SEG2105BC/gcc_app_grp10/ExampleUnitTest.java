@@ -90,22 +90,23 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void addingEventToParticipant5(){
+    public void addingParticipantToEvent(){
         Participant participant = new Participant("participant1", "12345",
                 "participant1@gmail.com", "bio");
+        Participant participant2 = new Participant("participant2", "12345",
+                "participant2@gmail.com", "bio");
         EventType eventType = new EventType("eventtype1");
         PropertyType properties = new PropertyType("property1", "String");
         SpecifiedProperty specifiedProperty = new SpecifiedProperty("value1", properties);
         ArrayList<SpecifiedProperty> specifiedProperties = new ArrayList<>();
         specifiedProperties.add(specifiedProperty);
         Event event = new Event("event1", eventType, specifiedProperties, "club1");
-        Event event2 = new Event("event2", eventType, specifiedProperties, "club2");
 
         participant.addEvent(event);
-        participant.addEvent(event2);
-        participant.removeEvent(event);
+        event.addParticipant(participant.getUsername());
+        event.addParticipant(participant2.getUsername());
 
-        assertEquals("club2", participant.getEvents().get(0).getClubName());
+        assertEquals("participant2", event.getParticipants().get(1));
     }
 
 

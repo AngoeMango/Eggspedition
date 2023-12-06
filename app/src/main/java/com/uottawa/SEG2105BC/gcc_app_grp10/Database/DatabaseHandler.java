@@ -332,6 +332,34 @@ public class DatabaseHandler {
         ref.child("events/"+eventName).removeValue();
         deleteEventFromEventTypesFolder(eventName, event.getEventTypeName());
         deleteEventClubFolder(event);
+        for (String participantName:event.getParticipants()) {
+            deleteEventFromParticipant(eventName, participantName);
+        }
+    }
+
+    private void deleteEventFromParticipant(String eventName, String participantName) {
+        DatabaseReference userRef;
+        //sends a request to the server for data
+        userRef = ref.child("users/theAdminsLittleBlackBook/" + participantName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    String userId = dataSnapshot.getValue(String.class);
+                    deleteEventFromAssociatedUser(eventName, userId, "participant");
+                }
+                else{
+                    System.out.println("Database failure line 306 in databaseHandler");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
     }
 
     private void deleteEventClubFolder (Event event) {
@@ -347,7 +375,7 @@ public class DatabaseHandler {
                         System.out.println("database works");
                         // Retrieve data from the DataSnapshot
                         String userId = dataSnapshot.getValue(String.class);
-//                        deleteEventFromAssociatedUser(event.getName(), userId, "club");
+                        deleteEventFromAssociatedUser(event.getName(), userId, "club");
                 }
                 else{
                     System.out.println("Database failure line 306 in databaseHandler");
@@ -496,7 +524,8 @@ public class DatabaseHandler {
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     ArrayList<String> eventNames= dataSnapshot.child("eventNames").getValue(t);
                     if(eventNames==null){eventNames=new ArrayList<>();}
-                    else if(!eventNames.contains(eventName)){eventNames.add(eventName);}
+
+                    if(!eventNames.contains(eventName)){eventNames.add(eventName);}
 
                     //verification that the club trying to access the event should have access to it
                     ref.child("users/"+role+"/"+userId+"/eventNames").setValue(eventNames);
