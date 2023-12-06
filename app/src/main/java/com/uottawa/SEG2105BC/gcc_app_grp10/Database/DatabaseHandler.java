@@ -333,7 +333,7 @@ public class DatabaseHandler {
     }
 
     private void deleteEventFromEventTypesFolder(String eventName, String eventTypeName){
-        DatabaseReference userRef= ref.child("eventsByEventType/");
+        DatabaseReference userRef= ref.child("eventsByEventType/"+eventTypeName);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -365,7 +365,7 @@ public class DatabaseHandler {
     }
 
     private void addEventToEventTypesFolder(String eventName, String eventTypeName){
-        DatabaseReference userRef= ref.child("eventsByEventType");
+        DatabaseReference userRef= ref.child("eventsByEventType"+eventTypeName);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -377,12 +377,12 @@ public class DatabaseHandler {
                     if(eventNames==null){eventNames=new ArrayList<>();}
                     eventNames.add(eventName);
                     //verification that the club trying to access the event should have access to it
-                    ref.child("eventsByEventType").setValue(eventNames);
+                    ref.child("eventsByEventType/"+eventTypeName).setValue(eventNames);
                 }
                 else{
                     ArrayList<String> eventNames=new ArrayList<>();
                     eventNames.add(eventName);
-                    ref.child("eventsByEventType").setValue(eventNames);
+                    ref.child("eventsByEventType/"+eventTypeName).setValue(eventNames);
                 }
             }
             @Override
