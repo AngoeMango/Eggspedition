@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
@@ -28,6 +29,7 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity {
     String participantEmail;
     String participantPassword;
     String participantUsername;
+    ArrayList<Event> events;
 
 
     @SuppressLint("SetTextI18n")
@@ -43,6 +45,7 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity {
         participantEmail = intent.getStringExtra("participantEmail");
         participantPassword = intent.getStringExtra("participantPassword");
         participantUsername = intent.getStringExtra("participantUsername");
+        events = (ArrayList<Event>) intent.getSerializableExtra("events");
 
         String eventName = event.getName();
         String clubName = event.getClubName();
@@ -108,7 +111,17 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity {
     public void onSelectEventSearchButtonSecondPage(View view) {
                 DatabaseHandler databaseHandler = new DatabaseHandler();
                 System.out.println("Adding event to associated user" + event.getName() + participantUsername+ "participant");
+
+                for (Event event: events){
+                    if (event.getName().equals(event.getName())){
+                        Toast.makeText(getApplicationContext(), "Event already added to your joined events!", Toast.LENGTH_LONG).show();
+                        finish();
+                        return;
+                    }
+                }
+
                 databaseHandler.addEventToAssociatedUser(event.getName(), participantUsername, "participant");
+                Toast.makeText(getApplicationContext(), "Event added to your events!", Toast.LENGTH_LONG).show();
                 finish();
     }
 }

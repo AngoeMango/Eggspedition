@@ -83,6 +83,7 @@ public class ParticipantSearchClubEvents extends AppCompatActivity {
         intent.putExtra("participantEmail", participantEmail);
         intent.putExtra("participantPassword", participantPassword);
         intent.putExtra("participantUsername", participantUsername);
+        intent.putExtra("events", events);
         for (Event event : events) {
             if (event.getName().equals(eventName)) {
                 intent.putExtra("event", event);

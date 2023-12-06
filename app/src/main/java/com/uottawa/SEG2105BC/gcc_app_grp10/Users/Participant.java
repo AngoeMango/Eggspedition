@@ -12,6 +12,7 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Participant extends User implements CanReceiveEvents {
     private String firstName;
@@ -52,18 +53,21 @@ public class Participant extends User implements CanReceiveEvents {
     public Participant(DataSnapshot dataSnapshot) {
         super(dataSnapshot);
         firstName=dataSnapshot.child("firstname").getValue(String.class);
+
         eventsJoined=new ArrayList<>();
         GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
-        eventNames=dataSnapshot.child("eventName").getValue(t);
+        eventNames=dataSnapshot.child("eventNames").getValue(t);
         if(eventNames!=null){
             DatabaseHandler handler=new DatabaseHandler();
             handler.loadMultipleEvents(this, eventNames);
         }
+
     }
 
     @Override
     public void onEventsRetrieved(ArrayList<Event> events) {
-        this.eventsJoined.addAll(events);
+        eventsJoined.addAll(events);
+        System.out.println("WEIRD" + getEvents().size());
     }
 
     @Override
@@ -84,5 +88,10 @@ public class Participant extends User implements CanReceiveEvents {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
+    public ArrayList<String> getEventNames() {
+        return eventNames;
+    }
+
 
 }

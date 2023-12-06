@@ -114,7 +114,6 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
 
     @Override
     public void onEventsRetrieved (ArrayList<Event> events) {
-        System.out.println(events.get(0).getName());
         Intent intent = new Intent(getApplicationContext(), ParticipantSearchClubEvents.class);
         intent.putExtra("participantEmail", participantEmail);
         intent.putExtra("participantPassword", participantPassword);
@@ -177,9 +176,9 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
         if (user.getRole().equals("participant")) {
             Intent intent = new Intent(getApplicationContext(), ParticipantJoinedEvents.class);
 
-            ArrayList<Event> events = ((Participant) user).getEvents();
-
-            intent.putExtra("joinedEvents", events);
+            ArrayList<String> eventNames = ((Participant) user).getEventNames();
+            intent.putExtra("joinedEvents", eventNames);
+            startActivity(intent);
         }
         if (user.getRole().equals("club")) {
             Rating rating = new Rating(ratingClubName.getEditText().getText().toString(), ratingComment.getEditText().getText().toString(), Integer.parseInt(ratingValue.getEditText().getText().toString()));

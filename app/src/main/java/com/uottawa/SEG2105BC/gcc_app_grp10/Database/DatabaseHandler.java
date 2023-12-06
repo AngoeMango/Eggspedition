@@ -565,7 +565,9 @@ public class DatabaseHandler {
                     System.out.println("database works");
                     // Retrieve data from the DataSnapshot
                     User user=User.makeUser(role, dataSnapshot);
+
                     main.onUserDataRetrieved(user);
+
                 }
                 else{
                     main.onUserDatabaseFailure();
