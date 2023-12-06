@@ -14,6 +14,7 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEvent
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveEventTypes;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveEvents;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveUsers;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.EventType;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanDeleteAUser;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAUser;
@@ -294,7 +295,7 @@ public class DatabaseHandler {
     /**
      * used to load an Event from the database
      *
-     * @param main                  the class currently controlling the main thread
+     * @param main   the class currently controlling the main thread
      */
     public void loadAllEvents(CanReceiveEvents main){
         DatabaseReference userRef= ref.child("events");
@@ -330,11 +331,12 @@ public class DatabaseHandler {
         System.out.println("Event name" + eventName);
         ref.child("events/"+eventName).removeValue();
         deleteEventFromEventTypesFolder(eventName, event.getEventTypeName());
-        deleteEventClubFolder(event);
+        //deleteEventClubFolder(event);
     }
 
     private void deleteEventClubFolder (Event event) {
         String clubName = event.getClubName();
+
     }
 
     private void deleteEventFromEventTypesFolder(String eventName, String eventTypeName){
@@ -551,7 +553,6 @@ public class DatabaseHandler {
                 System.out.println("rip");
             }
         });
-
     }
 
     /**
@@ -587,6 +588,102 @@ public class DatabaseHandler {
     }
 
 
+    public void loadParticipantUsernamesFromAssociatedClub(CanReceiveUsers main, String clubName) {
+        DatabaseReference userRef;
+        //sends a request to the server for data
+        userRef = ref.child("users/theAdminsLittleBlackBook/" + clubName);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    try {
+                        System.out.println("database works");
+                        // Retrieve data from the DataSnapshot
+                        String userId = dataSnapshot.getValue(String.class);
+                        loadParticipantsHelper(main, userId);
+                    } catch (Exception e) {
+                        main.onUserDatabaseFailure();
+                    }
+                } else {
+                    main.onUserDatabaseFailure();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
+    }
+
+
+
+        private void loadParticipantsHelper(CanReceiveUsers main, String clubId){
+            DatabaseReference userRef= ref.child("users/club/"+clubId);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        System.out.println("database works");
+                        // Retrieve data from the DataSnapshot
+                        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+                        ArrayList<String> eventNames= dataSnapshot.child("eventNames").getValue(t);
+                        ArrayList<String> participantNames=new ArrayList<>();
+                        if(eventNames==null){main.onUserDataRetrieved(new ArrayList<>());}
+                        else{
+                            for (String eventName:eventNames) {
+                                participantCollector(main, eventName, eventNames.size());
+                            }
+                        }
+                    }
+                    else{
+                        main.onUserDatabaseFailure();
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    System.out.println("uh oh");
+                }
+            });
+        }
+
+
+        private ArrayList<String> participants=new ArrayList<>();
+        private int amountOfEvents=0;
+        private void participantCollector(CanReceiveUsers main, String eventName, int totalEvents){
+            DatabaseReference userRef= ref.child("events/"+eventName);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        System.out.println("database works");
+                        // Retrieve data from the DataSnapshot
+                        GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+                        ArrayList<String> participantNames= dataSnapshot.child("participants").getValue(t);
+                        if(participantNames==null){main.onUserDataRetrieved(new ArrayList<>());}
+                        else{
+                            for (String participantName:participantNames) {
+                                if(!participants.contains(participantName)){
+                                    participants.add(participantName);
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        main.onUserDatabaseFailure();
+                    }
+                    amountOfEvents++;
+                    if(amountOfEvents>=totalEvents){
+                        main.onUserDataRetrieved(participants);
+                        amountOfEvents=0;
+                        participants=new ArrayList<>();
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    System.out.println("uh oh");
+                }
+            });
+        }
 
 
 

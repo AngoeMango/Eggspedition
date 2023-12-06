@@ -62,6 +62,7 @@ public class Participant extends User implements CanReceiveEvents {
             handler.loadMultipleEvents(this, eventNames);
         }
 
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.uottawa.SEG2105BC.gcc_app_grp10.Events;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.DatabaseHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Club;
 
@@ -16,6 +17,8 @@ public class Event implements Serializable {
     private EventType eventType;
     private String clubName;
 
+    private ArrayList<String> participants;
+
     /**
      * simplest implementation of an event
      *
@@ -30,6 +33,7 @@ public class Event implements Serializable {
         this.eventTypeName = eventType.getName();
         this.specifiedProperties = specifiedProperties;
         this.clubName = clubName;
+        this.participants=new ArrayList<>();
     }
 
     public Event(String name, String eventTypeName, ArrayList<SpecifiedProperty> specifiedProperties, String clubName) {
@@ -37,6 +41,7 @@ public class Event implements Serializable {
         this.eventTypeName = eventTypeName;
         this.specifiedProperties = specifiedProperties;
         this.clubName = clubName;
+        this.participants=new ArrayList<>();
     }
 
     /**
@@ -51,6 +56,9 @@ public class Event implements Serializable {
         for (DataSnapshot propertySnapshot : dataSnapshot.child("specifiedProperties").getChildren()) {
             specifiedProperties.add(new SpecifiedProperty(propertySnapshot.child("value").getValue(Object.class), propertySnapshot.child("propertyType").getValue(PropertyType.class)));
         }
+        GenericTypeIndicator<ArrayList<String>> p = new GenericTypeIndicator<ArrayList<String>>() {};
+        participants=dataSnapshot.child("participants").getValue(p);
+
     }
 
 
