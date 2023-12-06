@@ -82,11 +82,18 @@ public class ParticipantSearchClubEvents extends AppCompatActivity {
         Intent intent = new Intent(this, ParticipantSearchEventsSecondPage.class);
         intent.putExtra("participantEmail", participantEmail);
         intent.putExtra("participantPassword", participantPassword);
+        intent.putExtra("participantUsername", participantUsername);
         for (Event event : events) {
             if (event.getName().equals(eventName)) {
                 intent.putExtra("event", event);
             }
         }
         startActivity(intent);
+
+        finish();
+    }
+
+    public void goBack(View view){
+        finish();
     }
 }

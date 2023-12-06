@@ -24,7 +24,7 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
 import java.util.ArrayList;
 
-public class ParticipantWelcome extends AppCompatActivity implements CanReceiveAUser, CanReceiveEvents, CanReceiveAnEvent, CanReceiveAnEventType {
+public class ParticipantWelcome extends AppCompatActivity implements CanReceiveAUser, CanReceiveEvents, CanReceiveAnEvent {
 
     com.google.android.material.textfield.TextInputLayout searchText;
     String participantEmail;
@@ -44,6 +44,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
         Intent intent = getIntent();
         participantEmail = intent.getStringExtra("participantEmail");
         participantPassword = intent.getStringExtra("participantPassword");
+        participantUsername = intent.getStringExtra("participantUsername");
 
         searchText = findViewById(R.id.EventEditTextParticipant);
 
@@ -92,6 +93,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
         Intent intent = new Intent(getApplicationContext(), ParticipantSearchEventsSecondPage.class);
         intent.putExtra("participantEmail", participantEmail);
         intent.putExtra("participantPassword", participantPassword);
+        intent.putExtra("participantUsername", participantUsername);
         intent.putExtra("event", event);
         startActivity(intent);
     }
@@ -100,13 +102,15 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
         Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_LONG).show();
     }
 
-    public void onEventTypeRetrieved(String retrievingFunctionName, EventType eventType) {
-
-    }
-
-    public void onEventTypeDatabaseFailure(String retrievingFunctionName) {
-
-    }
+//    public void onEventTypeRetrieved(String retrievingFunctionName, EventType eventType) {
+//        DatabaseHandler databaseHandler=new DatabaseHandler();
+//        databaseHandler.loadEventsFromEventTypeName(this, searchText.getEditText().getText().toString());
+//
+//    }
+//
+//    public void onEventTypeDatabaseFailure(String retrievingFunctionName) {
+//
+//    }
 
     @Override
     public void onEventsRetrieved (ArrayList<Event> events) {
@@ -131,7 +135,6 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
             default:
                 Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(getApplicationContext(), "Event retrieval failed from club name given!", Toast.LENGTH_LONG).show();
     }
 
     public void onRateClubButton(View view){

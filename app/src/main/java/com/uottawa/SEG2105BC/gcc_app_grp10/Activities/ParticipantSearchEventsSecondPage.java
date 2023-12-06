@@ -107,6 +107,8 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity {
 
     public void onSelectEventSearchButtonSecondPage(View view) {
                 DatabaseHandler databaseHandler = new DatabaseHandler();
+                System.out.println("Adding event to associated user" + event.getName() + participantUsername+ "participant");
                 databaseHandler.addEventToAssociatedUser(event.getName(), participantUsername, "participant");
+                finish();
     }
 }

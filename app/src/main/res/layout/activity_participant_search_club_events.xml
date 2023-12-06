@@ -57,6 +57,19 @@
                 android:textColor="@color/eggwhite"
                 android:fontFamily="@font/bubblebobble"/>
 
+            <Button
+                android:id="@+id/selectEventSearchButton2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="goBack"
+                android:text="Go Back"
+                app:backgroundTint="@color/orange"
+                app:strokeWidth="3dp"
+                app:strokeColor="@color/darkbrown"
+                android:textColor="@color/eggwhite"
+                android:fontFamily="@font/bubblebobble"/>
+
+
         </LinearLayout>
 
     </ScrollView>
