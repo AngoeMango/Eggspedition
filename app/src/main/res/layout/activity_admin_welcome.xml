@@ -122,11 +122,9 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/deleteUser"
-                    android:layout_width="300sp"
-                    android:layout_height="60sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:ems="10"
-                    android:gravity="center"
                     android:hint="Please enter a username"
                     android:inputType="text"
                     app:boxStrokeColor="@color/darkbrown"
