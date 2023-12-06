@@ -330,6 +330,11 @@ public class DatabaseHandler {
         System.out.println("Event name" + eventName);
         ref.child("events/"+eventName).removeValue();
         deleteEventFromEventTypesFolder(eventName, event.getEventTypeName());
+        deleteEventClubFolder(event);
+    }
+
+    private void deleteEventClubFolder (Event event) {
+        String clubName = event.getClubName();
     }
 
     private void deleteEventFromEventTypesFolder(String eventName, String eventTypeName){
@@ -437,6 +442,7 @@ public class DatabaseHandler {
                     ArrayList<String> eventNames= dataSnapshot.child("eventNames").getValue(t);
                     if(eventNames==null){eventNames=new ArrayList<>();}
                     eventNames.add(eventName);
+
                     //verification that the club trying to access the event should have access to it
                     ref.child("users/"+role+"/"+userId+"/eventNames").setValue(eventNames);
                 }
