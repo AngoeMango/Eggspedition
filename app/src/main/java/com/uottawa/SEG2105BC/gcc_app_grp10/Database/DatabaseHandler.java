@@ -362,7 +362,28 @@ public class DatabaseHandler {
 
 
     private void deleteEventFromAssociatedUser(String eventName, String userId, String role){
-
+        DatabaseReference userRef= ref.child("users/"+role+"/"+userId);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("database works");
+                    // Retrieve data from the DataSnapshot
+                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+                    ArrayList<String> eventNames= dataSnapshot.child("eventNames").getValue(t);
+                    if(eventNames!=null){eventNames.remove(eventName);}
+                    //verification that the club trying to access the event should have access to it
+                    ref.child("users/"+role+"/"+userId).child("eventNames").setValue(eventNames);
+                }
+                else{
+                    System.out.println("Database failure");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("uh oh");
+            }
+        });
     }
 
 
@@ -414,7 +435,7 @@ public class DatabaseHandler {
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     ArrayList<String> eventNames= dataSnapshot.child("eventNames").getValue(t);
                     if(eventNames==null){eventNames=new ArrayList<>();}
-                    eventNames.add(eventName);
+                    else if(!eventNames.contains(eventName)){eventNames.add(eventName);}
                     //verification that the club trying to access the event should have access to it
                     ref.child("eventsByEventType/"+eventTypeName).setValue(eventNames);
                 }
@@ -475,7 +496,7 @@ public class DatabaseHandler {
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                     ArrayList<String> eventNames= dataSnapshot.child("eventNames").getValue(t);
                     if(eventNames==null){eventNames=new ArrayList<>();}
-                    eventNames.add(eventName);
+                    else if(!eventNames.contains(eventName)){eventNames.add(eventName);}
 
                     //verification that the club trying to access the event should have access to it
                     ref.child("users/"+role+"/"+userId+"/eventNames").setValue(eventNames);
