@@ -12,6 +12,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.AuthenticationHandler;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanRegister;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Admin;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Club;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Participant;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
@@ -54,13 +56,30 @@ public class ParticipantCanRegister extends AppCompatActivity implements CanRegi
     public void onRegistrationComplete(User user){
         Toast.makeText(ParticipantCanRegister.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
 
-        //switches window to welcome window
-        Intent intent = new Intent(getApplicationContext(), Welcome.class);
-        // Adds information to the intent for the welcome page to access
-        intent.putExtra("firstName", firstName.getEditText().getText().toString());
-        intent.putExtra("role", user.getRole().toString());
+        if (user.getClass().equals(Admin.class)) {
+            Intent intent = new Intent(getApplicationContext(), AdminWelcome.class);
+            startActivity(intent);
+        }
+        else if (user.getClass().equals(Club.class)) {
 
-        startActivity (intent);
+            Intent intent = new Intent(getApplicationContext(), ClubWelcome.class);
+            intent.putExtra("firstName", user.getUsername());
+            intent.putExtra("role", user.getRole());
+            intent.putExtra("clubName", user.getUsername());
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(getApplicationContext(), ParticipantWelcome.class);
+            // Adds information to the intent for the welcome page to access
+            intent.putExtra("role", user.getRole());
+            intent.putExtra("participantEmail", user.getEmail());
+            intent.putExtra("participantPassword", user.getPassword());
+            intent.putExtra("participantUsername", user.getUsername());
+
+            System.out.println("going to next activity");
+            startActivity(intent);
+        }
+
     }
 
     /**
