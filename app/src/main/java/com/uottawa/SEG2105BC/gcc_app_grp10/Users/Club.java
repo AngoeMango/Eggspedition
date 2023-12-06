@@ -117,4 +117,9 @@ public class Club extends User implements CanReceiveAnEvent {
     public void addRating(Rating rating){
         ratings.add(rating);
     }
+
+
+    public void addRating(String ratingID, String comment, int rating){
+        ratings.add(new Rating(ratingID, comment, rating));
+    }
 }

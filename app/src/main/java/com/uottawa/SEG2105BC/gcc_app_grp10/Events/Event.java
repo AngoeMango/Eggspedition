@@ -64,7 +64,7 @@ public class Event implements Serializable {
             if(!specifiedProperties.contains(requiredType))return false;
         }
         DatabaseHandler handler=new DatabaseHandler();
-        handler.addEvent(name,this);
+        handler.addEvent(name,this, "addEvent");
         return true;
     }
 

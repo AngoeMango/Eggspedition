@@ -28,6 +28,17 @@ public class Participant extends User implements CanReceiveEvents {
         eventNames=new ArrayList<>();
     }
 
+    public Participant(String username, String password, String email, String bio, String firstName){
+        super(username, password, email, bio);
+        eventsJoined=new ArrayList<>();
+        eventNames=new ArrayList<>();
+        this.firstName=firstName;
+    }
+
+    public void addEvent(Event event){
+        eventsJoined.add(event);
+    }
+
     @Override
     public String getRole(){
         return "participant";
@@ -94,4 +105,8 @@ public class Participant extends User implements CanReceiveEvents {
     }
 
 
+    public void removeEvent (Event event) {
+        eventsJoined.remove(event);
+        eventNames.remove(event.getName());
+    }
 }

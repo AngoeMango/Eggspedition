@@ -151,7 +151,8 @@ public class AddEventPropertiesSecondPage extends AppCompatActivity implements C
 
         DatabaseHandler databaseHandler = new DatabaseHandler();
 
-        databaseHandler.addEvent(eventName, event);
+        databaseHandler.addEvent(eventName, event, "addEvent");
+
 
         Toast.makeText(getApplicationContext(), "Added event!", Toast.LENGTH_SHORT).show();
 
