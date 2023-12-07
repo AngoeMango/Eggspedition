@@ -426,7 +426,7 @@ public class DatabaseHandler {
                     System.out.println("database works");
                     // Retrieve data from the DataSnapshot
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
-                    ArrayList<String> eventNames= dataSnapshot.child("eventNames").getValue(t);
+                    ArrayList<String> eventNames= dataSnapshot.getValue(t);
                     if(eventNames!=null){eventNames.remove(eventName);}
                     //verification that the club trying to access the event should have access to it
                     ref.child("eventsByEventType/"+eventTypeName).setValue(eventNames);
