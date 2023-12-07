@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bubblebobble"
-                android:onClick="goBack1"
+                android:onClick="goBack2"
                 android:text="Go Back"
                 android:textColor="@color/eggwhite"
                 app:backgroundTint="@color/orange"

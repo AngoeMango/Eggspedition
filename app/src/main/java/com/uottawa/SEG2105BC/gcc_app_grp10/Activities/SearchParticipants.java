@@ -50,7 +50,7 @@ public class SearchParticipants extends AppCompatActivity implements CanReceiveA
 
     }
 
-    public void goBack1(View view) {
+    public void goBack2(View view) {
         finish();
     }
 
@@ -74,8 +74,6 @@ public class SearchParticipants extends AppCompatActivity implements CanReceiveA
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
         textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
-
-        textView.setTypeface(Typeface.createFromAsset(getAssets(), "font/quicksand_bold.ttf"));
 
         textView.setText("Participant" + "'s username: " + participant.getUsername() + "\nBio: " + participant.getBio() + "\n \n");
 
