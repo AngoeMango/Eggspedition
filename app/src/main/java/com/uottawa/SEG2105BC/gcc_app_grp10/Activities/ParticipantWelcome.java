@@ -139,12 +139,15 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     public void onRateClubButton(View view){
         if (ratingClubName.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_SHORT).show();
+            return;
         }
         else if (ratingComment.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a comment!", Snackbar.LENGTH_SHORT).show();
+            return;
         }
         else if (ratingValue.getEditText().getText().toString().equals("")) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a rating!", Snackbar.LENGTH_SHORT).show();
+            return;
         }
         try {
             Integer.parseInt(ratingValue.getEditText().getText().toString());
@@ -156,6 +159,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
 
         if (Integer.parseInt(ratingValue.getEditText().getText().toString())>5 || Integer.parseInt(ratingValue.getEditText().getText().toString())<1) {
             Snackbar.make(findViewById(android.R.id.content), "You must enter a rating between 1 and 5!", Snackbar.LENGTH_SHORT).show();
+            return;
         }
         else {
             addRating = true;
