@@ -60,7 +60,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     public void onSearchClubButton(View view) {
 
         if (searchText.getEditText().getText().toString().equals("")) {
-            Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_SHORT).show();
         }
         else {
             DatabaseHandler databaseHandler = new DatabaseHandler();
@@ -71,7 +71,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     public void onSearchEventButton(View view) {
 
         if (searchText.getEditText().getText().toString().equals("")) {
-            Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_SHORT).show();
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
@@ -80,7 +80,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
 
     public void onSearchEventTypeButton(View view) {
         if (searchText.getEditText().getText().toString().equals("")) {
-            Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_SHORT).show();
         }
         else {
             DatabaseHandler databaseHandler=new DatabaseHandler();
@@ -99,7 +99,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     }
 
     public void onEventDatabaseFailure(String retrievingFunctionName) {
-        Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_SHORT).show();
     }
 
 //    public void onEventTypeRetrieved(String retrievingFunctionName, EventType eventType) {
@@ -126,36 +126,36 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
     public void onEventsDatabaseFailure (String failureDescription) {
         switch(failureDescription){
             case "errorLoadingClub":
-                Toast.makeText(getApplicationContext(), "Event retrieval failed from club name given!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Event retrieval failed from club name given!", Toast.LENGTH_SHORT).show();
                 break;
             case "noEventsForClub":
-                Toast.makeText(getApplicationContext(), "No events for given club!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "No events for given club!", Toast.LENGTH_SHORT).show();
                 break;
             default:
-                Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void onRateClubButton(View view){
         if (ratingClubName.getEditText().getText().toString().equals("")) {
-            Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a name!", Snackbar.LENGTH_SHORT).show();
         }
         else if (ratingComment.getEditText().getText().toString().equals("")) {
-            Snackbar.make(findViewById(android.R.id.content), "You must enter a comment!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a comment!", Snackbar.LENGTH_SHORT).show();
         }
         else if (ratingValue.getEditText().getText().toString().equals("")) {
-            Snackbar.make(findViewById(android.R.id.content), "You must enter a rating!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a rating!", Snackbar.LENGTH_SHORT).show();
         }
         try {
             Integer.parseInt(ratingValue.getEditText().getText().toString());
         }
         catch (Exception e) {
-            Snackbar.make(findViewById(android.R.id.content), "You must enter a number for the rating!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a number for the rating!", Snackbar.LENGTH_SHORT).show();
             return;
         }
 
         if (Integer.parseInt(ratingValue.getEditText().getText().toString())>5 || Integer.parseInt(ratingValue.getEditText().getText().toString())<1) {
-            Snackbar.make(findViewById(android.R.id.content), "You must enter a rating between 1 and 5!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a rating between 1 and 5!", Snackbar.LENGTH_SHORT).show();
         }
         else {
             addRating = true;
@@ -185,7 +185,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
             ((Club) user).addRating(rating);
             DatabaseHandler databaseHandler=new DatabaseHandler();
             databaseHandler.updateUserData(user);
-            Toast.makeText(getApplicationContext(), "Rating added!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Rating added!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -195,7 +195,7 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
             Snackbar.make(findViewById(android.R.id.content), "Could not find club with that name!", Snackbar.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(getApplicationContext(), "User retrieval failed!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "User retrieval failed!", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

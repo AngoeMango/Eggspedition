@@ -20,6 +20,7 @@ import com.uottawa.SEG2105BC.gcc_app_grp10.Database.Interfaces.CanReceiveAnEvent
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.Event;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Events.SpecifiedProperty;
 import com.uottawa.SEG2105BC.gcc_app_grp10.R;
+import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Club;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.Participant;
 import com.uottawa.SEG2105BC.gcc_app_grp10.Users.User;
 
@@ -34,6 +35,8 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity impleme
     String participantPassword;
     String participantUsername;
     ArrayList<Event> events;
+    String eventName;
+    String eventTypeName;
 
 
     @SuppressLint("SetTextI18n")
@@ -51,14 +54,10 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity impleme
         participantUsername = intent.getStringExtra("participantUsername");
         events = (ArrayList<Event>) intent.getSerializableExtra("events");
 
-        String eventName = event.getName();
+        eventName = event.getName();
         String clubName = event.getClubName();
-        String eventTypeName = event.getEventTypeName();
+        eventTypeName = event.getEventTypeName();
         ArrayList<SpecifiedProperty> eventSpecifiedProperties = event.getSpecifiedProperties();
-
-        TextView eventNameEditText = findViewById(R.id.selectEventSearchSecondPage);
-        eventNameEditText.setText("Event Name: " + eventName + " \n Creating Club Name: " + clubName + " \n Event Type Name: " + eventTypeName);
-
 
         LinearLayout linearLayout = findViewById(R.id.fieldsLinearLayoutEventsSearchSecondPage);
 
@@ -105,6 +104,11 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity impleme
             fieldLinearLayout.addView(space);
 
             linearLayout.addView(fieldLinearLayout);
+
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            databaseHandler.loadUserDataUsingUsername(this, clubName, "club");
+
+
         }
     }
 
@@ -124,28 +128,45 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity impleme
     @Override
     public void onUserDataRetrieved (User user) {
 
-        ArrayList<String> eventNames = ((Participant) user).getEventNames();
+        if (user.getRole().equals("participant")) {
+            ArrayList<String> eventNames = ((Participant) user).getEventNames();
 
-        if (eventNames != null) {
-            for (String eventName : eventNames) {
-                if (eventName.equals(event.getName())) {
-                    Toast.makeText(getApplicationContext(), "Event already added to your joined events!", Toast.LENGTH_LONG).show();
-                    finish();
-                    return;
+            if (eventNames != null) {
+                for (String eventName : eventNames) {
+                    if (eventName.equals(event.getName())) {
+                        Toast.makeText(getApplicationContext(), "Event already added to your joined events!", Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
                 }
             }
-        }
-        DatabaseHandler databaseHandler = new DatabaseHandler();
-        databaseHandler.addEventToAssociatedUser(event.getName(), participantUsername, "participant");
-        databaseHandler.loadEvent(this, event.getName(), "addParticipant");
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            databaseHandler.addEventToAssociatedUser(event.getName(), participantUsername, "participant");
+            databaseHandler.loadEvent(this, event.getName(), "addParticipant");
 
-        Toast.makeText(getApplicationContext(), "Event added to your events!", Toast.LENGTH_LONG).show();
-        finish();
+            Toast.makeText(getApplicationContext(), "Event added to your events!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else if (user.getRole().equals("club")) {
+
+            Club club = (Club) user;
+
+            TextView eventNameEditText = findViewById(R.id.selectEventSearchSecondPage);
+            eventNameEditText.setText("Event Name: " + eventName + " \n Creating Club Name: " + club.getUsername() + "\nClub Phone Number: " + club.getPhoneNumber() + "\nClub Social Link: " + club.getSocialMediaLink()
+                    + "\nClub Bio: " + club.getBio() + "\nClub Main Contact: " + club.getMainContactName() + "\n Event Type Name: " + eventTypeName);
+
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "User retrieval failed!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+
     }
 
     @Override
     public void onUserDatabaseFailure () {
-        Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Event retrieval failed!", Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -159,7 +180,7 @@ public class ParticipantSearchEventsSecondPage extends AppCompatActivity impleme
 
     @Override
     public void onEventDatabaseFailure(String retrievingFunctionName) {
-        Toast.makeText(getApplicationContext(), "Event addition failed!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Event addition failed!", Toast.LENGTH_SHORT).show();
     }
 
 }
