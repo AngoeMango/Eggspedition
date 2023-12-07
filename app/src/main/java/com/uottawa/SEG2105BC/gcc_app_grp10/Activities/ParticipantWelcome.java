@@ -154,8 +154,8 @@ public class ParticipantWelcome extends AppCompatActivity implements CanReceiveA
             return;
         }
 
-        if (Integer.parseInt(ratingValue.getEditText().getText().toString())>5 || Integer.parseInt(ratingValue.getEditText().getText().toString())<0) {
-            Snackbar.make(findViewById(android.R.id.content), "You must enter a rating between 0 and 5!", Snackbar.LENGTH_LONG).show();
+        if (Integer.parseInt(ratingValue.getEditText().getText().toString())>5 || Integer.parseInt(ratingValue.getEditText().getText().toString())<1) {
+            Snackbar.make(findViewById(android.R.id.content), "You must enter a rating between 1 and 5!", Snackbar.LENGTH_LONG).show();
         }
         else {
             addRating = true;
