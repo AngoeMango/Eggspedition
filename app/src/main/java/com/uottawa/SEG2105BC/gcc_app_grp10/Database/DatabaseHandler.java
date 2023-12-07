@@ -453,7 +453,7 @@ public class DatabaseHandler {
     }
 
     private void addEventToEventTypesFolder(String eventName, String eventTypeName){
-        DatabaseReference userRef= ref.child("eventsByEventType"+eventTypeName);
+        DatabaseReference userRef= ref.child("eventsByEventType/"+eventTypeName);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -468,6 +468,7 @@ public class DatabaseHandler {
                     ref.child("eventsByEventType/"+eventTypeName).setValue(eventNames);
                 }
                 else{
+                    System.out.println("Database failure line 306 in databaseHandler");
                     ArrayList<String> eventNames=new ArrayList<>();
                     eventNames.add(eventName);
                     ref.child("eventsByEventType/"+eventTypeName).setValue(eventNames);
