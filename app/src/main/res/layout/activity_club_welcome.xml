@@ -124,7 +124,7 @@
                     android:onClick="onSearchParticipantsButton"
                     android:text="Search Participants In Event"
                     android:textColor="@color/eggwhite"
-                    app:backgroundTint="@color/green"
+                    app:backgroundTint="@color/orange"
                     app:strokeColor="@color/darkbrown"
                     app:strokeWidth="3dp" />
 
